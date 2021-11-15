@@ -1,0 +1,251 @@
+/* primaryAppoinemtent */
+
+.fa-sliders {
+  font-weight: bold;
+  font-size: x-large;
+  color: #737377 !important;
+  padding: 10px 20px;
+}
+
+@media (min-width: 750px) {
+  .fa-sliders {
+    font-size: 30px;
+  }
+}
+.flex-container {
+  display: flex;
+}
+/* PrimaryAppointment */
+
+/*doctors List */
+
+.san {
+  border-radius: 20px;
+  outline: none !important;
+  border: 1px solid rgb(82, 79, 79);
+  padding: 2px;
+  width: 70%;
+}
+.fa-search {
+  font-size: 19px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+}
+
+.backoptionss {
+  padding: 25px 30px;
+}
+
+.flex-container > button {
+  background-color: green;
+  margin: 5px;
+  padding: 5px;
+  font-size: 10px;
+}
+
+@media (min-width: 700px) {
+  .flex-container > button {
+    font-size: 21px;
+  }
+}
+
+/*doctors List */
+
+/* book Appointment */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  padding: 10px;
+}
+
+.Dates.Book_Dates {
+  display: block;
+  font-weight: bold;
+  font-size: large;
+}
+
+/* book Appointment */
+
+/* consulttion fees */
+.backoption {
+  display: flex;
+  justify-self: flex-end;
+}
+.table,
+th,
+td {
+  border-radius: 20px;
+}
+
+/* consultation fees */
+
+/* header */
+.fa-bell {
+  font-size: 25px;
+  color: white;
+  outline: none;
+  border: none;
+  background: none;
+  padding-right: 8px;
+}
+.glyphicon-qrcode {
+  font-size: 25px;
+  color: white;
+  outline: none;
+  border: none;
+  background: none;
+
+  /* margin: 0px 0px 0px 110px; */
+}
+.fa-user-alt {
+  font-size: 25px;
+  color: white;
+  outline: none;
+  border: none;
+  background: none;
+
+  /* margin: 0px 0px 0px 200px; */
+}
+.fa-ellipsis-v {
+  color: white;
+  font-size: 25px;
+  outline: none;
+  border: none;
+  background: none;
+  padding-left: 8px;
+}
+.teedybear {
+  border: none;
+  outline: none;
+  background-color: #f2a54b;
+}
+.fa-chevron-left {
+  font-size: 30px;
+  color: #fff;
+  z-index: 2;
+  position: absolute;
+  justify-content: space-evenly;
+  margin: 12px;
+}
+
+@media (min-width: 700px) {
+  .fa-chevron-left {
+    font-size: 50px;
+    padding: 20px;
+  }
+}
+/* header */
+
+/* Footer */
+.previous {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: large;
+}
+
+.back {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: large;
+}
+
+/* Footer */
+
+.conts {
+  outline: none;
+  color: #f7b740;
+  font-size: small;
+  font-weight: bold;
+  border: none;
+  background-color: #fff;
+}
+
+.shadow {
+  box-shadow: 0 3px 10px rgb(44, 43, 43);
+}
+.S10Fit {
+  font-size: x-large;
+  font-weight: bold;
+  color: rgba(73, 73, 72, 0.897);
+  margin: 5px;
+}
+.class {
+  font-size: x-large;
+  font-weight: 700;
+  margin: 10px;
+}
+.contain {
+  text-align: center;
+}
+
+.DoctorAppointment {
+  font-weight: bold;
+  font-size: x-large;
+  margin: 2px;
+}
+
+.apointment {
+  font-size: x-large;
+  font-weight: bold;
+}
+.flex-container {
+  display: flex;
+  align-items: stretch;
+}
+
+.flex-container > div {
+  background-color: rgb(249, 249, 252);
+  color: rgb(255, 251, 251);
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #191c21;
+}
+
+.flex_container {
+  display: flex;
+}
+
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #2c3e50;
+  border-radius: 10px;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  color: #95a5a6;
+  font-family: "Helvetica", arial, sans-serif;
+  font-size: 25px;
+  border: 1px solid #ecf0f1;
+  background: #ecf0f1;
+  padding: 5px;
+  display: inline-block !important;
+  visibility: visible !important;
+  border-radius: 15px;
+}
+
+input[type="date"],
+focus {
+  color: #95a5a6;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
