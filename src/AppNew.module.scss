@@ -1,0 +1,712 @@
+//primary specialist
+.Treatements_mainDiv {
+  padding: 0rem 2rem;
+}
+
+.treatments_header1 {
+  font-size: 21px;
+  color: #706d6da6;
+  font-weight: 600;
+  // margin: 0px;
+}
+
+@media (min-width: 700px) {
+  .treatments_header1 {
+    font-size: 30px;
+  }
+}
+
+.treatment_header {
+  font-size: 25px;
+  font-weight: 900;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .treatment_header {
+    margin-top: 25%;
+    font-size: x-large;
+  }
+}
+@media (min-width: 700px) {
+  .treatment_header {
+    margin-top: 20%;
+    font-size: xx-large;
+  }
+}
+@media (min-width: 300px) {
+  .treatment_header {
+    margin-top: 20%;
+    font-size: x-large;
+  }
+}
+
+.treatments-sliderspeciality {
+  justify-content: space-between;
+  font-weight: bold;
+  color: rgba(172, 167, 167, 0.479);
+  font-size: large;
+  margin: 4px;
+  padding-bottom: 30px;
+}
+
+.TreatmentsContainer {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(5rem, 30rem));
+  gap: 2rem;
+  place-content: center;
+}
+
+.TreatmentItems {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 75px;
+  box-shadow: 0px 2px 10px 1px;
+  border-radius: 10px;
+  padding: 3rem;
+  word-wrap: break-word;
+}
+
+@media (min-width: 750px) {
+  .TreatmentItems {
+    font-size: 32px;
+  }
+}
+
+.treatmentsList {
+  outline: none;
+  color: #fca438;
+  border: none;
+  background-color: #fff;
+  font-size: 1.9rem;
+  font-weight: 750;
+  word-wrap: break-word;
+}
+
+@media (min-width: 320px) {
+  .treatmentsList {
+    font-size: 1.3rem;
+  }
+}
+
+.Treatement_Images {
+  width: 30px;
+}
+
+@media (min-width: 767px) {
+  .treatmentsList {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .TreatmentsContainer {
+    width: 100%;
+  }
+}
+
+// //primary specialist
+
+// DoctorsList
+
+.Doctors_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.DoctorsList_Items {
+  display: flex;
+  padding: 5px;
+  margin: 20px;
+  justify-content: center;
+  width: 330px;
+  // border: 1px solid red;
+}
+
+.Doctors_Image {
+  width: 100px;
+  border-radius: 70%;
+}
+
+@media (min-width: 750px) {
+  .Doctors_Image {
+    width: 55%;
+  }
+}
+
+.Doctors_Names {
+  outline: none !important;
+  color: #fca438;
+  border: none;
+  background-color: #fff;
+  font-size: 1.7rem;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+@media (min-width: 700px) {
+  .Doctors_Names {
+    font-size: 32px;
+    padding-left: 5px;
+  }
+}
+
+.doctors_Pgblock {
+  display: block;
+  font-size: small;
+  font-weight: 790;
+  color: #8a8b8d;
+}
+
+@media (min-width: 700px) {
+  .doctors_Pgblock {
+    font-size: 21px;
+    padding-left: 12px;
+  }
+}
+
+.doctors_Specialitynames {
+  font-size: 8px;
+  font-weight: 900px;
+}
+
+@media (min-width: 700px) {
+  .doctors_Specialitynames {
+    font-size: 18px;
+    padding-left: 12px;
+  }
+}
+
+.DoctorsAppointment_Booknow {
+  font-size: 12px;
+  background-color: #adb960;
+  border-radius: 15px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 20px;
+  white-space: nowrap;
+}
+
+.Doctors_Consultant {
+  font-size: 12px;
+  background-color: #c0e0e0;
+  border-radius: 15px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 20px;
+  white-space: nowrap;
+  margin: 12px;
+}
+
+.Doctors_Input {
+  width: 90%;
+  text-align: center;
+}
+@media (min-width: 300px) {
+  .Doctors_Input {
+    width: 100%;
+    text-align: center;
+    // margin-top: 0%;
+  }
+}
+@media (min-width: 700px) {
+  .Doctors_Input {
+    width: 60%;
+    text-align: center;
+    margin-top: 10%;
+  }
+}
+
+// .DoctorsList_header {
+//   text-align: center;
+// }
+
+// .doctors_div {
+//   padding: 11px;
+// }
+
+// .doctorsclear_btn {
+//   font-size: small;
+//   font-weight: bold;
+//   background-color: rgba(75, 73, 73, 0.219);
+//   border-radius: 10px;
+//   outline: none;
+//   border: none;
+//   padding: 1px 10px;
+//   color: #fff;
+// }
+// .doctorsclear_search {
+//   background-color: #f7b740;
+//   border-radius: 10px;
+//   color: #fff;
+//   border: none;
+//   outline: none;
+//   font-size: small;
+//   font-weight: bold;
+//   padding: 1px 10px;
+// }
+
+// Doctors List
+
+// book Apppointment
+
+.BookDoctors_div {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.BookAppointment_flex_container {
+  display: flex;
+  border-radius: 10px;
+  overflow: scroll;
+  scroll-behavior: initial;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.BookDoctors_Profile {
+  width: 35%;
+  border-radius: 100%;
+  align-items: center;
+  border: 2px solid rgb(206, 205, 205);
+  box-shadow: 0 3px 15px rgb(0, 0, 0);
+}
+
+@media (min-width: 750px) {
+  .BookDoctors_Profile {
+    margin-top: 70px;
+  }
+}
+@media (min-width: 1020px) {
+  .BookDoctors_Profile {
+    margin-top: 15%;
+  }
+}
+
+.Book_Fivestars {
+  margin: 0px 30px 0px 60px;
+}
+
+.BookAppointment_Dr {
+  font-weight: 750;
+  font-size: x-large;
+  color: orange;
+}
+
+@media (min-width: 750px) {
+  .BookAppointment_Dr {
+    font-size: 35px;
+  }
+}
+
+.BookAppointment_Stars {
+  color: rgb(163, 163, 163);
+  font-weight: bold;
+  font-size: 20px;
+}
+@media (min-width: 750px) {
+  .BookAppointment_Stars {
+    font-size: 32px;
+  }
+}
+
+.BookAppointment_hre {
+  border: 1px solid rgb(78, 77, 77);
+  margin: 5px 40px 20px 40px;
+}
+
+.BookAppointment_Appointment {
+  font-weight: bold;
+  text-align: center;
+  color: #818181;
+  padding-bottom: 20px;
+  font-size: large;
+}
+
+@media (min-width: 750px) {
+  .BookAppointment_Appointment {
+    font-size: 35px;
+  }
+}
+
+.Book_Dates {
+  display: block;
+  font-weight: bold;
+  font-size: large;
+}
+
+.Book_DatesDivs {
+  color: #fff;
+  background-color: #ffaa3d !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.BookAppointment_Datess {
+  display: block;
+  font-weight: bold;
+  font-size: large;
+  width: 50px;
+  padding-left: 10px;
+  border-radius: 10px;
+}
+
+.BookAppointment_Times {
+  white-space: nowrap;
+  border: 4px solid #c8f7cd;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 7px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+@media (max-width: 750px) {
+  .BookAppointment_Times {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
+@media (min-width: 400px) {
+  .BookAppointment_Times {
+    font-size: large;
+    white-space: nowrap;
+  }
+}
+
+.BookAppointment {
+  font-size: large;
+  padding: 10px;
+  font-weight: bold;
+  background-color: #aab952;
+  color: #fff !important;
+  border: none;
+  outline: none;
+  margin: 0 auto;
+  display: block;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 400px) {
+  .BookAppointment {
+    font-size: xx-large;
+  }
+}
+// Book Appointment
+
+// consultation fess
+
+.Consultation_Backoption {
+  margin: 20px;
+}
+
+.Consultation_OnlineConsulting {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ec8d3d;
+}
+
+@media (min-width: 750px) {
+  .Consultation_OnlineConsulting {
+    margin-top: 25%;
+    font-size: 28px;
+  }
+}
+@media (min-width: 350px) {
+  .Consultation_OnlineConsulting {
+    margin-top: 20%;
+    font-size: 25px;
+  }
+}
+
+.Consultation_Reasons {
+  font-size: 21px;
+  font-weight: 500;
+  color: #b0b0b0;
+  padding: 10px;
+}
+
+@media (min-width: 750px) {
+  .Consultation_Reasons {
+    font-size: 32px;
+  }
+}
+
+.Consultation_InputReason {
+  border-radius: 25px;
+  border-top: 2px solid rgb(58, 57, 57);
+  width: 100%;
+  outline: none;
+  font-weight: 500;
+  font-size: x-large;
+  border: none;
+  padding: 2px 0px 2px 0px;
+}
+
+@media (min-width: 750px) {
+  .Consultation_InputReason {
+    font-size: 28px;
+    padding: 5px;
+  }
+}
+
+.Consultation_Paymentsummary {
+  font-size: x-large;
+  font-weight: 700;
+  color: #ec8d3d;
+  margin: 25px;
+}
+
+@media (min-width: 750px) {
+  .Consultation_Paymentsummary {
+    font-size: 30px;
+  }
+}
+
+.tableborder {
+  margin: 10px;
+  border: 1px solid white;
+  border-radius: 25px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.Consultation_Tables {
+  width: 90%;
+  margin: 10px;
+}
+
+.thtable {
+  font-weight: 800;
+  font-size: 20px;
+  color: #e58d43;
+}
+
+@media (min-width: 750px) {
+  .thtable {
+    font-size: 28px;
+  }
+}
+
+.tabletd {
+  font-weight: 600;
+  font-size: 15px;
+  color: #b0b0b0;
+}
+@media (min-width: 750px) {
+  .tabletd {
+    font-size: 28px;
+  }
+}
+
+.applypromobutton {
+  padding-left: 23%;
+}
+
+.inputpromo {
+  border-radius: 20px;
+  width: 55%;
+  font-size: small;
+  padding: 8px 5px 2px 7px;
+  border: 1px solid gray;
+}
+
+.Applybutton {
+  margin: 9px;
+  border-radius: 15px;
+  color: white;
+  background-color: green;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 1px 12px 2px 12px;
+}
+
+.ruzarpay {
+  font-size: small;
+
+  font-weight: 500;
+  margin: 5px;
+}
+@media (min-width: 750px) {
+  .ruzarpay {
+    font-size: 25px;
+    padding-left: 2px;
+  }
+}
+
+.paypal {
+  font-size: small;
+
+  font-weight: 500;
+  margin: 5px;
+}
+@media (min-width: 750px) {
+  .paypal {
+    font-size: 25px;
+  }
+}
+.inputradiobtn {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+.InputRadio {
+  display: flex;
+  align-items: center;
+  > span {
+    margin-top: 1rem;
+  }
+}
+
+.Payment {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #ec8d3d;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  padding: 7px;
+}
+
+@media (min-width: 750px) {
+  .Payment {
+    font-size: 28px;
+  }
+}
+
+.selectpayment {
+  font-weight: 700;
+  color: #ec8d3d;
+  font-size: large;
+}
+@media (min-width: 750px) {
+  .selectpayment {
+    font-size: 28px;
+  }
+}
+
+.paymentdiv {
+  text-align: center;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 22px;
+  width: 100%;
+}
+
+@media (min-width: 750px) {
+  input::-webkit-input-placeholder {
+    font-size: 25px;
+  }
+}
+
+.Consultation_RadioButtons {
+  width: 2.2em;
+  height: 2.2em;
+}
+// consultation fees
+
+// header
+
+.Nav {
+  position: relative;
+  width: 100%;
+  height: 0px;
+  background-color: #f2a54b;
+  margin-bottom: 10rem;
+
+  > i {
+    position: absolute;
+    left: 3rem;
+    top: 1.5%;
+  }
+}
+.Header_MainDiv {
+  z-index: 0;
+  width: 100%;
+  height: 2px;
+}
+.Header_MainDivsss {
+  height: 50px;
+}
+@media (min-height: 1020px) {
+  .Header_MainDivsss {
+    height: 24%;
+  }
+}
+@media (max-width: 411px) and (max-width: 1020px) {
+  .Header_MainDivsss {
+    width: 100%;
+  }
+}
+@media (min-width: 360px) {
+  .Header_MainDivsss {
+    width: 100% auto;
+  }
+}
+@media (min-width: 630px) {
+  .Header_MainDivsss {
+    width: 100% auto;
+  }
+}
+
+@media (min-height: 700px) {
+  .SVG2 {
+    height: 120px;
+  }
+}
+// header
+
+// footer
+
+.Navv {
+  height: 100px;
+  width: 80%;
+  background-color: #818181;
+  // position: absolute;
+  margin: 40px;
+  border-radius: 15px;
+  display: flex;
+  z-index: 200;
+  bottom: 10px;
+  box-shadow: 0px 2px 10px 1px;
+}
+
+// footer
+
+// .DoctorAppointment {
+//   text-align: center;
+// }
+
+// .headerWaveOne {
+//   height: 100px;
+//   width: 50%;
+//   background-color: #000;
+//   border-radius: 0 0 50px 50px;
+// }
+
+// .bookconsultant {
+//   display: flex;
+// }
+
+@media (min-width: 700px) {
+  .consulationmain {
+    font-size: 30px;
+    width: 100%;
+  }
+}
