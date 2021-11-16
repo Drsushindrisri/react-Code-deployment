@@ -3,7 +3,7 @@ import axios from "axios";
 export const fetchData = async (actionVal) => {
   try {
     const config = {
-      url: "http://api.s10health.com:8080/",
+      url: "http://api-staging.s10health.com:8080/",
       params: {
         actionVal,
         moduleVal: "Support",
