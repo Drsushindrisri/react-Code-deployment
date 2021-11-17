@@ -13,7 +13,7 @@ const PaymentConsultation = (props) => {
   async function getPaymentConsultation() {
     try {
       const resp = await fetchData("getOrgDoctorFees");
-      setPaymentFees(resp.PaymentFees);
+      setPaymentFees(resp);
     } catch (error) {}
   }
 
