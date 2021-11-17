@@ -13,7 +13,7 @@ export const App = (props) => {
   async function getData() {
     try {
       const resp = await fetchData("getPrimarySpecialtyList");
-      setData(resp.data);
+      setData(resp);
     } catch (error) {}
   }
 

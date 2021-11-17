@@ -15,7 +15,7 @@ export const DoctorsList = (props) => {
   async function getDoctorsList() {
     try {
       const resp = await fetchData("getDoctorsList");
-      setDoctors({ real: resp.Doctors, modify: resp.Doctors });
+      setDoctors({ real: resp, modify: resp });
     } catch (error) {}
   }
 

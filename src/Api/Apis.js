@@ -2,17 +2,23 @@ import axios from "axios";
 
 export const fetchData = async (actionVal) => {
   try {
-    const res = await axios.get("https://cp-staging.s10health.com/api", {
+    const res = await axios.get("https://safecare-staging.s10health.com/api", {
       params: {
         actionVal,
-        module: "Support",
+        moduleVal: "Support",
       },
       headers: {
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6Ijk4MSIsIlVTRVJfSUQiOiI5ODEiLCJwcmFjdGljZV9pZCI6IjE3NSIsIkNPTVBBTllfSUQiOiIxNzUiLCJ1c2VyTmFtZSI6IkRpdnlhIEQiLCJwcmFjdGljZU5hbWUiOiJTMTAgSGVhbHRoIFNhZmVDYXJlIFB2dCBMdGQiLCJwcmFjdGljZV9sb2dvIjoiaHR0cHM6XC9cL3MxMHByZC5zMy1hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9QcmFjdGljZUxvZ29cLzIwMjEwMzE2XzE2MTU5MDY0OTVfMjE1Ny5wbmciLCJvcmdfY29kZSI6IkpIVVA2RSIsIndhaWxpc3RtZW51IjoiZmFsc2UiLCJmZWVkYmFja21lbnUiOiJmYWxzZSIsInJvbGVfaWQiOiIxNyIsInN0YXR1cyI6IjEiLCJ0eXBlIjoiV2VsbG5lc3MiLCJhdXRoX3Rva2VuIjoiNjQxOThiODc3NTI5ZjlkMTg0NDA4NWFjYzUyZGJjMjMiLCJyb2xlcyI6WyJhdXRoZW50aWNhdGVkIl0sInJlc1N0YXR1cyI6InN1Y2Nlc3MifQ.38jmnIy3siwzhSoZXWTBnR6aPXzZ3Wd2zHRr7pAeAYEjlTzgrN9bT12mFev1hJPzzHORY8ltS7zhXuHjt4bnxA`,
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6Ijk5IiwiVVNFUl9JRCI6Ijk5IiwicHJhY3RpY2VfaWQiOiIxOCIsIkNPTVBBTllfSUQiOiIxOCIsInVzZXJOYW1lIjoiRGVtbyBBZG1pbiBBRE0iLCJwcmFjdGljZU5hbWUiOiJTMTAgQ2xpbmljIiwicHJhY3RpY2VfbG9nbyI6Imh0dHBzOlwvXC9zMTBzdGFnaW5nLnMzLWFwLXNvdXRoZWFzdC0xLmFtYXpvbmF3cy5jb21cL1ByYWN0aWNlTG9nb1wvMjAyMDEyMDlfMTYwNzUwMjkyMl80ODE5LnBuZyIsIm9yZ19jb2RlIjoiTkNUUUhRIiwid2FpbGlzdG1lbnUiOiIiLCJmZWVkYmFja21lbnUiOiJmYWxzZSIsInJvbGVfaWQiOiIxIiwic3RhdHVzIjoiMSIsInR5cGUiOiJDbGluaWMiLCJhdXRoX3Rva2VuIjoiNjc4YjNmYjE4YWQxNWFiNzU4ODNkZjY5NTI0MWU3NzEiLCJyb2xlcyI6WyJhdXRoZW50aWNhdGVkIl0sInJlc1N0YXR1cyI6InN1Y2Nlc3MifQ.wbxEnw-6fgedssd0xM0tKAhndFVTukj6ga9Xr8cTYArMYwWZoiWazyX9WfD28YYr4_kEWxMLB8ozr7MqGrs6jg`,
       },
     });
 
-    return res?.data ? res.data : {};
+    return res?.data
+      ? Array.isArray(res.data)
+        ? res.data
+        : res.data?.data
+        ? res.data.data
+        : []
+      : [];
   } catch (error) {
     throw new Error(`${error}`);
   }

@@ -14,7 +14,7 @@ const SlotBookAppointment = (props) => {
   async function getSlotBookAppointment() {
     try {
       const resp = await fetchData("getBookAppointment");
-      setBookAppointment(resp.BookAppointment);
+      setBookAppointment(resp);
     } catch (error) {}
   }
 
