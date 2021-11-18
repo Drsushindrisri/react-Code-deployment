@@ -103,11 +103,3 @@ const PaymentConsultation = (props) => {
   );
 };
 export default PaymentConsultation;
-
-// <i
-//           className="backoptions fas fa-chevron-left"
-//           style={{ fontSize: "30px", color: "#ec8d3d" }}
-//           onClick={() => {
-//             props.history.goBack();
-//           }}
-//         />
