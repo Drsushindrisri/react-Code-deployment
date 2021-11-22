@@ -9,6 +9,8 @@ import SlotBookAppointment from "./BookAppointment";
 import PaymentConsultation from "./Consultationpayment";
 import "./index.css";
 import Facebook from "./facebook";
+import Blog from "./Blog";
+import Blogs from "./Blogs";
 
 function RootApp() {
   useEffect(() => {
@@ -31,6 +33,8 @@ function RootApp() {
           />
           <Route exact path="/OrgDoctorFees" component={PaymentConsultation} />
           <Route exact path="/joinGroup" component={Facebook} />
+          <Route exact path="/blogs" component={Blogs} />
+          <Route exact path="/blog" component={Blog} />
         </Switch>
       </BrowserRouter>
     </div>
@@ -38,7 +42,3 @@ function RootApp() {
 }
 
 ReactDOM.render(<RootApp />, document.getElementById("root"));
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

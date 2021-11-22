@@ -2,30 +2,21 @@ import React from "react";
 import { useHistory } from "react-router";
 import styles from "./AppNew.module.scss";
 
-const Header = (props) => {
+const Header = () => {
   const history = useHistory();
   return (
     <header className={styles.Nav}>
       <div className={styles.Header_MainDivsss}>
         <SVg2 />
       </div>
-      <i
-        className="fas fa-chevron-left"
-        onClick={() => {
-          history.goBack();
-        }}
-      />
+      <i className="fas fa-chevron-left" onClick={() => history.goBack()} />
     </header>
   );
 };
 export default Header;
 
 const SVg2 = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    data-name="Layer 1"
-    viewBox="0 100 1125 245"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 80 1125 245">
     <defs>
       <linearGradient
         id="a"
@@ -34,8 +25,8 @@ const SVg2 = () => (
         y2="131.552"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#00b2b8" />
-        <stop offset=".817" stop-color="#56ced4" />
+        <stop offset="0" stopColor="#00b2b8" />
+        <stop offset=".817" stopColor="#56ced4" />
       </linearGradient>
       <linearGradient
         id="b"
@@ -44,8 +35,8 @@ const SVg2 = () => (
         y1="235.37"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="#ffc559" />
-        <stop offset="1" stop-color="#ff8717" />
+        <stop offset="0" stopColor="#ffc559" />
+        <stop offset="1" stopColor="#ff8717" />
       </linearGradient>
     </defs>
     <path
