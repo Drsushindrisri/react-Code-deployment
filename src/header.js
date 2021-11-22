@@ -23,8 +23,8 @@ export default Header;
 const SVg2 = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    data-name="Layer 1"
-    viewBox="0 100 1125 245"
+    viewBox="0 80 1125 245"
+    preserveAspectRatio
   >
     <defs>
       <linearGradient

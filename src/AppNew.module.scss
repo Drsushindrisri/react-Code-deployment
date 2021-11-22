@@ -643,25 +643,11 @@ input::-webkit-input-placeholder {
 }
 .Header_MainDivsss {
   height: 50px;
+  width: 100%;
 }
 @media (min-height: 1020px) {
   .Header_MainDivsss {
     height: 24%;
-  }
-}
-@media (max-width: 411px) and (max-width: 1020px) {
-  .Header_MainDivsss {
-    width: 100%;
-  }
-}
-@media (min-width: 360px) {
-  .Header_MainDivsss {
-    width: 100% auto;
-  }
-}
-@media (min-width: 630px) {
-  .Header_MainDivsss {
-    width: 100% auto;
   }
 }
 
