@@ -13,13 +13,7 @@ export const fetchData = async (actionVal, hasParams, params) => {
       },
     });
 
-    return res?.data
-      ? Array.isArray(res.data)
-        ? res.data
-        : res.data?.data
-        ? res.data.data
-        : []
-      : [];
+    return res?.data?.data ? res.data.data : res?.data;
   } catch (error) {
     throw new Error(`${error}`);
   }
