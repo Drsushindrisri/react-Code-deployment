@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import styles from "./AppNew.module.scss";
+import styles from "./sass/AppNew.module.scss";
 import { fetchData } from "./Api/Apis";
 
 const PaymentConsultation = (props) => {

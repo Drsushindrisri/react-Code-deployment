@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "./Api/Apis";
-import styles from "./Blog.module.scss";
+import styles from "./sass/Blog.module.scss";
 
 const Blog = (props) => {
   const [blog, setBlog] = useState({});

@@ -1,6 +1,6 @@
 import { fetchData } from "./Api/Apis";
 import { useEffect, useState } from "react";
-import styles from "./AppNew.module.scss";
+import styles from "./sass/AppNew.module.scss";
 import { uid } from "react-uid";
 import { AiFillStar } from "react-icons/ai";
 
