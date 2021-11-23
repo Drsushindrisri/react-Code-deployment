@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
 import Carousel from "react-elastic-carousel";
-import styles from "./Blogs.module.scss";
+import styles from "./sass/Blogs.module.scss";
 
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);

@@ -1,8 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
-import styles from "./AppNew.module.scss";
+import styles from "./sass/AppNew.module.scss";
 
-const Footer = (props) => {
+const Footer = () => {
   const history = useHistory();
   return (
     <footer
