@@ -38,67 +38,15 @@ const Blog = (props) => {
       </figure>
       <div className={styles.blog__content}>
         <div className={styles.blog__timeAndShare}>
-          <div className={styles.blog__time}>{format(new Date(), "PPP")}</div>
+          <div className={styles.blog__time}>{format(blog?.time, "PPP")}</div>
           <div className={styles.blog__shareContainer}>
             <FBIcon />
             <WAIcon />
             <TWIcon />
           </div>
         </div>
-        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tortor
-          leo, pellentesque sit amet suscipit nec, varius sed ipsum. Vivamus
-          porta convallis eleifend. Aenean lobortis, neque et dictum elementum,
-          lacus nunc suscipit augue, eget condimentum eros eros in quam. Ut at
-          metus nibh. Vivamus fermentum eu tortor ac tempus. Vivamus
-          sollicitudin eros risus, in cursus nisl imperdiet non. Nam vitae nunc
-          arcu. Pellentesque habitant morbi tristique senectus et netus et
-          malesuada fames ac turpis egestas. Morbi tristique ut lacus nec
-          facilisis. Proin ut ipsum fringilla, faucibus urna sed, blandit massa.
-          Nunc vehicula tellus urna, ac imperdiet massa venenatis et. Aenean
-          accumsan auctor nisl eget fringilla. Maecenas eget dui congue,
-          fermentum libero non, porttitor arcu. Sed ac sapien sodales, mattis
-          magna et, mattis justo. Sed id lacinia elit, eget posuere ipsum. Fusce
-          interdum libero id tortor finibus tincidunt a vitae turpis. Donec nec
-          ligula eu sapien eleifend efficitur vel eleifend purus. Proin auctor
-          in elit ac dapibus. Integer a aliquet purus, id aliquet ante. Ut et
-          risus scelerisque, venenatis justo tristique, pulvinar turpis. Sed id
-          ante vitae lacus dignissim imperdiet non eget metus. Fusce eu lectus
-          accumsan, fermentum ligula id, tristique purus. Sed molestie rhoncus
-          laoreet. Donec suscipit a ligula sed iaculis. Sed eget mauris
-          volutpat, iaculis augue id, maximus nisl. Nulla facilisi. Fusce a
-          tortor lobortis, aliquet mauris ut, iaculis elit. Vestibulum semper,
-          ipsum in euismod porta, nulla ante egestas enim, ut ultricies nisl
-          nunc et purus. Maecenas cursus urna a urna laoreet, quis semper libero
-          imperdiet. Quisque id aliquam magna. Praesent molestie fermentum
-          purus, a dignissim turpis condimentum quis. Integer eu tellus tortor.
-          Mauris mollis in magna a dapibus. Pellentesque ut lacus sed mauris
-          ultricies sagittis sed eu leo. Aenean tristique, massa at varius
-          consequat, libero ipsum molestie leo, commodo auctor magna libero et
-          turpis. Suspendisse blandit elit nibh, at vestibulum lacus tincidunt
-          eu. Vivamus vulputate ante rutrum nunc ultricies molestie. Curabitur
-          malesuada vel quam sed ultricies. Aliquam a eleifend quam. Fusce nec
-          augue sed ex scelerisque placerat sed vitae erat. Proin placerat,
-          neque quis dignissim rutrum, odio quam congue dolor, a convallis
-          turpis massa in diam. Etiam tincidunt nisi vitae sem accumsan
-          tincidunt. Suspendisse blandit ultrices euismod. Suspendisse finibus
-          quam in dolor bibendum, quis molestie mauris finibus. Integer neque
-          nisl, fermentum at sagittis a, pulvinar vel ex. Nulla imperdiet elit
-          egestas magna sagittis condimentum. In cursus auctor massa vel
-          placerat. Nunc vehicula velit at metus facilisis viverra. Nunc et urna
-          laoreet, venenatis nibh vitae, feugiat augue. Phasellus eget nisi a
-          neque gravida ultrices nec non sapien. Vivamus viverra tortor quis
-          massa ultricies, in convallis justo rhoncus. Nam tincidunt, velit
-          condimentum varius faucibus, arcu augue mattis est, non commodo risus
-          enim tempus turpis. Sed a odio scelerisque, venenatis nunc ut, pretium
-          augue. Phasellus quis rhoncus ligula. Fusce et viverra ligula. Donec
-          vulputate sodales ante a sodales. Sed consectetur urna a nulla
-          convallis porta. Donec sollicitudin vel mi vitae porta. Phasellus mi
-          odio, tincidunt eu metus quis, tempus bibendum libero. Vivamus aliquam
-          ullamcorper sem, in finibus nisi malesuada id. Maecenas aliquam
-          feugiat lectus. Integer ut augue lacus. Praesent eget mollis nulla.{" "}
-        </p>
+        <h3>{blog?.blog_title}</h3>
+        <p>{blog?.description}</p>
       </div>
       <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
         <ArrowUp />
