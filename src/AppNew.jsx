@@ -28,15 +28,12 @@ export const App = (props) => {
       </div>
       <div className={styles.TreatmentsContainer}>
         {data.map((item, ind) => (
-          <div className={styles.TreatmentItems} key={uid(ind)}>
+          <div className={styles.treatmentItem} key={uid(ind)}>
             <img src={item.image} alt="" className={styles.Treatement_Images} />
 
-            <button
-              className={styles.treatmentsList}
-              onClick={() => props.history.push("/doctors-list")}
-            >
+            <p onClick={() => props.history.push("/doctors-list")}>
               {item.speciality_name}
-            </button>
+            </p>
           </div>
         ))}
       </div>{" "}

@@ -1,0 +1,145 @@
+@mixin itemBackground {
+  border-radius: 10px;
+  background-color: #fff6ed;
+  border: 1px solid #ffcc92;
+  color: #ff8a00;
+}
+
+.bookAppointment__main {
+  background-color: #ff8a00;
+
+  > * {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.bookAppointment__doctorDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > img {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 10px;
+    margin-block: 0.5rem;
+  }
+
+  > h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  > p {
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+
+  > p,
+  > h3 {
+    color: #fff;
+  }
+}
+
+.bookAppointment__doctorInfos {
+  display: flex;
+  gap: 1rem;
+
+  > div {
+    > span {
+      display: block;
+      text-align: center;
+      color: #fff;
+    }
+
+    :first-child {
+      font-weight: 600;
+    }
+
+    :last-child {
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+.bookAppointment__availableSlots {
+  background-color: #fff;
+  border-radius: 1rem 1rem 0 0;
+  padding-block: 1.5rem;
+
+  h6 {
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  > .bookAppointment__days {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-block: 1rem;
+
+    .selectableItem {
+      width: 3rem;
+      height: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      @include itemBackground;
+
+      > span {
+        text-align: center;
+        font-size: 0.8rem;
+      }
+
+      :last-child {
+        font-weight: 600;
+      }
+    }
+
+    .bookAppointment__selectedItem {
+      background-color: #ff8a00;
+      color: #fff;
+    }
+  }
+}
+
+.bookAppointment__dateContainer {
+  display: flex;
+  justify-content: space-between;
+
+  select {
+    background: none;
+    border: none;
+  }
+}
+
+.bookAppointment__timeSlots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1rem;
+
+  .selectableItem {
+    @include itemBackground;
+    padding: 0.2rem 1rem;
+    font-size: 0.8rem;
+    width: 5rem;
+  }
+
+  .bookAppointment__selectedItem {
+    background-color: #ff8a00;
+    color: #fff;
+  }
+}
+
+.selectableItem {
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.loadMore {
+  @include itemBackground;
+  padding: 0.2rem 1rem;
+  font-size: 0.8rem;
+}
