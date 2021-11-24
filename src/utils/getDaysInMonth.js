@@ -1,6 +1,8 @@
 export function getDaysInMonth(month) {
   if (month < new Date().getMonth()) return [];
-  const date = new Date(new Date().getFullYear(), month, new Date().getDate());
+  const today = month === new Date().getMonth() ? new Date().getDate() : 1;
+  const date = new Date(new Date().getFullYear(), month, today);
+  console.log({ date });
   let days = [];
   while (date.getMonth() === month) {
     days.push(new Date(date));

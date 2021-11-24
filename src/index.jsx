@@ -12,6 +12,8 @@ import Facebook from "./facebook";
 import Blog from "./Blog";
 import Blogs from "./Blogs";
 
+require("dotenv").config();
+
 function RootApp() {
   useEffect(() => {
     if (!sessionStorage.getItem("userId")) {

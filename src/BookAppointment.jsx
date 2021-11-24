@@ -31,7 +31,7 @@ const SlotBookAppointment = (props) => {
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedTime, setSelectedTime] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState(10);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   useEffect(() => {
     getSlotBookAppointment();
@@ -86,7 +86,7 @@ const SlotBookAppointment = (props) => {
           </select>
         </div>
         <div className={styles.bookAppointment__days}>
-          {getDaysInMonth(selectedMonth).map((day, i) => (
+          {getDaysInMonth(selectedMonth - 1).map((day, i) => (
             <div
               key={uid(i)}
               onClick={() => setSelectedDay(day.getDate())}
@@ -121,6 +121,14 @@ const SlotBookAppointment = (props) => {
             Load more...
           </div>
         </div>
+        <button
+          className={styles.bookAppointment__submitButton}
+          onClick={() => {
+            props.history.push("/OrgDoctorFees");
+          }}
+        >
+          Book Appointment
+        </button>
       </div>
     </div>
   );
