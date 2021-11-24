@@ -38,18 +38,22 @@ const Blog = (props) => {
       </figure>
       <div className={styles.blog__content}>
         <div className={styles.blog__timeAndShare}>
-          <div className={styles.blog__time}>{format(blog?.time, "PPP")}</div>
-          <div className={styles.blog__shareContainer}>
-            <FBIcon />
-            <WAIcon />
-            <TWIcon />
-          </div>
+          <div className={styles.blog__time}>{format(new Date(), "PPP")}</div>
         </div>
         <h3>{blog?.blog_title}</h3>
         <p>{blog?.description}</p>
       </div>
-      <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
-        <ArrowUp />
+      <div className={styles.blog__end}>
+        <div className={styles.blog__shareContainer}>
+          <FBIcon />
+          <WAIcon />
+          <TWIcon />
+          <MailIcon />
+          <ShareIcon />
+        </div>
+        <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
+          <ArrowUp />
+        </div>
       </div>
     </div>
   );
@@ -60,8 +64,8 @@ export default Blog;
 const FBIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="20"
+    height="20"
     fill="#4267B2"
     class="bi bi-facebook"
     viewBox="0 0 16 16"
@@ -73,8 +77,8 @@ const FBIcon = () => (
 const WAIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="20"
+    height="20"
     fill="#25D366"
     class="bi bi-whatsapp"
     viewBox="0 0 16 16"
@@ -86,8 +90,8 @@ const WAIcon = () => (
 const TWIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="20"
+    height="20"
     fill="#1DA1F2"
     class="bi bi-twitter"
     viewBox="0 0 16 16"
@@ -99,8 +103,8 @@ const TWIcon = () => (
 const ArrowUp = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="20"
+    height="20"
     fill="currentColor"
     class="bi bi-chevron-up"
     viewBox="0 0 16 16"
@@ -109,5 +113,31 @@ const ArrowUp = () => (
       fill-rule="evenodd"
       d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
     />
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    fill="#de5246 "
+    class="bi bi-envelope"
+    viewBox="0 0 16 16"
+  >
+    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+  </svg>
+);
+
+const ShareIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    fill="currentColor"
+    class="bi bi-share"
+    viewBox="0 0 16 16"
+  >
+    <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
   </svg>
 );

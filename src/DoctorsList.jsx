@@ -39,7 +39,14 @@ export const DoctorsList = (props) => {
               <div className="flex-container">
                 <button
                   onClick={() => {
-                    props.history.push("/Slot-BookAppointment");
+                    props.history.push({
+                      pathname: "/Slot-BookAppointment",
+                      state: {
+                        name: item.docName,
+                        image: item.docProfileImg,
+                        speciality: item.speciality_name,
+                      },
+                    });
                   }}
                   className={styles.DoctorsAppointment_Booknow}
                 >
@@ -65,28 +72,3 @@ export const DoctorsList = (props) => {
   );
 };
 export default DoctorsList;
-
-// const handleSearch = (text) => {
-//   if (text) {
-//     const filtered = doctors.modify.filter((i) =>
-//       i.docName.toLowerCase().includes(text.toLowerCase())
-//     );
-//     setDoctors({ ...doctors, modify: filtered });
-//   } else {
-//     setDoctors({ ...doctors, modify: doctors.real });
-
-//{}
-//{ real:[] , modify:[] }
-//{ real:[] , modify: doctors.real }
-//   }
-// };
-
-// <div className={styles.Doctors_Input}>
-// {" "}
-// <input
-//   type="text"
-//   placeholder="  Search...                              &#xf002;"
-//   className="san fas fa-search"
-//   onChange={(e) => handleSearch(e.target.value)}
-// />
-// </div>

@@ -40,11 +40,17 @@
       justify-content: space-between;
       margin-bottom: 0.3rem;
     }
+  }
 
-    .blog__shareContainer {
-      display: flex;
-      gap: 0.5rem;
-    }
+  .blog__shareContainer {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .blog__end {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .blog__scrollToTop {
