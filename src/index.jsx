@@ -11,6 +11,7 @@ import "./index.css";
 import Facebook from "./facebook";
 import Blog from "./Blog";
 import Blogs from "./Blogs";
+import VisualStories from "./VisualStories";
 
 require("dotenv").config();
 
@@ -36,6 +37,7 @@ function RootApp() {
           <Route exact path="/OrgDoctorFees" component={PaymentConsultation} />
           <Route exact path="/joinGroup" component={Facebook} />
           <Route exact path="/blogs" component={Blogs} />
+          <Route exact path="/stories" component={VisualStories} />
           <Route exact path="/blog" component={Blog} />
         </Switch>
       </BrowserRouter>
