@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchData = async (actionVal, hasParams, params) => {
   try {
-    const res = await axios.get("https://safecare-staging.s10health.com/api", {
+    const res = await axios.get("http://localhost:4000/", {
       params: {
         actionVal,
         moduleVal: "Support",

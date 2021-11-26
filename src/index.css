@@ -269,3 +269,7 @@ focus {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
 }
+
+.page-content {
+  padding: 2rem;
+}

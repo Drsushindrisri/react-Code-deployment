@@ -1,5 +1,27 @@
 .blogs__main {
+  padding-top: 4rem;
   .blogs__blogItem {
     cursor: pointer;
+  }
+
+  h5 {
+    margin: 0;
+    margin-block: 1rem;
+  }
+
+  .visualStoriesContainer {
+    display: flex;
+    min-height: min-content;
+    overflow-x: scroll;
+    padding: 1rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    img {
+      width: 4.5rem;
+      height: 8rem;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    }
   }
 }

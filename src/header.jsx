@@ -1,15 +1,20 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { FaChevronLeft } from "react-icons/fa";
 import styles from "./sass/AppNew.module.scss";
 
 const Header = () => {
   const history = useHistory();
+
+  console.log({ history });
   return (
-    <header className={styles.Nav}>
-      <div className={styles.Header_MainDivsss}>
+    <header className={styles.header__main}>
+      <span className={styles.header__wave}>
         <SVg2 />
-      </div>
-      <i className="fas fa-chevron-left" onClick={() => history.goBack()} />
+      </span>
+      <span onClick={() => history.goBack()} className={styles.header__arrow}>
+        <FaChevronLeft />
+      </span>
     </header>
   );
 };
