@@ -93,20 +93,7 @@ export const DoctorsList = (props) => {
       </div>
       <div className={styles.doctorsList__container}>
         {doctors.modify.map((item, ind) => (
-          <div
-            className={styles.doctorsList__item}
-            key={uid(ind)}
-            onClick={() => {
-              props.history.push({
-                pathname: "/Slot-BookAppointment",
-                state: {
-                  name: item.docName,
-                  image: item.docProfileImg,
-                  speciality: item.speciality_name,
-                },
-              });
-            }}
-          >
+          <div className={styles.doctorsList__item} key={uid(ind)}>
             <img
               src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               alt={item.docName}
@@ -114,10 +101,34 @@ export const DoctorsList = (props) => {
             <div>
               <p>{item.docName}</p>
               <p className={styles.doctorsList__qualification}>
-                {item.docEduQualification.slice(0, 20)}
-                {item.docEduQualification.length > 20 && "..."}
+                {item.docEduQualification.slice(0, 15)}
+                {item.docEduQualification.length > 15 && "..."}
               </p>
-              <p>{item.docWorkLocHosName}</p>
+            </div>
+            <div className={styles.doctorsList__actionButtons}>
+              <button
+                className={styles.doctorsList__bookButton}
+                onClick={() => {
+                  props.history.push({
+                    pathname: "/Slot-BookAppointment",
+                    state: {
+                      name: item.docName,
+                      image: item.docProfileImg,
+                      speciality: item.speciality_name,
+                    },
+                  });
+                }}
+              >
+                Book appointment
+              </button>
+              <button
+                className={styles.doctorsList__consultButton}
+                onClick={() => {
+                  props.history.push("/OrgDoctorFees");
+                }}
+              >
+                Consult online
+              </button>
             </div>
           </div>
         ))}
