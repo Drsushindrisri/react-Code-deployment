@@ -22,7 +22,7 @@ const Blog = (props) => {
 
   const getBlog = async () => {
     try {
-      const data = await fetchData("viewBlogs", true, { blogId });
+      const data = await fetchData("viewBlogs", false, { blogId }, true);
       setBlog(data);
     } catch (error) {}
   };
