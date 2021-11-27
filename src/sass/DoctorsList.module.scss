@@ -1,3 +1,14 @@
+@mixin itemBackground {
+  border-radius: 10px;
+  background-color: #fff6ed;
+  border: 1px solid #ffcc92;
+  color: #ff9d2e;
+  padding: 0.2rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
 .doctorsList__main {
   padding-top: 4rem;
 
@@ -35,14 +46,7 @@
   overflow-x: scroll;
 
   > .doctorsList__specalityItem {
-    border-radius: 10px;
-    background-color: #fff6ed;
-    border: 1px solid #ffcc92;
-    color: #ff9d2e;
-    padding: 0.2rem 1rem;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    @include itemBackground;
   }
 
   > .doctorsList__specalityItemSelected {
@@ -60,7 +64,6 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 1rem;
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.2s ease-in-out;
@@ -73,9 +76,11 @@
       width: 3.125rem;
       height: 3.125rem;
       border-radius: 10px;
+      margin-right: 1rem;
     }
 
     > div {
+      flex: 2;
       > p {
         margin: 0;
       }
@@ -90,5 +95,15 @@
         font-size: 0.7rem;
       }
     }
+  }
+}
+
+.doctorsList__actionButtons {
+  flex: 1;
+  margin-left: 0.5rem;
+  > button {
+    @include itemBackground;
+    white-space: nowrap;
+    width: 100%;
   }
 }

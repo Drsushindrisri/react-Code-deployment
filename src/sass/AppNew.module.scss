@@ -602,12 +602,17 @@ input::-webkit-input-placeholder {
 .header__main {
   position: relative;
   background-color: #fff;
-  height: max-content;
+  height: 3.5rem;
 
   .header__wave {
     position: fixed;
     top: 0px;
     left: 0px;
+
+    > img {
+      height: 6rem;
+      width: 100vw;
+    }
   }
 
   .header__arrow {
