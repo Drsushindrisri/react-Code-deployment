@@ -1,7 +1,6 @@
 export const EmptyState = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    dataName="Layer 1"
     width="100"
     height="100"
     viewBox="0 0 647.63626 632.17383"

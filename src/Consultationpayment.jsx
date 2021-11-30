@@ -15,7 +15,7 @@ const PaymentConsultation = (props) => {
     try {
       const resp = await fetchData("getOrgDoctorFees");
       setFees(
-        resp.find((doc) => doc.mainproviderid === props?.location?.state?.docId)
+        resp.find((doc) => doc.mainprovider_id == props?.location?.state?.docId)
       );
     } catch (error) {}
   }
@@ -93,7 +93,6 @@ const PaymentConsultation = (props) => {
     paymentObject.open();
   }
 
-  console.log({ fees });
   return (
     <div>
       <div className={styles.Consultation_Backoption}>
@@ -126,14 +125,14 @@ const PaymentConsultation = (props) => {
               <td className={styles.tabletd}>1</td>
               <td className={styles.tabletd}>Consultation Fee</td>
               <td className={styles.tabletd}>
-                INR {fees.fee} (USD {fees.fee})
+                INR {fees?.fee} (USD {fees?.fee})
               </td>
             </tr>
             <tr>
               <td></td>
               <td className={styles.tabletd}>Total</td>
               <td className={styles.tabletd}>
-                INR {fees.fee} (USD {fees.fee})
+                INR {fees?.fee} (USD {fees?.fee})
               </td>
             </tr>
           </tbody>
