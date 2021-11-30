@@ -38,7 +38,7 @@ function RootApp() {
           <Route exact path="/joinGroup" component={Facebook} />
           <Route exact path="/blogs" component={Blogs} />
           <Route exact path="/stories" component={VisualStories} />
-          <Route exact path="/blog" component={Blog} />
+          <Route exact path="/blog/:title" component={Blog} />
         </Switch>
       </BrowserRouter>
     </div>

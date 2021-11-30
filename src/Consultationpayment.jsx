@@ -2,19 +2,21 @@ import React from "react";
 import { useEffect, useState } from "react";
 import styles from "./sass/AppNew.module.scss";
 import { fetchData } from "./Api/Apis";
-import axios from "axios";
 
 const PaymentConsultation = (props) => {
-  const [PaymentFees, setPaymentFees] = useState([]);
+  const [fees, setFees] = useState({});
 
   useEffect(() => {
     getPaymentConsultation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getPaymentConsultation() {
     try {
       const resp = await fetchData("getOrgDoctorFees");
-      setPaymentFees(resp);
+      setFees(
+        resp.find((doc) => doc.mainproviderid === props?.location?.state?.docId)
+      );
     } catch (error) {}
   }
 
@@ -58,19 +60,19 @@ const PaymentConsultation = (props) => {
       name: "S10 safecare",
       description: "Test Transaction",
       image: "{ logo }",
-      // order_id: "1111",
+      order_id: "order_12345678",
       handler: async (response) => {
         const data = {
-          orderCreationId: "1111",
+          orderCreationId: "order_12345678",
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpaySignature: response.razorpay_signature,
         };
 
-        const result = await axios.post(
-          "http://localhost:4000/payment/success",
-          data
-        );
+        // const result = await axios.post(
+        //   "http://localhost:4000/payment/success",
+        //   data
+        // );
 
         alert("success");
       },
@@ -91,6 +93,7 @@ const PaymentConsultation = (props) => {
     paymentObject.open();
   }
 
+  console.log({ fees });
   return (
     <div>
       <div className={styles.Consultation_Backoption}>
@@ -123,14 +126,14 @@ const PaymentConsultation = (props) => {
               <td className={styles.tabletd}>1</td>
               <td className={styles.tabletd}>Consultation Fee</td>
               <td className={styles.tabletd}>
-                INR {PaymentFees[0]?.fee} (USD {PaymentFees[0]?.fee})
+                INR {fees.fee} (USD {fees.fee})
               </td>
             </tr>
             <tr>
               <td></td>
               <td className={styles.tabletd}>Total</td>
               <td className={styles.tabletd}>
-                INR {PaymentFees[0]?.fee} (USD {PaymentFees[0]?.fee})
+                INR {fees.fee} (USD {fees.fee})
               </td>
             </tr>
           </tbody>
