@@ -59,7 +59,7 @@ const Blogs = ({ history }) => {
             key={uid(ind)}
             onClick={() =>
               history.push({
-                pathname: "/blog",
+                pathname: `/blog/${blog_title}`,
                 state: { blogId },
               })
             }

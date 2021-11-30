@@ -1,5 +1,6 @@
 import { fetchData } from "./Api/Apis";
 import { useEffect, useState } from "react";
+import { EmptyState } from "./svg/EmptyState";
 import styles from "./sass/BookAppointment.module.scss";
 import { uid } from "react-uid";
 import { getDaysInMonth } from "./utils/getDaysInMonth";
@@ -28,27 +29,34 @@ const infos = [
 
 const SlotBookAppointment = (props) => {
   const [bookAppointment, setBookAppointment] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(0);
-  const [selectedTime, setSelectedTime] = useState(0);
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState(10);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   useEffect(() => {
     getSlotBookAppointment();
-  }, []);
-
-  async function getSlotBookAppointment() {
-    try {
-      const resp = await fetchData("getDoctorsAppointmentSlots");
-      setBookAppointment(resp);
-    } catch (error) {}
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDay]);
 
   const doctorDetails = {
     name: props?.location?.state?.name,
     image: props?.location?.state?.image,
     speciality: props?.location?.state?.speciality,
+    id: +props?.location?.state?.id,
   };
+
+  async function getSlotBookAppointment() {
+    try {
+      const resp = await fetchData("getDoctorsAppointmentSlots", "formData", {
+        OrganizationID: 23,
+        OrgMainLocationID: 6327,
+        appDate: selectedDay,
+        DoctorID: doctorDetails.id,
+      });
+      setBookAppointment(resp);
+    } catch (error) {}
+  }
 
   return (
     <div className={styles.bookAppointment__main}>
@@ -86,45 +94,64 @@ const SlotBookAppointment = (props) => {
           </select>
         </div>
         <div className={styles.bookAppointment__days}>
-          {getDaysInMonth(selectedMonth - 1).map((day, i) => (
-            <div
-              key={uid(i)}
-              onClick={() => setSelectedDay(day.getDate())}
-              className={`${styles.selectableItem} ${
-                selectedDay === day.getDate() &&
-                styles.bookAppointment__selectedItem
-              }`}
-            >
-              <span>{format(day, "EEE")}</span>
-              <span>{day.getDate()}</span>
-            </div>
-          ))}
+          {getDaysInMonth(selectedMonth - 1).map((day, i) => {
+            const formattedDay = format(day, "yyyy-MM-dd");
+            return (
+              <div
+                key={uid(i)}
+                onClick={() => setSelectedDay(formattedDay)}
+                className={`${styles.selectableItem} ${
+                  selectedDay === formattedDay &&
+                  styles.bookAppointment__selectedItem
+                }`}
+              >
+                <span>{format(day, "EEE")}</span>
+                <span>{day.getDate()}</span>
+              </div>
+            );
+          })}
         </div>
         <h6>Time</h6>
         <div className={styles.bookAppointment__timeSlots}>
-          {bookAppointment.slice(0, selectedLimit).map((time, i) => (
-            <div
-              key={uid(i)}
-              onClick={() => setSelectedTime(time.Time)}
-              className={`${styles.selectableItem} ${
-                selectedTime === time.Time &&
-                styles.bookAppointment__selectedItem
-              }`}
-            >
-              {time.Time}
+          {bookAppointment.length > 0 ? (
+            bookAppointment.slice(0, selectedLimit).map((time, i) => (
+              <div
+                key={uid(i)}
+                onClick={() => setSelectedTime(time.Time)}
+                className={`${styles.selectableItem} ${
+                  selectedTime === time.Time &&
+                  styles.bookAppointment__selectedItem
+                }`}
+              >
+                {time.Time}
+              </div>
+            ))
+          ) : (
+            <div className={styles.bookAppointment__emptyState}>
+              <EmptyState />
+              No slots found
             </div>
-          ))}
-          <div
-            className={styles.loadMore}
-            onClick={() => setSelectedLimit((prev) => prev + 10)}
-          >
-            Load more...
-          </div>
+          )}
+          {bookAppointment.length > 0 && (
+            <div
+              className={styles.loadMore}
+              onClick={() => setSelectedLimit((prev) => prev + 10)}
+            >
+              Load more...
+            </div>
+          )}
         </div>
         <button
-          className={styles.bookAppointment__submitButton}
+          className={`${styles.bookAppointment__submitButton} ${
+            !selectedTime && styles.bookAppointment__buttonDisabled
+          }`}
           onClick={() => {
-            props.history.push("/OrgDoctorFees");
+            if (selectedTime) {
+              props.history.push({
+                pathname: "/OrgDoctorFees",
+                state: { docId: doctorDetails.id },
+              });
+            }
           }}
         >
           Book Appointment

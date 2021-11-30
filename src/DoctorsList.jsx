@@ -15,6 +15,7 @@ const filterItems = [
 export const DoctorsList = (props) => {
   const [doctors, setDoctors] = useState({ real: [], modify: [] });
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   useEffect(() => {
     getDoctorsList();
@@ -63,6 +64,8 @@ export const DoctorsList = (props) => {
     }
   };
 
+  const handleSelectedDoctor = (index) => setSelectedDoctor(index);
+
   return (
     <div className={`page-content ${styles.doctorsList__main}`}>
       <h3>Doctors</h3>
@@ -93,19 +96,29 @@ export const DoctorsList = (props) => {
       </div>
       <div className={styles.doctorsList__container}>
         {doctors.modify.map((item, ind) => (
-          <div className={styles.doctorsList__item} key={uid(ind)}>
-            <img
-              src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-              alt={item.docName}
-            />
-            <div>
-              <p>{item.docName}</p>
-              <p className={styles.doctorsList__qualification}>
-                {item.docEduQualification.slice(0, 15)}
-                {item.docEduQualification.length > 15 && "..."}
-              </p>
+          <div
+            className={styles.doctorsList__accordionItem}
+            onClick={handleSelectedDoctor.bind(this, ind)}
+          >
+            <div className={styles.doctorsList__item} key={uid(ind)}>
+              <img
+                src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                alt={item.docName}
+              />
+              <div>
+                <p>{item.docName}</p>
+                <p className={styles.doctorsList__qualification}>
+                  {item.docEduQualification.slice(0, 15)}
+                  {item.docEduQualification.length > 15 && "..."}
+                </p>
+                <p>{item.docWorkLocHosName}</p>
+              </div>
             </div>
-            <div className={styles.doctorsList__actionButtons}>
+            <div
+              className={`${styles.doctorsList__actionButtons} ${
+                selectedDoctor === ind && styles.doctorsList__actionButtonsOpen
+              }`}
+            >
               <button
                 className={styles.doctorsList__bookButton}
                 onClick={() => {
@@ -115,6 +128,7 @@ export const DoctorsList = (props) => {
                       name: item.docName,
                       image: item.docProfileImg,
                       speciality: item.speciality_name,
+                      id: item.docId,
                     },
                   });
                 }}
