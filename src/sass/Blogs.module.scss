@@ -1,3 +1,14 @@
+@mixin itemBackground {
+  border-radius: 10px;
+  background-color: #fff6ed;
+  border: 1px solid #ffcc92;
+  color: #ff9d2e;
+  padding: 0.2rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
 .blogs__main {
   padding-top: 4rem;
   .blogs__blogItem {
@@ -23,5 +34,24 @@
       border-radius: 10px;
       box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
+  }
+}
+
+.blogs__categoriesContainer {
+  margin-block: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  min-height: min-content;
+  overflow-x: scroll;
+
+  > .blog__categoryItem {
+    @include itemBackground;
+    flex-shrink: 0;
+  }
+
+  > .blog__categoryItemSelected {
+    background-color: #ff8a00;
+    color: #fff;
   }
 }

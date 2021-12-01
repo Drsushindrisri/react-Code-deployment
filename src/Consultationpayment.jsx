@@ -1,10 +1,43 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import styles from "./sass/AppNew.module.scss";
+import styles from "./sass/ConsultationPayment.module.scss";
 import { fetchData } from "./Api/Apis";
+import { toUSD } from "./utils/toUSD";
+
+const PaymentTable = ({ price }) => (
+  <table>
+    <thead>
+      <th>#</th>
+      <th>Description</th>
+      <th>Amount</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.</td>
+        <td>Consultation Fee</td>
+        <td>
+          INR &#8377;{price} (USD ${toUSD(price)})
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <strong>Total</strong>
+        </td>
+        <td>
+          <strong>
+            INR &#8377;{price} (USD ${toUSD(price)})
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+);
 
 const PaymentConsultation = (props) => {
   const [fees, setFees] = useState({});
+  const [paymentType, setPaymentType] = useState("");
 
   useEffect(() => {
     getPaymentConsultation();
@@ -43,15 +76,6 @@ const PaymentConsultation = (props) => {
       alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
-
-    // const result = await axios.post("http://localhost:5000/payment/orders");
-
-    // if (!result) {
-    //   alert("Server error. Are you online?");
-    //   return;
-    // }
-
-    // const { amount, id: order_id, currency } = result.data;
 
     const options = {
       key: "rzp_live_uBMmGDcdbiVtL9", // Enter the Key ID generated from the Dashboard
@@ -94,88 +118,53 @@ const PaymentConsultation = (props) => {
   }
 
   return (
-    <div>
-      <div className={styles.Consultation_Backoption}>
-        <h2 className={styles.Consultation_OnlineConsulting}>
-          Online Consulting
-        </h2>
-        <h4 className={styles.Consultation_Reasons}>
-          {" "}
-          Reasons for your consultation
-        </h4>{" "}
-        <input
-          placeholder="  Enter reason for your consultation"
-          className={styles.Consultation_InputReason}
-        />
+    <div className={`page-content ${styles.consultationPayment__main}`}>
+      <label htmlFor="reasonInput">
+        Reason for your consultation
+        <input id="reasonInput" />
+      </label>
+      <div className="ruler-horizontal" />
+      <h6>Payment Summary</h6>
+      <PaymentTable price={fees?.fee || 0} />
+      <label
+        htmlFor="promoInput"
+        className={styles.consultationPayment__promoContainer}
+      >
+        Have a promo code?
+        <div>
+          <input id="promoInput" />
+          <button>Apply</button>
+        </div>
+      </label>
+      <div className="ruler-horizontal" />
+      <h6>Payment Type</h6>
+      <div className={styles.consultationPayment__radioGroup}>
+        <div>
+          <input
+            type="radio"
+            name="paymentType"
+            value="razorpay"
+            onChange={(e) => setPaymentType(e.target.value)}
+          />
+          Pay using Razorpay (INR) - only in India
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="paymentType"
+            value="paypal"
+            onChange={(e) => setPaymentType(e.target.value)}
+          />
+          Pay using Paypal (USD) - other than India
+        </div>
       </div>
-      <strong className={styles.Consultation_Paymentsummary}>
-        Payment Summary
-      </strong>{" "}
-      <div className={styles.tableborder} style={styles.PNR}>
-        <table className={styles.Consultation_Tables}>
-          <thead>
-            <tr>
-              <th className={styles.thtable}>#</th>
-              <th className={styles.thtable}>Description</th>
-              <th className={styles.thtable}>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className={styles.tabletd}>1</td>
-              <td className={styles.tabletd}>Consultation Fee</td>
-              <td className={styles.tabletd}>
-                INR {fees?.fee} (USD {fees?.fee})
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td className={styles.tabletd}>Total</td>
-              <td className={styles.tabletd}>
-                INR {fees?.fee} (USD {fees?.fee})
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div className={styles.applypromobutton}>
-          <input className={styles.inputpromo} placeholder="  Promo Code" />
-          <button className={styles.Applybutton}>Apply</button>
-        </div>
-        <br></br>
-      </div>
-      <div style={{ margin: "30px" }}>
-        <p className={styles.selectpayment}>Select payment type</p>
-        <div className={styles.inputradiobtn}>
-          <div className={styles.InputRadio}>
-            <input
-              type="radio"
-              className={styles.Consultation_RadioButtons}
-              id="00"
-            />
-
-            <span className={styles.ruzarpay}>
-              Pay with Razorpay(INR)-Only In India
-            </span>
-          </div>
-          <br></br>
-          <div className={styles.InputRadio}>
-            <input
-              type="radio"
-              className={styles.Consultation_RadioButtons}
-              id="01"
-            />
-
-            <span className={styles.paypal}>
-              {" "}
-              Pay with PayPal(USD)-Other than India
-            </span>
-          </div>
-        </div>
-        <div className={styles.paymentdiv}>
-          <button className={styles.Payment} onClick={displayRazorpay}>
-            Make Payment
-          </button>
-        </div>
+      <div className={styles.consultationPayment__makePaymentContainer}>
+        <button
+          className={styles.consultationPayment__makePayment}
+          onClick={displayRazorpay}
+        >
+          Make Payment
+        </button>
       </div>
     </div>
   );

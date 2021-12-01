@@ -1,0 +1,103 @@
+.consultationPayment__main {
+  label {
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      border: 1px solid #c9c9c9;
+      border-radius: 5px;
+      height: 2rem;
+      padding-left: 0.5rem;
+    }
+  }
+
+  h6 {
+    color: #ff8a00;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  table {
+    margin-top: 1rem;
+  }
+
+  thead {
+    font-size: 0.8rem;
+
+    :first-child {
+      width: 20%;
+    }
+
+    :not(:first-child) {
+      width: 40%;
+    }
+  }
+
+  tbody {
+    font-size: 0.7rem;
+  }
+
+  th,
+  td {
+    text-align: left;
+  }
+
+  .consultationPayment__promoContainer {
+    font-size: 0.7rem;
+
+    > div {
+      display: inline-flex;
+      gap: 1rem;
+
+      input {
+        height: 1.6rem;
+      }
+
+      button {
+        border: 0;
+        background: #ff8a00;
+        color: #fff;
+        border-radius: 5px;
+        padding: 0 1rem;
+      }
+    }
+  }
+
+  .consultationPayment__radioGroup {
+    margin-top: 1rem;
+    > div {
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      > input {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+
+    :first-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .consultationPayment__makePaymentContainer {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .consultationPayment__makePayment {
+    border: 0;
+    background: #ff8a00;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 auto;
+  }
+}

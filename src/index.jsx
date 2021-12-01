@@ -6,7 +6,7 @@ import DoctorsList from "./DoctorsList";
 import Header from "./header";
 import SlotBookAppointment from "./BookAppointment";
 
-import PaymentConsultation from "./Consultationpayment";
+import PaymentConsultation from "./ConsultationPayment";
 import "./index.css";
 import Facebook from "./facebook";
 import Blog from "./Blog";
