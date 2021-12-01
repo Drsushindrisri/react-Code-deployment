@@ -138,7 +138,12 @@ export const DoctorsList = (props) => {
               <button
                 className={styles.doctorsList__consultButton}
                 onClick={() => {
-                  props.history.push("/OrgDoctorFees");
+                  props.history.push({
+                    pathname: "/OrgDoctorFees",
+                    state: {
+                      docId: item.docId,
+                    },
+                  });
                 }}
               >
                 Consult online

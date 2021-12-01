@@ -7,10 +7,13 @@ import styles from "./sass/Blogs.module.scss";
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [visualStoriesList, setVisualStoriesList] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getBlogs();
     getVisualStories();
+    getBlogCategories();
   }, []);
 
   const getVisualStories = async () => {
@@ -24,6 +27,13 @@ const Blogs = ({ history }) => {
     try {
       const data = await fetchData("getOrganizationBlogs");
       setBlogsList(data);
+    } catch (error) {}
+  };
+
+  const getBlogCategories = async () => {
+    try {
+      const data = await fetchData("getCategoryList");
+      setCategoriesList(data);
     } catch (error) {}
   };
 
@@ -50,6 +60,20 @@ const Blogs = ({ history }) => {
               })
             }
           />
+        ))}
+      </div>
+      <div className={styles.blogs__categoriesContainer}>
+        {categoriesList.map((item, ind) => (
+          <div
+            className={`${styles.blog__categoryItem} ${
+              selectedCategory === item?.categoryName &&
+              styles.blog__categoryItemSelected
+            }`}
+            key={uid(ind)}
+            onClick={() => setSelectedCategory(item?.categoryName)}
+          >
+            {item?.categoryName}
+          </div>
         ))}
       </div>
       <h5>Blogs</h5>
