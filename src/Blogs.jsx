@@ -46,7 +46,7 @@ const Blogs = ({ history }) => {
   };
 
   return (
-    <div className={`page-content ${styles.blogs__main}`}>
+    <div className={`page-safeareas ${styles.blogs__main}`}>
       <h5>Visual Stories </h5>
       <div className={styles.visualStoriesContainer}>
         {visualStoriesList.map((it, ind) => (

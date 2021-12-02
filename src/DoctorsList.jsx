@@ -67,8 +67,8 @@ export const DoctorsList = (props) => {
   const handleSelectedDoctor = (index) => setSelectedDoctor(index);
 
   return (
-    <div className={`page-content ${styles.doctorsList__main}`}>
-      <h3>Doctors</h3>
+    <div className={`page-safeareas ${styles.doctorsList__main}`}>
+      <h3 className="page-header">Doctors</h3>
       <div className={styles.doctorsList__searchBar}>
         <RiSearchLine />
         <input
@@ -106,7 +106,7 @@ export const DoctorsList = (props) => {
                 alt={item.docName}
               />
               <div>
-                <p>{item.docName}</p>
+                <p className={styles.doctorsList__doctorName}>{item.docName}</p>
                 <p className={styles.doctorsList__qualification}>
                   {item.docEduQualification.slice(0, 15)}
                   {item.docEduQualification.length > 15 && "..."}

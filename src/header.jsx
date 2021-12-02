@@ -6,14 +6,23 @@ import styles from "./sass/AppNew.module.scss";
 const Header = () => {
   const history = useHistory();
 
+  const pathname = window.location.pathname;
+
+  const showBack =
+    pathname === "Slot-BookAppointment" ||
+    pathname === "OrgDoctorFees" ||
+    pathname === "blog/";
+
   return (
     <header className={styles.header__main}>
       <span className={styles.header__wave}>
         <img src="/header-wave.png" alt="Wave" />
       </span>
-      <span onClick={() => history.goBack()} className={styles.header__arrow}>
-        <FaChevronLeft />
-      </span>
+      {showBack && (
+        <span onClick={() => history.goBack()} className={styles.header__arrow}>
+          <FaChevronLeft />
+        </span>
+      )}
     </header>
   );
 };

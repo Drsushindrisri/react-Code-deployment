@@ -118,7 +118,7 @@ const PaymentConsultation = (props) => {
   }
 
   return (
-    <div className={`page-content ${styles.consultationPayment__main}`}>
+    <div className={`page-safeareas ${styles.consultationPayment__main}`}>
       <label htmlFor="reasonInput">
         Reason for your consultation
         <input id="reasonInput" />

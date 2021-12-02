@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { App } from "./AppNew";
+import Treatments from "./Treatments";
 import DoctorsList from "./DoctorsList";
 import Header from "./header";
 import SlotBookAppointment from "./BookAppointment";
-
 import PaymentConsultation from "./ConsultationPayment";
 import "./index.css";
 import Facebook from "./facebook";
@@ -27,7 +26,7 @@ function RootApp() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/" component={App} />
+          <Route exact path="/" component={Treatments} />
           <Route exact path="/doctors-list" component={DoctorsList} />
           <Route
             exact
