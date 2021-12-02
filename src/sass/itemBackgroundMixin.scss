@@ -1,0 +1,10 @@
+@mixin itemBackground($fSize: 0.7rem) {
+  border-radius: 10px;
+  background-color: #fff6ed;
+  border: 1px solid #ffcc92;
+  color: #ff9d2e;
+  padding: 0.2rem 1rem;
+  font-size: $fSize;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}

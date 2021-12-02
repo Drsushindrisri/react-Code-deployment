@@ -6,8 +6,7 @@
 }
 
 .bookAppointment__main {
-  background-color: #ff9d2e;
-  padding-top: 3rem;
+  background-color: #fff;
 
   > * {
     padding: 0.5rem 1rem;
@@ -35,11 +34,6 @@
     margin: 0;
     margin-bottom: 1rem;
   }
-
-  > p,
-  > h3 {
-    color: #fff;
-  }
 }
 
 .bookAppointment__doctorInfos {
@@ -50,7 +44,6 @@
     > span {
       display: block;
       text-align: center;
-      color: #fff;
     }
 
     :first-child {
@@ -64,8 +57,10 @@
 }
 
 .bookAppointment__availableSlots {
-  background-color: #fff;
+  background-color: #fcfcfc;
+  box-shadow: 6px 6px 12px #a2a2a2, -6px -6px 12px #ffffff;
   border-radius: 1rem 1rem 0 0;
+  margin-top: 1rem;
   padding-block: 1.5rem;
   height: 100%;
 
