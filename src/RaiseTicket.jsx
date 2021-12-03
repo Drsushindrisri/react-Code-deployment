@@ -64,6 +64,9 @@ function RaiseTicket() {
             <span className={styles.raiseTicket__error}>{errors.issue}</span>
           )}
         </div>
+        <div className={styles.raiseTicket__buttonContainer}>
+          <button>Submit</button>
+        </div>
       </form>
     </div>
   );

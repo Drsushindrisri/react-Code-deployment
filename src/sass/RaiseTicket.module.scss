@@ -49,6 +49,20 @@
       height: 8.5rem;
     }
   }
+
+  .raiseTicket__buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    border: 0;
+    background: #ff8a00;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
+  }
 }
 
 .raiseTicket__error {
