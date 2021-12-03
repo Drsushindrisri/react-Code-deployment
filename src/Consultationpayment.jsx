@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./sass/ConsultationPayment.module.scss";
 import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
+import { randomTen } from "./utils/randomTen";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -46,7 +47,7 @@ const PaymentConsultation = (props) => {
 
   async function getPaymentConsultation() {
     try {
-      const resp = await fetchData("getOrgDoctorFees");
+      const resp = await fetchData("getcheckout");
       setFees(
         resp.find((doc) => doc.mainprovider_id == props?.location?.state?.docId)
       );
@@ -84,10 +85,10 @@ const PaymentConsultation = (props) => {
       name: "S10 safecare",
       description: "Test Transaction",
       image: "{ logo }",
-      order_id: "order_12345678",
+      order_id: `order_${randomTen()}`,
       handler: async (response) => {
         const data = {
-          orderCreationId: "order_12345678",
+          orderCreationId: `order_${randomTen()}`,
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
           razorpaySignature: response.razorpay_signature,

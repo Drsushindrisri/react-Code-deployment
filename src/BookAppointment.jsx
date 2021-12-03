@@ -148,7 +148,7 @@ const SlotBookAppointment = (props) => {
           onClick={() => {
             if (selectedTime) {
               props.history.push({
-                pathname: "/OrgDoctorFees",
+                pathname: "/checkout",
                 state: { docId: doctorDetails.id },
               });
             }

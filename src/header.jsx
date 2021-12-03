@@ -9,8 +9,8 @@ const Header = () => {
   const pathname = window.location.pathname;
 
   const showBack =
-    pathname === "Slot-BookAppointment" ||
-    pathname === "OrgDoctorFees" ||
+    pathname === "available-slots" ||
+    pathname === "checkout" ||
     pathname === "blog/";
 
   return (
