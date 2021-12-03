@@ -123,7 +123,7 @@ export const DoctorsList = (props) => {
                 className={styles.doctorsList__bookButton}
                 onClick={() => {
                   props.history.push({
-                    pathname: "/Slot-BookAppointment",
+                    pathname: "/available-slots",
                     state: {
                       name: item.docName,
                       image: item.docProfileImg,
@@ -139,7 +139,7 @@ export const DoctorsList = (props) => {
                 className={styles.doctorsList__consultButton}
                 onClick={() => {
                   props.history.push({
-                    pathname: "/OrgDoctorFees",
+                    pathname: "/checkout",
                     state: {
                       docId: item.docId,
                     },

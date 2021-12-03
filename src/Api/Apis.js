@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const fetchData = async (actionVal, payloadType, body) => {
   const payload = new FormData();
+
   if (payloadType === "formData") {
     for (const key in body) {
       payload.append(key, body[key]);
