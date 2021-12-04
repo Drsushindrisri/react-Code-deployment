@@ -3,12 +3,12 @@ import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
 import Carousel from "react-elastic-carousel";
 import styles from "./sass/Blogs.module.scss";
+import BlogsCategories from "./BlogsCategories";
 
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [visualStoriesList, setVisualStoriesList] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getBlogs();
@@ -62,20 +62,7 @@ const Blogs = ({ history }) => {
           />
         ))}
       </div>
-      <div className={styles.blogs__categoriesContainer}>
-        {categoriesList.map((item, ind) => (
-          <div
-            className={`${styles.blog__categoryItem} ${
-              selectedCategory === item?.categoryName &&
-              styles.blog__categoryItemSelected
-            }`}
-            key={uid(ind)}
-            onClick={() => setSelectedCategory(item?.categoryName)}
-          >
-            {item?.categoryName}
-          </div>
-        ))}
-      </div>
+      <BlogsCategories categoriesList={categoriesList} />
       <h5>Blogs</h5>
       <Carousel {...obj}>
         {blogsList.map(({ blogId, blog_title }, ind) => (
@@ -84,7 +71,7 @@ const Blogs = ({ history }) => {
             onClick={() =>
               history.push({
                 pathname: `/blog/${blog_title}`,
-                state: { blogId },
+                state: { blogId, categoriesList },
               })
             }
             className={styles.blogs__blogItem}

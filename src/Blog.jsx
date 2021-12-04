@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "./Api/Apis";
+import BlogsCategories from "./BlogsCategories";
 import styles from "./sass/Blog.module.scss";
 
 const Blog = (props) => {
@@ -19,6 +20,7 @@ const Blog = (props) => {
   };
 
   const blogId = props?.location?.state?.blogId;
+  const categoriesList = props?.location?.state?.categoriesList;
 
   const getBlog = async () => {
     try {
@@ -55,6 +57,7 @@ const Blog = (props) => {
           <ArrowUp />
         </div>
       </div>
+      <BlogsCategories categoriesList={categoriesList} />
     </div>
   );
 };
