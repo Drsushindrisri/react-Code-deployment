@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchData = async (actionVal, payloadType, body) => {
+export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
   const payload = new FormData();
 
   if (payloadType === "formData") {
@@ -15,7 +15,7 @@ export const fetchData = async (actionVal, payloadType, body) => {
       url: process.env.REACT_APP_URL_PROD,
       params: {
         actionVal,
-        moduleVal: "Support",
+        moduleVal: moduleVal || "Support",
         ...(payloadType === "query" && { ...body }),
       },
       headers: {

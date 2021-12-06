@@ -11,7 +11,27 @@
 
 .blogs__main {
   .blogs__blogItem {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+
+    > img {
+      height: 6.25rem;
+      width: 100%;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .blogs__blogItemFooter {
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .blogs__blogTitle {
+        font-size: 0.8rem;
+      }
+    }
   }
 
   h5 {
@@ -52,5 +72,32 @@
   > .blog__categoryItemSelected {
     background-color: #ff8a00;
     color: #fff;
+  }
+}
+
+.blogs__likeButton {
+  svg {
+    font-size: 1rem;
+    animation-name: bounce;
+    transition: color 0.2s ease-in-out;
+    animation-duration: 0.2s;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+  }
+}
+
+.blogs__likeButtonFilled {
+  svg {
+    color: #d90429;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
   }
 }

@@ -6,13 +6,15 @@ const VisualStories = ({
     state: { visualStoriesList, currentIndex },
   },
 }) => (
-  <Stories
-    stories={visualStoriesList}
-    defaultInterval={1500}
-    width="100vw"
-    height="100vh"
-    currentIndex={currentIndex}
-  />
+  <div className="visualStories__styles">
+    <Stories
+      stories={visualStoriesList}
+      defaultInterval={1500}
+      width="100vw"
+      height="100vh"
+      currentIndex={currentIndex}
+    />
+  </div>
 );
 
 export default VisualStories;

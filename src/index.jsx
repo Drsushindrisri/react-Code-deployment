@@ -16,7 +16,7 @@ function RootApp() {
   }, []);
 
   return (
-    <div>
+    <div className="root-container">
       <BrowserRouter>
         <Header />
         <Switch>

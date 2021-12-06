@@ -3,7 +3,9 @@ import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
 import Carousel from "react-elastic-carousel";
 import styles from "./sass/Blogs.module.scss";
+import "./sass/Blogs.scss";
 import BlogsCategories from "./BlogsCategories";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);
@@ -25,8 +27,25 @@ const Blogs = ({ history }) => {
 
   const getBlogs = async () => {
     try {
-      const data = await fetchData("getOrganizationBlogs");
+      const data = await fetchData(
+        "getOrganizationBlogs",
+        "formData",
+        { User_ID: 235 },
+        "Fitapp"
+      );
       setBlogsList(data);
+    } catch (error) {}
+  };
+
+  const likeBlog = async (blogId) => {
+    try {
+      const data = await fetchData(
+        "saveOrganizationBlogsLikes",
+        "formData",
+        { blogId, User_ID: 235 },
+        "Fitapp"
+      );
+      getBlogs();
     } catch (error) {}
   };
 
@@ -41,8 +60,9 @@ const Blogs = ({ history }) => {
     itemsToScroll: 1,
     itemsToShow: 1,
     showArrows: false,
-    enableAutoPlay: true,
+    enableAutoPlay: false,
     itemPadding: [0, 10, 0, 10],
+    className: "blogs_carousel",
   };
 
   return (
@@ -65,23 +85,31 @@ const Blogs = ({ history }) => {
       <BlogsCategories categoriesList={categoriesList} />
       <h5>Blogs</h5>
       <Carousel {...obj}>
-        {blogsList.map(({ blogId, blog_title }, ind) => (
-          <div
-            key={uid(ind)}
-            onClick={() =>
-              history.push({
-                pathname: `/blog/${blog_title}`,
-                state: { blogId, categoriesList },
-              })
-            }
-            className={styles.blogs__blogItem}
-          >
+        {blogsList.map(({ blogId, blog_title, image, userLiked }, ind) => (
+          <div key={uid(ind)} className={styles.blogs__blogItem}>
             <img
-              src="https://staging.s10health.in/contentImg/960x540/16355732232330.jpg"
-              alt=""
-              height={150}
+              src={image}
+              alt={blog_title}
+              onClick={() =>
+                history.push({
+                  pathname: `/blog/${blogId}`,
+                  state: { blogId, categoriesList },
+                })
+              }
             />
-            {blog_title}
+            <div className={styles.blogs__blogItemFooter}>
+              <span className={styles.blogs__blogTitle}>{blog_title}</span>
+              <span
+                className={`${styles.blogs__likeButton} ${
+                  userLiked && styles.blogs__likeButtonFilled
+                }`}
+                onClick={() => {
+                  likeBlog(blogId);
+                }}
+              >
+                {userLiked ? <IoIosHeart /> : <IoIosHeartEmpty />}
+              </span>
+            </div>
           </div>
         ))}
       </Carousel>

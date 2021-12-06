@@ -66,6 +66,19 @@ export const DoctorsList = (props) => {
 
   const handleSelectedDoctor = (index) => setSelectedDoctor(index);
 
+  const goToSlots = (doctor, type) => {
+    props.history.push({
+      pathname: "/available-slots",
+      state: {
+        name: doctor.docName,
+        image: doctor.docProfileImg,
+        speciality: doctor.speciality_name,
+        id: doctor.docId,
+        type,
+      },
+    });
+  };
+
   return (
     <div className={`page-safeareas ${styles.doctorsList__main}`}>
       <h3 className="page-header">Doctors</h3>
@@ -121,30 +134,13 @@ export const DoctorsList = (props) => {
             >
               <button
                 className={styles.doctorsList__bookButton}
-                onClick={() => {
-                  props.history.push({
-                    pathname: "/available-slots",
-                    state: {
-                      name: item.docName,
-                      image: item.docProfileImg,
-                      speciality: item.speciality_name,
-                      id: item.docId,
-                    },
-                  });
-                }}
+                onClick={() => goToSlots(item, "book")}
               >
                 Book appointment
               </button>
               <button
                 className={styles.doctorsList__consultButton}
-                onClick={() => {
-                  props.history.push({
-                    pathname: "/checkout",
-                    state: {
-                      docId: item.docId,
-                    },
-                  });
-                }}
+                onClick={() => goToSlots(item, "consult")}
               >
                 Consult online
               </button>
