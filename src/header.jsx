@@ -9,9 +9,9 @@ const Header = () => {
   const pathname = window.location.pathname;
 
   const showBack =
-    pathname === "available-slots" ||
-    pathname === "checkout" ||
-    pathname === "blog/";
+    pathname.includes("available-slots") ||
+    pathname.includes("checkout") ||
+    pathname.includes("blog");
 
   return (
     <header className={styles.header__main}>

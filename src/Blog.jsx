@@ -15,6 +15,7 @@ import { useParams } from "react-router";
 const Blog = (props) => {
   const [blog, setBlog] = useState({});
   const [visualStoriesList, setVisualStoriesList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getBlog();
@@ -68,7 +69,7 @@ const Blog = (props) => {
     <div className={`page-safeareas ${styles.blog__main}`}>
       <VisualStoriesList list={visualStoriesList} history={props.history} />
       <div className="ruler-horizontal" />
-      <BlogsCategories />
+      <BlogsCategories onChange={(newCat) => setSelectedCategory(newCat)} />
 
       <img
         src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
