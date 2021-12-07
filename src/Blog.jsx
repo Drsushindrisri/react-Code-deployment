@@ -32,7 +32,6 @@ const Blog = (props) => {
   const params = useParams();
 
   const blogId = params?.id;
-  const categoriesList = props?.location?.state?.categoriesList;
 
   const getBlog = async () => {
     try {
@@ -69,7 +68,7 @@ const Blog = (props) => {
     <div className={`page-safeareas ${styles.blog__main}`}>
       <VisualStoriesList list={visualStoriesList} history={props.history} />
       <div className="ruler-horizontal" />
-      <BlogsCategories categoriesList={categoriesList} />
+      <BlogsCategories />
 
       <img
         src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"

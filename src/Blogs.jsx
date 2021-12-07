@@ -30,12 +30,10 @@ export const VisualStoriesList = ({ list, history }) => (
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [visualStoriesList, setVisualStoriesList] = useState([]);
-  const [categoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
     getBlogs();
     getVisualStories();
-    getBlogCategories();
   }, []);
 
   const getVisualStories = async () => {
@@ -69,13 +67,6 @@ const Blogs = ({ history }) => {
     } catch (error) {}
   };
 
-  const getBlogCategories = async () => {
-    try {
-      const data = await fetchData("getCategoryList");
-      setCategoriesList(data);
-    } catch (error) {}
-  };
-
   const obj = {
     itemsToScroll: 1,
     itemsToShow: 1,
@@ -89,7 +80,7 @@ const Blogs = ({ history }) => {
     <div className={`page-safeareas ${styles.blogs__main}`}>
       <VisualStoriesList list={visualStoriesList} history={history} />
       <div className="ruler-horizontal" />
-      <BlogsCategories categoriesList={categoriesList} />
+      <BlogsCategories />
       <h5>Blogs</h5>
       <Carousel {...obj}>
         {blogsList.map(({ blogId, blog_title, image, userLiked }, ind) => (
@@ -100,7 +91,7 @@ const Blogs = ({ history }) => {
               onClick={() =>
                 history.push({
                   pathname: `/blog/${blogId}`,
-                  state: { blogId, categoriesList },
+                  state: { blogId },
                 })
               }
             />

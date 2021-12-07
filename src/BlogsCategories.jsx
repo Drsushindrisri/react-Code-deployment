@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uid } from "react-uid";
 import { HiFilter } from "react-icons/hi";
 import styles from "./sass/Blogs.module.scss";
+import { fetchData } from "./Api/Apis";
 
-const BlogsCategories = ({ categoriesList }) => {
+const BlogsCategories = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  useEffect(() => {
+    getBlogCategories();
+  }, []);
+
+  const getBlogCategories = async () => {
+    try {
+      const data = await fetchData("getCategoryList");
+      setCategoriesList(data);
+    } catch (error) {}
+  };
 
   return (
     <div className={styles.blogs__categories__wrapper}>
