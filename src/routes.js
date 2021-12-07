@@ -16,6 +16,6 @@ export const Routes = [
   { route: "/join-fb", component: Facebook },
   { route: "/blogs", component: Blogs },
   { route: "/stories", component: VisualStories },
-  { route: "/blog/:title", component: Blog },
+  { route: "/blog/:id", component: Blog },
   { route: "/raise-ticket", component: RaiseTicket },
 ];

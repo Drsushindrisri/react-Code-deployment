@@ -36,28 +36,37 @@
 
   h5 {
     margin: 0;
-    margin-block: 1rem;
   }
+}
 
-  .visualStoriesContainer {
-    display: flex;
-    min-height: min-content;
-    overflow-x: scroll;
-    padding: 1rem;
-    gap: 1rem;
-    margin-bottom: 2rem;
+.visualStoriesContainer {
+  display: flex;
+  min-height: min-content;
+  overflow-x: scroll;
+  padding: 1rem;
+  gap: 1rem;
 
-    img {
-      width: 4.5rem;
-      height: 8rem;
-      border-radius: 10px;
-      box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-    }
+  img {
+    width: 4.5rem;
+    height: 8rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  }
+}
+
+.blogs__categories__wrapper {
+  margin-block: 1.7rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  height: max-content;
+
+  > svg {
+    font-size: 2.5rem;
   }
 }
 
 .blogs__categoriesContainer {
-  margin-block: 2rem;
   display: flex;
   gap: 1rem;
   align-items: center;

@@ -1,14 +1,24 @@
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "./Api/Apis";
+import { VisualStoriesList } from "./Blogs";
 import BlogsCategories from "./BlogsCategories";
 import styles from "./sass/Blog.module.scss";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+  EmailShareButton,
+} from "react-share";
+import { useParams } from "react-router";
 
 const Blog = (props) => {
   const [blog, setBlog] = useState({});
+  const [visualStoriesList, setVisualStoriesList] = useState([]);
 
   useEffect(() => {
     getBlog();
+    getVisualStories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -19,7 +29,9 @@ const Blog = (props) => {
     });
   };
 
-  const blogId = props?.location?.state?.blogId;
+  const params = useParams();
+
+  const blogId = params?.id;
   const categoriesList = props?.location?.state?.categoriesList;
 
   const getBlog = async () => {
@@ -29,35 +41,65 @@ const Blog = (props) => {
     } catch (error) {}
   };
 
+  const getVisualStories = async () => {
+    try {
+      const data = await fetchData("getVisualStories");
+      setVisualStoriesList(data.map((item) => item?.image || ""));
+    } catch (error) {}
+  };
+
+  const handleShare = (postTitle) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "",
+          text: `Check out ${postTitle} on S10-fit`,
+          url: document.location.href,
+        })
+        .then(() => {
+          console.log("Successfully shared");
+        })
+        .catch((error) => {
+          console.error("Something went wrong sharing the blog", error);
+        });
+    }
+  };
+
   return (
-    <div className={styles.blog__main}>
-      <figure>
-        <img
-          src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
-          alt=""
-        />
-        <figcaption></figcaption>
-      </figure>
+    <div className={`page-safeareas ${styles.blog__main}`}>
+      <VisualStoriesList list={visualStoriesList} history={props.history} />
+      <div className="ruler-horizontal" />
+      <BlogsCategories categoriesList={categoriesList} />
+
+      <img
+        src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
+        alt=""
+      />
       <div className={styles.blog__content}>
-        <div className={styles.blog__timeAndShare}>
-          <div className={styles.blog__time}>{format(new Date(), "PPP")}</div>
-        </div>
         <h3>{blog?.blog_title}</h3>
+        <div className={styles.blog__time}>{format(new Date(), "PPP")}</div>
+        <div className={styles.blog__shareContainer}>
+          <FacebookShareButton url={window.location.href}>
+            <FBIcon />
+          </FacebookShareButton>
+          <WhatsappShareButton url={window.location.href}>
+            <WAIcon />
+          </WhatsappShareButton>
+          <TwitterShareButton url={window.location.href}>
+            <TWIcon />
+          </TwitterShareButton>
+          <EmailShareButton url={window.location.href}>
+            <MailIcon />
+          </EmailShareButton>
+          <button onClick={() => handleShare(blog?.blog_title)}>
+            <ShareIcon />
+          </button>
+        </div>
         <p>{blog?.description}</p>
       </div>
-      <div className={styles.blog__end}>
-        <div className={styles.blog__shareContainer}>
-          <FBIcon />
-          <WAIcon />
-          <TWIcon />
-          <MailIcon />
-          <ShareIcon />
-        </div>
-        <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
-          <ArrowUp />
-        </div>
+      <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
+        <ArrowUp />
       </div>
-      <BlogsCategories categoriesList={categoriesList} />
     </div>
   );
 };
@@ -135,8 +177,8 @@ const MailIcon = () => (
 const ShareIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
+    width="18"
+    height="18"
     fill="currentColor"
     class="bi bi-share"
     viewBox="0 0 16 16"

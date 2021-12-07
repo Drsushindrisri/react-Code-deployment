@@ -7,6 +7,26 @@ import "./sass/Blogs.scss";
 import BlogsCategories from "./BlogsCategories";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
+export const VisualStoriesList = ({ list, history }) => (
+  <>
+    <h5>Visual Stories</h5>
+    <div className={styles.visualStoriesContainer}>
+      {list.map((it, ind) => (
+        <img
+          src={it}
+          alt={`story-${ind + 1}`}
+          onClick={() =>
+            history.push({
+              pathname: "/stories",
+              state: { visualStoriesList: list, currentIndex: ind },
+            })
+          }
+        />
+      ))}
+    </div>
+  </>
+);
+
 const Blogs = ({ history }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [visualStoriesList, setVisualStoriesList] = useState([]);
@@ -21,7 +41,7 @@ const Blogs = ({ history }) => {
   const getVisualStories = async () => {
     try {
       const data = await fetchData("getVisualStories");
-      setVisualStoriesList(data.map((item) => item.image));
+      setVisualStoriesList(data.map((item) => item?.image || ""));
     } catch (error) {}
   };
 
@@ -37,12 +57,12 @@ const Blogs = ({ history }) => {
     } catch (error) {}
   };
 
-  const likeBlog = async (blogId) => {
+  const likeBlog = async (blog_id) => {
     try {
       const data = await fetchData(
         "saveOrganizationBlogsLikes",
         "formData",
-        { blogId, User_ID: 235 },
+        { blog_id, User_ID: 235 },
         "Fitapp"
       );
       getBlogs();
@@ -67,21 +87,8 @@ const Blogs = ({ history }) => {
 
   return (
     <div className={`page-safeareas ${styles.blogs__main}`}>
-      <h5>Visual Stories </h5>
-      <div className={styles.visualStoriesContainer}>
-        {visualStoriesList.map((it, ind) => (
-          <img
-            src={it}
-            alt={`story-${ind + 1}`}
-            onClick={() =>
-              history.push({
-                pathname: "/stories",
-                state: { visualStoriesList, currentIndex: ind },
-              })
-            }
-          />
-        ))}
-      </div>
+      <VisualStoriesList list={visualStoriesList} history={history} />
+      <div className="ruler-horizontal" />
       <BlogsCategories categoriesList={categoriesList} />
       <h5>Blogs</h5>
       <Carousel {...obj}>
