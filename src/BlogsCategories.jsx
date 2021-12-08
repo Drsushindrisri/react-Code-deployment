@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import { uid } from "react-uid";
-import { HiFilter } from "react-icons/hi";
+import { HiFilter, HiOutlineFilter } from "react-icons/hi";
 import styles from "./sass/Blogs.module.scss";
 import { fetchData } from "./Api/Apis";
 
-const BlogsCategories = ({ onChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+const BlogsCategories = ({ onChange, selectedCategory }) => {
   const [categoriesList, setCategoriesList] = useState([]);
 
   useEffect(() => {
     getBlogCategories();
   }, []);
-
-  useEffect(() => {
-    onChange(selectedCategory);
-  }, [selectedCategory]);
 
   const getBlogCategories = async () => {
     try {
@@ -25,7 +20,7 @@ const BlogsCategories = ({ onChange }) => {
 
   return (
     <div className={styles.blogs__categories__wrapper}>
-      <HiFilter />
+      {selectedCategory ? <HiFilter /> : <HiOutlineFilter />}
       <div className={styles.blogs__categoriesContainer}>
         {categoriesList.map((item, ind) => (
           <div
@@ -34,7 +29,7 @@ const BlogsCategories = ({ onChange }) => {
               styles.blog__categoryItemSelected
             }`}
             key={uid(ind)}
-            onClick={() => setSelectedCategory(item?.category_id)}
+            onClick={() => onChange(item?.category_id)}
           >
             {item?.categoryName}
           </div>

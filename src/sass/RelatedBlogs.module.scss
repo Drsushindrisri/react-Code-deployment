@@ -1,0 +1,41 @@
+.relatedBlogs__main {
+  h4 {
+    color: #ff8a00;
+    margin: 0;
+  }
+
+  margin-bottom: 3rem;
+
+  .relatedBlogs__container {
+    display: flex;
+    overflow: scroll;
+    gap: 1rem;
+    padding: 1rem 0.2rem;
+  }
+
+  .relatedBlogs__blogItem {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 5px;
+    height: 12.5rem;
+
+    > img {
+      height: 6.5rem;
+      width: 10rem;
+      border-radius: 5px 5px 0px 0px;
+    }
+
+    > div {
+      margin: 0 0.6rem;
+      h5 {
+        color: #ff8a00;
+        letter-spacing: 0.01em;
+      }
+
+      > span {
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

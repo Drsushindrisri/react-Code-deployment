@@ -85,7 +85,10 @@ const Blogs = ({ history }) => {
     <div className={`page-safeareas ${styles.blogs__main}`}>
       <VisualStoriesList list={visualStoriesList} history={history} />
       <div className="ruler-horizontal" />
-      <BlogsCategories onChange={(newCat) => setSelectedCategory(newCat)} />
+      <BlogsCategories
+        selectedCategory={selectedCategory}
+        onChange={(newCat) => setSelectedCategory(newCat)}
+      />
       <h5>Blogs</h5>
       <Carousel {...obj}>
         {(selectedCategory ? filteredList : blogsList).map(

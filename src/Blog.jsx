@@ -11,17 +11,49 @@ import {
   EmailShareButton,
 } from "react-share";
 import { useParams } from "react-router";
+import { uid } from "react-uid";
+import { Link } from "react-router-dom";
+import { dateStringToDate } from "./utils/dateStringToDate";
+import RelatedBlogs from "./RelatedBlogs";
+import { getScrollPos } from "./utils/getScrollPos";
+
+const BlogsByCategory = ({ blogs }) => (
+  <div className={styles.blog__blogsByCategory__main}>
+    {blogs.map((blog, ind) => (
+      <div className={styles.blog__blogsByCategory__item} key={uid(ind)}>
+        <h4>{blog?.blog_title}</h4>
+        {blog?.postdate && (
+          <span>{format(dateStringToDate(blog?.postdate), "PPP")}</span>
+        )}
+        <p>{blog?.description && blog.description.slice(0, 100)}...</p>
+        <Link to={`${blog?.blogId}`}>
+          Read more <ArrowRight />{" "}
+        </Link>
+      </div>
+    ))}
+  </div>
+);
 
 const Blog = (props) => {
   const [blog, setBlog] = useState({});
   const [visualStoriesList, setVisualStoriesList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    getBlog();
+    getBlogs();
     getVisualStories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (params?.id) {
+      getBlog(params?.id);
+    }
+    // eslint-disable-next-line no-use-before-define
+  }, [params?.id]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -30,14 +62,25 @@ const Blog = (props) => {
     });
   };
 
-  const params = useParams();
-
-  const blogId = params?.id;
-
-  const getBlog = async () => {
+  const getBlog = async (blogId) => {
     try {
       const data = await fetchData("viewBlogs", "reqBody", { blogId });
       setBlog(data);
+      if (getScrollPos() !== 0) {
+        scrollToTop();
+      }
+    } catch (error) {}
+  };
+
+  const getBlogs = async () => {
+    try {
+      const data = await fetchData(
+        "getOrganizationBlogs",
+        "formData",
+        { User_ID: 235 },
+        "Fitapp"
+      );
+      setBlogs(data);
     } catch (error) {}
   };
 
@@ -65,41 +108,61 @@ const Blog = (props) => {
     }
   };
 
+  const filteredList = blogs.filter(
+    (obj) => obj.category_id === selectedCategory
+  );
+
   return (
     <div className={`page-safeareas ${styles.blog__main}`}>
       <VisualStoriesList list={visualStoriesList} history={props.history} />
       <div className="ruler-horizontal" />
-      <BlogsCategories onChange={(newCat) => setSelectedCategory(newCat)} />
-
-      <img
-        src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
-        alt=""
+      <BlogsCategories
+        selectedCategory={selectedCategory}
+        onChange={(newCat) => setSelectedCategory(newCat)}
       />
-      <div className={styles.blog__content}>
-        <h3>{blog?.blog_title}</h3>
-        <div className={styles.blog__time}>{format(new Date(), "PPP")}</div>
-        <div className={styles.blog__shareContainer}>
-          <FacebookShareButton url={window.location.href}>
-            <FBIcon />
-          </FacebookShareButton>
-          <WhatsappShareButton url={window.location.href}>
-            <WAIcon />
-          </WhatsappShareButton>
-          <TwitterShareButton url={window.location.href}>
-            <TWIcon />
-          </TwitterShareButton>
-          <EmailShareButton url={window.location.href}>
-            <MailIcon />
-          </EmailShareButton>
-          <button onClick={() => handleShare(blog?.blog_title)}>
-            <ShareIcon />
-          </button>
-        </div>
-        <p>{blog?.description}</p>
-      </div>
-      <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
-        <ArrowUp />
-      </div>
+      {selectedCategory ? (
+        <BlogsByCategory blogs={filteredList} />
+      ) : (
+        <>
+          <img
+            src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
+            alt=""
+          />
+          <div className={styles.blog__content}>
+            <h3>{blog?.blog_title}</h3>
+            {blog?.time && (
+              <div className={styles.blog__time}>
+                {format(dateStringToDate(blog?.time), "PPP")}
+              </div>
+            )}
+
+            <div className={styles.blog__shareContainer}>
+              <FacebookShareButton url={window.location.href}>
+                <FBIcon />
+              </FacebookShareButton>
+              <WhatsappShareButton url={window.location.href}>
+                <WAIcon />
+              </WhatsappShareButton>
+              <TwitterShareButton url={window.location.href}>
+                <TWIcon />
+              </TwitterShareButton>
+              <EmailShareButton url={window.location.href}>
+                <MailIcon />
+              </EmailShareButton>
+              <button onClick={() => handleShare(blog?.blog_title)}>
+                <ShareIcon />
+              </button>
+            </div>
+            <p>{blog?.description}</p>
+          </div>
+          <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
+            <ArrowUp />
+          </div>
+        </>
+      )}
+      <div className="ruler-horizontal" />
+
+      <RelatedBlogs blog_id={params?.id} />
     </div>
   );
 };
@@ -184,5 +247,21 @@ const ShareIcon = () => (
     viewBox="0 0 16 16"
   >
     <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+  </svg>
+);
+
+export const ArrowRight = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    class="bi bi-arrow-right"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+    />
   </svg>
 );
