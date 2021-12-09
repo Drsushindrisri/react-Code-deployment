@@ -17,16 +17,22 @@ import { dateStringToDate } from "./utils/dateStringToDate";
 import RelatedBlogs from "./RelatedBlogs";
 import { getScrollPos } from "./utils/getScrollPos";
 
-const BlogsByCategory = ({ blogs }) => (
+const BlogsByCategory = ({ blogs, setSelectedCategory }) => (
   <div className={styles.blog__blogsByCategory__main}>
     {blogs.map((blog, ind) => (
-      <div className={styles.blog__blogsByCategory__item} key={uid(ind)}>
+      <div
+        className={`${styles.blog__blogsByCategory__item} ${
+          ind < blogs.length - 1 &&
+          styles.blog__blogsByCategory__item__with_border
+        }`}
+        key={uid(ind)}
+      >
         <h4>{blog?.blog_title}</h4>
         {blog?.postdate && (
           <span>{format(dateStringToDate(blog?.postdate), "PPP")}</span>
         )}
         <p>{blog?.description && blog.description.slice(0, 100)}...</p>
-        <Link to={`${blog?.blogId}`}>
+        <Link to={`${blog?.blogId}`} onClick={() => setSelectedCategory("")}>
           Read more <ArrowRight />{" "}
         </Link>
       </div>
@@ -121,7 +127,10 @@ const Blog = (props) => {
         onChange={(newCat) => setSelectedCategory(newCat)}
       />
       {selectedCategory ? (
-        <BlogsByCategory blogs={filteredList} />
+        <BlogsByCategory
+          blogs={filteredList}
+          setSelectedCategory={setSelectedCategory}
+        />
       ) : (
         <>
           <img

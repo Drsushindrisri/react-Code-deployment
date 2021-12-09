@@ -64,7 +64,6 @@
 }
 
 .blog__blogsByCategory__item {
-  border-bottom: 1px solid #e6e6e6;
   padding: 0.5rem 0;
   transition: box-shadow 0.2s ease-in-out;
 
@@ -102,4 +101,8 @@
     font-size: 1rem;
     margin-top: 0.5rem;
   }
+}
+
+.blog__blogsByCategory__item__with_border {
+  border-bottom: 1px solid #e6e6e6;
 }

@@ -1,18 +1,24 @@
 import React from "react";
-import { useHistory } from "react-router";
+import { useLocation, useHistory } from "react-router";
 import { FaChevronLeft } from "react-icons/fa";
-import styles from "./sass/AppNew.module.scss";
+import styles from "./sass/header.module.scss";
 
-const Header = ({ showBack }) => {
-  const history = useHistory();
+const Header = () => {
+  const { pathname } = useLocation();
+  const { goBack } = useHistory();
+
+  const condition =
+    pathname.includes("available-slots") ||
+    pathname.includes("checkout") ||
+    pathname.includes("blog");
 
   return (
     <header className={styles.header__main}>
       <span className={styles.header__wave}>
         <img src="/header-wave.png" alt="Wave" />
       </span>
-      {showBack && (
-        <span onClick={() => history.goBack()} className={styles.header__arrow}>
+      {condition && (
+        <span onClick={goBack} className={styles.header__arrow}>
           <FaChevronLeft />
         </span>
       )}
