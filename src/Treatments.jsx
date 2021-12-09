@@ -13,7 +13,7 @@ const Treatments = (props) => {
   async function getData() {
     try {
       const resp = await fetchData("getPrimarySpecialtyList");
-      setData(resp);
+      setData(resp?.data);
     } catch (error) {}
   }
 
@@ -29,12 +29,12 @@ const Treatments = (props) => {
             onClick={() => props.history.push("/doctors-list")}
           >
             <img
-              src={item.image}
-              alt="image"
+              src={item?.image}
+              alt=""
               className={styles.Treatement_Images}
             />
 
-            <span>{item.speciality_name}</span>
+            <span>{item?.speciality_name}</span>
           </div>
         ))}
       </div>

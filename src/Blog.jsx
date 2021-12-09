@@ -71,7 +71,7 @@ const Blog = (props) => {
   const getBlog = async (blogId) => {
     try {
       const data = await fetchData("viewBlogs", "reqBody", { blogId });
-      setBlog(data);
+      setBlog(data?.data);
       if (getScrollPos() !== 0) {
         scrollToTop();
       }
@@ -86,14 +86,14 @@ const Blog = (props) => {
         { User_ID: 235 },
         "Fitapp"
       );
-      setBlogs(data);
+      setBlogs(data?.data);
     } catch (error) {}
   };
 
   const getVisualStories = async () => {
     try {
       const data = await fetchData("getVisualStories");
-      setVisualStoriesList(data.map((item) => item?.image || ""));
+      setVisualStoriesList(data?.data.map((item) => item?.image || ""));
     } catch (error) {}
   };
 

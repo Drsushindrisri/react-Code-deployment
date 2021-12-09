@@ -24,7 +24,7 @@ const RelatedBlogs = ({ blog_id }) => {
         { blog_id },
         "Fitapp"
       );
-      setRelatedBlogs(data);
+      setRelatedBlogs(data?.data);
     } catch (error) {}
   };
 

@@ -40,7 +40,7 @@ const Blogs = ({ history }) => {
   const getVisualStories = async () => {
     try {
       const data = await fetchData("getVisualStories");
-      setVisualStoriesList(data.map((item) => item?.image || ""));
+      setVisualStoriesList(data?.data.map((item) => item?.image || ""));
     } catch (error) {}
   };
 
@@ -52,7 +52,7 @@ const Blogs = ({ history }) => {
         { User_ID: 235 },
         "Fitapp"
       );
-      setBlogsList(data);
+      setBlogsList(data?.data);
     } catch (error) {}
   };
 

@@ -26,7 +26,7 @@ export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
       }),
     });
 
-    return res?.data?.data ? res.data.data : res?.data;
+    return res?.data;
   } catch (error) {
     throw new Error(`${error}`);
   }

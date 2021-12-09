@@ -55,6 +55,7 @@ const SlotBookAppointment = (props) => {
     image: props?.location?.state?.image,
     speciality: props?.location?.state?.speciality,
     id: +props?.location?.state?.id,
+    docWlocId: +props?.location?.state?.docWlocId,
   };
 
   async function getSlotBookAppointment() {
@@ -65,7 +66,7 @@ const SlotBookAppointment = (props) => {
         appDate: selectedDay,
         DoctorID: doctorDetails.id,
       });
-      setBookAppointment(resp);
+      setBookAppointment(resp?.data);
     } catch (error) {}
   }
 
@@ -170,7 +171,12 @@ const SlotBookAppointment = (props) => {
                 if (isConsult) {
                   props.history.push({
                     pathname: "/checkout",
-                    state: { docId: doctorDetails.id },
+                    state: {
+                      docId: doctorDetails?.id,
+                      docWlocId: doctorDetails?.docWlocId,
+                      date: selectedDay,
+                      time: selectedTime,
+                    },
                   });
                 } else {
                   toggleModal();

@@ -14,7 +14,7 @@ const BlogsCategories = ({ onChange, selectedCategory }) => {
   const getBlogCategories = async () => {
     try {
       const data = await fetchData("getCategoryList");
-      setCategoriesList(data);
+      setCategoriesList(data?.data);
     } catch (error) {}
   };
 

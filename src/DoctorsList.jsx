@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./sass/DoctorsList.module.scss";
 import { RiSearchLine } from "react-icons/ri";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
-
-const filterItems = [
-  "All",
-  "Cardiology",
-  "Neurology",
-  "Dermatology",
-  "Pediatric",
-];
+import {
+  SpecialitiesHandleContext,
+  SpecialitiesValueContext,
+} from "./contexts/SpecalitiesList";
 
 export const DoctorsList = (props) => {
   const [doctors, setDoctors] = useState({ real: [], modify: [] });
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
+  const handleSpecialities = useContext(SpecialitiesHandleContext);
+  const specialitiesList = useContext(SpecialitiesValueContext);
+
   useEffect(() => {
     getDoctorsList();
+    if (!specialitiesList.length) {
+      getSpecialitiesList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (selectedFilter === "All") {
+    if (selectedFilter === "all") {
       setDoctors({ ...doctors, modify: doctors.real });
     } else {
       handleFilter();
@@ -33,13 +36,23 @@ export const DoctorsList = (props) => {
   async function getDoctorsList() {
     try {
       const resp = await fetchData("getDoctorsList");
-      setDoctors({ real: resp, modify: resp });
+      setDoctors({ real: resp?.data || [], modify: resp?.data || [] });
+    } catch (error) {}
+  }
+
+  async function getSpecialitiesList() {
+    try {
+      const resp = await fetchData("getSpecialities", null, null, "Fitapp");
+      handleSpecialities([
+        { speciality_id: "all", speciality_name: "All" },
+        ...resp,
+      ]);
     } catch (error) {}
   }
 
   const handleFilter = () => {
     const temp = doctors.real.reduce((acc, item) => {
-      if (item.speciality_name === selectedFilter) {
+      if (item?.docWorkLPSpecialityId === selectedFilter) {
         acc.push(item);
       }
       return acc;
@@ -74,6 +87,7 @@ export const DoctorsList = (props) => {
         image: doctor.docProfileImg,
         speciality: doctor.speciality_name,
         id: doctor.docId,
+        docWlocId: doctor.docWorkLId,
         type,
       },
     });
@@ -90,20 +104,20 @@ export const DoctorsList = (props) => {
         />
       </div>
       <div className={styles.doctorsList__specalities}>
-        {filterItems.map((item, ind) => (
+        {specialitiesList.map((item, ind) => (
           <div
             className={`${styles.doctorsList__specalityItem} ${
-              selectedFilter === item &&
+              selectedFilter === item?.speciality_id &&
               styles.doctorsList__specalityItemSelected
             }`}
             key={uid(ind)}
             onClick={() => {
-              if (item !== selectedFilter) {
-                setSelectedFilter(item);
+              if (item?.speciality_id !== selectedFilter) {
+                setSelectedFilter(item?.speciality_id);
               }
             }}
           >
-            {item}
+            {item?.speciality_name}
           </div>
         ))}
       </div>

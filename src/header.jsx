@@ -9,20 +9,44 @@ const Header = () => {
 
   const condition =
     pathname.includes("available-slots") ||
+    pathname.includes("doctors-list") ||
     pathname.includes("checkout") ||
-    pathname.includes("blog");
+    pathname.includes("blog") ||
+    pathname.includes("blogs") ||
+    pathname.includes("join-fb") ||
+    pathname.includes("raise-ticket");
+
+  const redirectToHome =
+    pathname.includes("blog") ||
+    pathname.includes("blogs") ||
+    pathname.includes("join-fb") ||
+    pathname.includes("raise-ticket");
 
   return (
-    <header className={styles.header__main}>
-      <span className={styles.header__wave}>
-        <img src="/header-wave.png" alt="Wave" />
-      </span>
-      {condition && (
-        <span onClick={goBack} className={styles.header__arrow}>
-          <FaChevronLeft />
-        </span>
+    <>
+      {pathname !== "/stories" && (
+        <header className={styles.header__main}>
+          <span className={styles.header__wave}>
+            <img src="/header-wave.png" alt="Wave" />
+          </span>
+          {condition && (
+            <span
+              onClick={() => {
+                if (redirectToHome) {
+                  window.location.href =
+                    "uniwebview://pageredirect?pageclose=close";
+                } else {
+                  goBack();
+                }
+              }}
+              className={styles.header__arrow}
+            >
+              <FaChevronLeft />
+            </span>
+          )}
+        </header>
       )}
-    </header>
+    </>
   );
 };
 export default Header;

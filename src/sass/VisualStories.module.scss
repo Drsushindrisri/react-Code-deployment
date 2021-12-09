@@ -1,0 +1,25 @@
+.visualStories__main {
+  position: relative;
+
+  .visualStories__header_container {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    z-index: 999;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 1.5rem;
+
+    svg {
+      background-color: rgb(221, 221, 221);
+      border-radius: 1.5rem;
+      padding: 0.2rem;
+      cursor: pointer;
+    }
+  }
+
+  > div {
+    z-index: 1;
+  }
+}

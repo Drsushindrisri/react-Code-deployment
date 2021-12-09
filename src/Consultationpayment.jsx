@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./sass/ConsultationPayment.module.scss";
 import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
-import { randomTen } from "./utils/randomTen";
+import { dateFormat } from "./utils/dateFormat";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -47,9 +47,11 @@ const PaymentConsultation = (props) => {
 
   async function getPaymentConsultation() {
     try {
-      const resp = await fetchData("getcheckout");
+      const resp = await fetchData("getOrgDoctorFees");
       setFees(
-        resp.find((doc) => doc.mainprovider_id == props?.location?.state?.docId)
+        resp?.data.find(
+          (doc) => doc.mainprovider_id == props?.location?.state?.docId
+        )
       );
     } catch (error) {}
   }
@@ -78,6 +80,34 @@ const PaymentConsultation = (props) => {
       return;
     }
 
+    const result = await fetchData(
+      "razorPayCreateOrder",
+      "reqBody",
+      {
+        patientId: 927,
+        providerId: 23,
+        mainDoctorId: props?.location?.state?.docId,
+        amount: 1,
+        organizationId: 23,
+      },
+      "Billing"
+    );
+
+    if (!result) {
+      alert("Server error. Are you online?");
+      return;
+    }
+
+    const patientInfo = await fetchData(
+      "getPatientInfo",
+      "reqBody",
+      {
+        patientId: 927,
+        organizationId: 23,
+      },
+      "Billing"
+    );
+
     const options = {
       key: "rzp_live_uBMmGDcdbiVtL9", // Enter the Key ID generated from the Dashboard
       amount: "500",
@@ -85,26 +115,56 @@ const PaymentConsultation = (props) => {
       name: "S10 safecare",
       description: "Test Transaction",
       image: "{ logo }",
-      order_id: `order_${randomTen()}`,
+      order_id: result?.data?.razorpay_order_id || "",
       handler: async (response) => {
-        const data = {
-          orderCreationId: `order_${randomTen()}`,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-          razorpaySignature: response.razorpay_signature,
-        };
+        const appDetails = await fetchData(
+          "createAppointment",
+          "reqBody",
+          {
+            LocationId: patientInfo?.data?.[0].practicelocat_id,
+            PatientId: "927",
+            ProviderId: fees?.provider_id,
+            MainProviderId: fees?.mainprovider_id,
+            appDate: dateFormat(props?.location?.state?.date),
+            appReasonId: "17",
+            duration: 30,
+            sTime: props?.location?.state?.time.slice(0, 5),
+            eTime: "",
+            organizationId: 23,
+            USER_ID: 927,
+            MainLocationId: props?.location?.state?.docWlocId,
+            PatientMainId: patientInfo?.data?.[0].patient_mainid,
+            PatientCode: patientInfo?.data?.[0].pid,
+            appStatusId: 1,
+          },
+          "Appointment"
+        );
 
-        // const result = await axios.post(
-        //   "http://localhost:4000/payment/success",
-        //   data
-        // );
+        console.log({ appDetails });
+
+        await fetchData(
+          "razorPayPaymentCallback",
+          "reqBody",
+          {
+            patientId: 927,
+            USER_ID: 927,
+            providerId: fees?.provider_id,
+            mainDoctorId: fees?.mainprovider_id,
+            rawResponse: response,
+            organizationId: 23,
+            docWlocId: props?.location?.state?.docWlocId,
+            appointmentId: appDetails?.data,
+            locOrderId: result?.data?.loc_order_id,
+          },
+          "Billing"
+        );
 
         alert("success");
       },
       prefill: {
-        name: "Aditya V",
-        email: "aditya.v@s10health.com",
-        contact: "9999999999",
+        name: "Bavithra",
+        email: "bavithra.r@s10safecare.com",
+        contact: "7708620960",
       },
       notes: {
         address: "S10 Corporate Office",
@@ -117,6 +177,8 @@ const PaymentConsultation = (props) => {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
+
+  console.log({ s: props.location.state });
 
   return (
     <div className={`page-safeareas ${styles.consultationPayment__main}`}>
