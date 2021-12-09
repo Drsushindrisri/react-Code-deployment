@@ -15,10 +15,15 @@ function RootApp() {
     }
   }, []);
 
+  const condition =
+    window.location.pathname.includes("available-slots") ||
+    window.location.pathname.includes("checkout") ||
+    window.location.pathname.includes("blog");
+
   return (
     <div className="root-container">
       <BrowserRouter>
-        <Header />
+        <Header showBack={condition} />
         <Switch>
           {Routes.map((routeItem, index) => (
             <Route

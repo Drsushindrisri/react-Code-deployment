@@ -52,7 +52,7 @@ const Blog = (props) => {
     if (params?.id) {
       getBlog(params?.id);
     }
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params?.id]);
 
   const scrollToTop = () => {

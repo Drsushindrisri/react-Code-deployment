@@ -3,15 +3,8 @@ import { useHistory } from "react-router";
 import { FaChevronLeft } from "react-icons/fa";
 import styles from "./sass/AppNew.module.scss";
 
-const Header = () => {
+const Header = ({ showBack }) => {
   const history = useHistory();
-
-  const pathname = window.location.pathname;
-
-  const showBack =
-    pathname.includes("available-slots") ||
-    pathname.includes("checkout") ||
-    pathname.includes("blog");
 
   return (
     <header className={styles.header__main}>
