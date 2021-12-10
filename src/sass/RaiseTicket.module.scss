@@ -21,7 +21,10 @@
   .raiseTicket__inputContainer {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+
+    > * {
+      margin-right: 0.25rem;
+    }
 
     > label {
       font-size: 0.9rem;

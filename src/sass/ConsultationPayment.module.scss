@@ -50,7 +50,10 @@
 
     > div {
       display: inline-flex;
-      gap: 1rem;
+
+      > * {
+        margin-right: 1rem;
+      }
 
       input {
         height: 1.6rem;
@@ -73,8 +76,10 @@
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
 
+      > * {
+        margin-right: 0.4rem;
+      }
       > input {
         width: 1.2rem;
         height: 1.2rem;
@@ -99,5 +104,9 @@
     font-weight: 600;
     color: #fff;
     margin: 0 auto;
+  }
+
+  .consultationPayment__makePayment_disabled {
+    opacity: 0.8;
   }
 }

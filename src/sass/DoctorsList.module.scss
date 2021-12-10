@@ -9,11 +9,14 @@
   .doctorsList__searchBar {
     display: flex;
     align-items: center;
-    gap: 1rem;
     background-color: #fff;
     border-radius: 7px;
     padding: 0.3rem 0.5rem;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+    > * {
+      margin-right: 1rem;
+    }
 
     input {
       border: 0;
@@ -32,10 +35,13 @@
 .doctorsList__specalities {
   margin-block: 2rem;
   display: flex;
-  gap: 1rem;
   align-items: center;
   min-height: min-content;
   overflow-x: scroll;
+
+  > * {
+    margin-right: 1rem;
+  }
 
   > .doctorsList__specalityItem {
     @include itemBackground;
@@ -50,7 +56,10 @@
 .doctorsList__container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+
+  > * {
+    margin-bottom: 1rem;
+  }
 
   .doctorsList__accordionItem {
     transition: background-color 0.2s ease-in-out;
@@ -102,9 +111,12 @@
 
 .doctorsList__actionButtons {
   display: none;
-  gap: 0.5rem;
   flex: 1;
   margin: 0.5rem 0 0 0.5rem;
+
+  > * {
+    margin-right: 0.5rem;
+  }
 
   > button {
     @include itemBackground(0.9rem);

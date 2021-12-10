@@ -38,8 +38,11 @@
   .blog__shareContainer {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
     margin-block: 0.5rem;
+
+    > * {
+      margin-right: 0.8rem;
+    }
 
     > button {
       background: transparent;
@@ -95,7 +98,10 @@
   a {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+
+    > * {
+      margin-right: 0.2rem;
+    }
     text-decoration: none;
     color: #0070f3;
     font-size: 1rem;

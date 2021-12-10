@@ -38,7 +38,7 @@ const PaymentTable = ({ price }) => (
 );
 
 const PaymentConsultation = (props) => {
-  const [, setPaymentType] = useState("");
+  const [paymentType, setPaymentType] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
   const fees = props?.location?.state?.docFees;
@@ -210,7 +210,10 @@ const PaymentConsultation = (props) => {
         </div>
         <div className={styles.consultationPayment__makePaymentContainer}>
           <button
-            className={styles.consultationPayment__makePayment}
+            className={`${styles.consultationPayment__makePayment} ${
+              paymentType !== "razorpay" &&
+              styles.consultationPayment__makePayment_disabled
+            }`}
             onClick={displayRazorpay}
           >
             Make Payment

@@ -38,8 +38,9 @@
 
 .bookAppointment__doctorInfos {
   display: flex;
-  gap: 1rem;
-
+  > * {
+    margin-right: 1rem;
+  }
   > div {
     > span {
       display: block;
@@ -72,8 +73,8 @@
   > .bookAppointment__days {
     display: grid;
     grid-auto-flow: column;
+    grid-gap: 0.5rem;
     overflow: scroll;
-    gap: 0.5rem;
     margin-block: 1rem;
 
     .selectableItem {
@@ -116,8 +117,11 @@
 .bookAppointment__timeSlots {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   margin-block: 1rem;
+
+  > * {
+    margin-right: 1rem;
+  }
 
   .selectableItem {
     @include itemBackground;

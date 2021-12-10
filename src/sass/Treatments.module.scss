@@ -1,7 +1,7 @@
 .treatments__list {
   display: grid;
   grid-template-columns: 50% 50%;
-  gap: 1rem;
+  grid-gap: 1rem;
 
   > div {
     padding: 0.5rem;

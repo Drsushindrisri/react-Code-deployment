@@ -9,7 +9,10 @@
   .relatedBlogs__container {
     display: flex;
     overflow: scroll;
-    gap: 1rem;
+
+    > * {
+      margin-right: 1rem;
+    }
     padding: 1rem 0.2rem;
   }
 

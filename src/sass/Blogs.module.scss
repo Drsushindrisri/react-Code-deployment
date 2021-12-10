@@ -44,7 +44,9 @@
   min-height: min-content;
   overflow-x: scroll;
   padding: 1rem;
-  gap: 1rem;
+  > * {
+    margin-right: 1rem;
+  }
 
   img {
     width: 4.5rem;
@@ -57,9 +59,12 @@
 .blogs__categories__wrapper {
   margin-block: 1.7rem;
   display: flex;
-  gap: 1rem;
   align-items: center;
   height: max-content;
+
+  > * {
+    margin-right: 1rem;
+  }
 
   > svg {
     font-size: 2.5rem;
@@ -68,10 +73,13 @@
 
 .blogs__categoriesContainer {
   display: flex;
-  gap: 1rem;
   align-items: center;
   min-height: min-content;
   overflow-x: scroll;
+
+  > * {
+    margin-right: 1rem;
+  }
 
   > .blog__categoryItem {
     @include itemBackground;
