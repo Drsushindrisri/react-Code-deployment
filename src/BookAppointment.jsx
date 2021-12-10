@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import ReactModal from "react-modal";
 import styles from "./sass/BookAppointment.module.scss";
 import "./sass/BookAppointment.scss";
+import { SuccessAlert } from "./SuccessAlert";
+import { dateFormat } from "./utils/dateFormat";
 
 const months = [
   { label: "January", value: 1 },
@@ -36,19 +38,15 @@ const SlotBookAppointment = (props) => {
   const [selectedLimit, setSelectedLimit] = useState(10);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [patientInfo, setPatientInfo] = useState({});
+  const [fees, setFees] = useState({});
 
   useEffect(() => {
     getSlotBookAppointment();
+    getPatientInfo();
+    getDocFees();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDay]);
-
-  useEffect(() => {
-    if (modalOpen) {
-      setTimeout(() => {
-        toggleModal();
-      }, 3000);
-    }
-  }, [modalOpen]);
 
   const doctorDetails = {
     name: props?.location?.state?.name,
@@ -70,16 +68,65 @@ const SlotBookAppointment = (props) => {
     } catch (error) {}
   }
 
+  async function getDocFees() {
+    try {
+      const resp = await fetchData("getOrgDoctorFees");
+      setFees(
+        resp?.data.find((doc) => doc.mainprovider_id == doctorDetails?.id)
+      );
+    } catch (error) {}
+  }
+
+  const getPatientInfo = async () => {
+    try {
+      const res = await fetchData(
+        "getPatientInfo",
+        "reqBody",
+        {
+          patientId: 927,
+          organizationId: 23,
+        },
+        "Billing"
+      );
+
+      setPatientInfo(res?.data?.[0]);
+    } catch (error) {}
+  };
+  const createAppointment = async () => {
+    try {
+      await fetchData(
+        "createAppointment",
+        "reqBody",
+        {
+          LocationId: patientInfo.practicelocat_id,
+          PatientId: "927",
+          ProviderId: fees?.provider_id,
+          MainProviderId: fees?.mainprovider_id,
+          appDate: dateFormat(selectedDay),
+          appReasonId: "17",
+          duration: 30,
+          sTime: selectedTime.slice(0, 5),
+          eTime: "",
+          organizationId: 23,
+          USER_ID: 927,
+          MainLocationId: doctorDetails?.docWlocId,
+          PatientMainId: patientInfo.patient_mainid,
+          PatientCode: patientInfo.pid,
+          appStatusId: 1,
+        },
+        "Appointment"
+      );
+      toggleModal();
+    } catch (error) {}
+  };
+
   const isConsult = props?.location?.state?.type === "consult";
 
   const toggleModal = () => setModalOpen((p) => !p);
 
   return (
     <>
-      <ReactModal isOpen={modalOpen}>
-        <p className="modal-title">Successfully Booked</p>
-        <SuccessSvg />
-      </ReactModal>
+      <SuccessAlert modalOpen={modalOpen} toggleModal={toggleModal} />
       <div className={styles.bookAppointment__main}>
         <div className={styles.bookAppointment__doctorDetails}>
           <img
@@ -174,12 +221,13 @@ const SlotBookAppointment = (props) => {
                     state: {
                       docId: doctorDetails?.id,
                       docWlocId: doctorDetails?.docWlocId,
+                      docFees: fees,
                       date: selectedDay,
                       time: selectedTime,
                     },
                   });
                 } else {
-                  toggleModal();
+                  createAppointment();
                 }
               }
             }}
@@ -193,14 +241,3 @@ const SlotBookAppointment = (props) => {
 };
 
 export default SlotBookAppointment;
-
-const SuccessSvg = () => (
-  <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-    <path
-      class="checkmark__check"
-      fill="none"
-      d="M14.1 27.2l7.1 7.2 16.7-16.8"
-    />
-  </svg>
-);

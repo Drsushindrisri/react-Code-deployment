@@ -15,10 +15,15 @@ require("dotenv").config();
 function RootApp() {
   const [specialities, setSpecialities] = useState([]);
 
+  const searchParams = new URLSearchParams(window.location.search);
+
   useEffect(() => {
     if (!sessionStorage.getItem("userId")) {
-      sessionStorage.setItem("userId", window.location.pathname);
+      sessionStorage.setItem("userId", searchParams.get("User_ID"));
+      sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
+      sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

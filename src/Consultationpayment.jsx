@@ -1,9 +1,10 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./sass/ConsultationPayment.module.scss";
 import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
 import { dateFormat } from "./utils/dateFormat";
+import { SuccessAlert } from "./SuccessAlert";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -37,24 +38,10 @@ const PaymentTable = ({ price }) => (
 );
 
 const PaymentConsultation = (props) => {
-  const [fees, setFees] = useState({});
-  const [paymentType, setPaymentType] = useState("");
+  const [, setPaymentType] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    getPaymentConsultation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function getPaymentConsultation() {
-    try {
-      const resp = await fetchData("getOrgDoctorFees");
-      setFees(
-        resp?.data.find(
-          (doc) => doc.mainprovider_id == props?.location?.state?.docId
-        )
-      );
-    } catch (error) {}
-  }
+  const fees = props?.location?.state?.docFees;
 
   function loadScript(src) {
     return new Promise((resolve) => {
@@ -140,8 +127,6 @@ const PaymentConsultation = (props) => {
           "Appointment"
         );
 
-        console.log({ appDetails });
-
         await fetchData(
           "razorPayPaymentCallback",
           "reqBody",
@@ -159,12 +144,12 @@ const PaymentConsultation = (props) => {
           "Billing"
         );
 
-        alert("success");
+        setModalOpen(true);
       },
       prefill: {
-        name: "Bavithra",
-        email: "bavithra.r@s10safecare.com",
-        contact: "7708620960",
+        name: "S10 safecare",
+        email: "info@s10health.com",
+        contact: "9884507007",
       },
       notes: {
         address: "S10 Corporate Office",
@@ -178,58 +163,61 @@ const PaymentConsultation = (props) => {
     paymentObject.open();
   }
 
-  console.log({ s: props.location.state });
+  const toggleModal = () => setModalOpen((p) => !p);
 
   return (
-    <div className={`page-safeareas ${styles.consultationPayment__main}`}>
-      <label htmlFor="reasonInput">
-        Reason for your consultation
-        <input id="reasonInput" />
-      </label>
-      <div className="ruler-horizontal" />
-      <h6>Payment Summary</h6>
-      <PaymentTable price={fees?.fee || 0} />
-      <label
-        htmlFor="promoInput"
-        className={styles.consultationPayment__promoContainer}
-      >
-        Have a promo code?
-        <div>
-          <input id="promoInput" />
-          <button>Apply</button>
-        </div>
-      </label>
-      <div className="ruler-horizontal" />
-      <h6>Payment Type</h6>
-      <div className={styles.consultationPayment__radioGroup}>
-        <div>
-          <input
-            type="radio"
-            name="paymentType"
-            value="razorpay"
-            onChange={(e) => setPaymentType(e.target.value)}
-          />
-          Pay using Razorpay (INR) - only in India
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="paymentType"
-            value="paypal"
-            onChange={(e) => setPaymentType(e.target.value)}
-          />
-          Pay using Paypal (USD) - other than India
-        </div>
-      </div>
-      <div className={styles.consultationPayment__makePaymentContainer}>
-        <button
-          className={styles.consultationPayment__makePayment}
-          onClick={displayRazorpay}
+    <>
+      <SuccessAlert modalOpen={modalOpen} toggleModal={toggleModal} />
+      <div className={`page-safeareas ${styles.consultationPayment__main}`}>
+        <label htmlFor="reasonInput">
+          Reason for your consultation
+          <input id="reasonInput" />
+        </label>
+        <div className="ruler-horizontal" />
+        <h6>Payment Summary</h6>
+        <PaymentTable price={fees?.fee || 0} />
+        <label
+          htmlFor="promoInput"
+          className={styles.consultationPayment__promoContainer}
         >
-          Make Payment
-        </button>
+          Have a promo code?
+          <div>
+            <input id="promoInput" />
+            <button>Apply</button>
+          </div>
+        </label>
+        <div className="ruler-horizontal" />
+        <h6>Payment Type</h6>
+        <div className={styles.consultationPayment__radioGroup}>
+          <div>
+            <input
+              type="radio"
+              name="paymentType"
+              value="razorpay"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+            Pay using Razorpay (INR) - only in India
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="paymentType"
+              value="paypal"
+              onChange={(e) => setPaymentType(e.target.value)}
+            />
+            Pay using Paypal (USD) - other than India
+          </div>
+        </div>
+        <div className={styles.consultationPayment__makePaymentContainer}>
+          <button
+            className={styles.consultationPayment__makePayment}
+            onClick={displayRazorpay}
+          >
+            Make Payment
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default PaymentConsultation;
