@@ -4,7 +4,7 @@ import styles from "./sass/ConsultationPayment.module.scss";
 import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
 import { dateFormat } from "./utils/dateFormat";
-import { SuccessAlert } from "./SuccessAlert";
+import { SuccessAlert } from "./components/SuccessAlert";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -40,6 +40,11 @@ const PaymentTable = ({ price }) => (
 const PaymentConsultation = (props) => {
   const [paymentType, setPaymentType] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [reason, setReason] = useState("");
+  const [errors, setErrors] = useState({
+    reason: "",
+    paymentMode: "",
+  });
 
   const fees = props?.location?.state?.docFees;
 
@@ -165,14 +170,45 @@ const PaymentConsultation = (props) => {
 
   const toggleModal = () => setModalOpen((p) => !p);
 
+  const handleSubmit = () => {
+    let reasonErr = "";
+    let paymentModeErr = "";
+
+    if (reason.length < 10) {
+      reasonErr =
+        "Please enter a vaild reason which contains a min of 10 characters";
+    }
+
+    if (!paymentType) {
+      paymentModeErr = "Please choose a payment mode";
+    }
+
+    if (paymentType === "paypal") {
+      paymentModeErr = "Paypal is not available. Kindly opt to Razorpay";
+    }
+
+    setErrors({
+      reason: reasonErr,
+      paymentMode: paymentModeErr,
+    });
+    if (!reasonErr && !paymentModeErr) {
+      displayRazorpay();
+    }
+  };
+
   return (
     <>
       <SuccessAlert modalOpen={modalOpen} toggleModal={toggleModal} />
       <div className={`page-safeareas ${styles.consultationPayment__main}`}>
         <label htmlFor="reasonInput">
           Reason for your consultation
-          <input id="reasonInput" />
+          <input
+            id="reasonInput"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          />
         </label>
+        {errors.reason && <span className="error-text">{errors.reason}</span>}
         <div className="ruler-horizontal" />
         <h6>Payment Summary</h6>
         <PaymentTable price={fees?.fee || 0} />
@@ -189,32 +225,42 @@ const PaymentConsultation = (props) => {
         <div className="ruler-horizontal" />
         <h6>Payment Type</h6>
         <div className={styles.consultationPayment__radioGroup}>
-          <div>
+          <div
+            className={`${
+              paymentType === "razorpay" &&
+              styles.consultationPayment__radioSelected
+            }`}
+          >
             <input
               type="radio"
               name="paymentType"
               value="razorpay"
               onChange={(e) => setPaymentType(e.target.value)}
             />
-            Pay using Razorpay (INR) - only in India
+            <p>Pay using Razorpay (INR) - only in India</p>
           </div>
-          <div>
+          <div
+            className={`${
+              paymentType === "paypal" &&
+              styles.consultationPayment__radioSelected
+            }`}
+          >
             <input
               type="radio"
               name="paymentType"
               value="paypal"
               onChange={(e) => setPaymentType(e.target.value)}
             />
-            Pay using Paypal (USD) - other than India
+            <p>Pay using Paypal (USD) - other than India</p>
           </div>
+          {errors.paymentMode && (
+            <span className="error-text">{errors.paymentMode}</span>
+          )}
         </div>
         <div className={styles.consultationPayment__makePaymentContainer}>
           <button
-            className={`${styles.consultationPayment__makePayment} ${
-              paymentType !== "razorpay" &&
-              styles.consultationPayment__makePayment_disabled
-            }`}
-            onClick={displayRazorpay}
+            className={styles.consultationPayment__makePayment}
+            onClick={handleSubmit}
           >
             Make Payment
           </button>

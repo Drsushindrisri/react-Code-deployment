@@ -18,11 +18,10 @@ function RootApp() {
   const searchParams = new URLSearchParams(window.location.search);
 
   useEffect(() => {
-    if (!sessionStorage.getItem("userId")) {
-      sessionStorage.setItem("userId", searchParams.get("User_ID"));
-      sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
-      sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
-    }
+    sessionStorage.setItem("userId", searchParams.get("User_ID"));
+    sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
+    sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -8,19 +8,19 @@ const Header = () => {
   const { goBack } = useHistory();
 
   const condition =
-    pathname.includes("available-slots") ||
-    pathname.includes("doctors-list") ||
-    pathname.includes("checkout") ||
+    pathname === "/available-slots" ||
+    pathname === "/doctors-list" ||
     pathname.includes("blog") ||
-    pathname.includes("blogs") ||
-    pathname.includes("join-fb") ||
-    pathname.includes("raise-ticket");
+    pathname === "/blogs" ||
+    pathname === "/join-fb" ||
+    pathname === "/raise-ticket";
 
   const redirectToHome =
-    pathname.includes("blog") ||
-    pathname.includes("blogs") ||
-    pathname.includes("join-fb") ||
-    pathname.includes("raise-ticket");
+    pathname === "/" ||
+    pathname === "/blogs" ||
+    pathname === "/join-fb" ||
+    pathname === "/raise-ticket" ||
+    pathname.includes("blog");
 
   return (
     <>

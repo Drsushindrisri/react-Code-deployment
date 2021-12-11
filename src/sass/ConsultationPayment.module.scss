@@ -5,13 +5,6 @@
     font-size: 0.8rem;
     display: flex;
     flex-direction: column;
-
-    input {
-      border: 1px solid #c9c9c9;
-      border-radius: 10px;
-      height: 2rem;
-      padding-left: 0.5rem;
-    }
   }
 
   h6 {
@@ -71,23 +64,43 @@
 
   .consultationPayment__radioGroup {
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
     > div {
-      font-size: 0.7rem;
-      font-weight: 600;
       display: flex;
       align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #ff9d2e;
+      background-color: #fff6ed;
+      border: 1px solid #ffcc92;
+      border-radius: 10px;
 
       > * {
         margin-right: 0.4rem;
       }
+
       > input {
         width: 1.2rem;
         height: 1.2rem;
+        z-index: 0;
+      }
+
+      > p {
+        margin: 0;
+        z-index: 1;
       }
     }
 
+    .consultationPayment__radioSelected {
+      color: #fff;
+      background-color: #ff9d2e;
+    }
+
     :first-child {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
     }
   }
 
@@ -104,9 +117,5 @@
     font-weight: 600;
     color: #fff;
     margin: 0 auto;
-  }
-
-  .consultationPayment__makePayment_disabled {
-    opacity: 0.8;
   }
 }

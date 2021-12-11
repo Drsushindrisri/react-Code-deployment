@@ -35,3 +35,26 @@ body {
   background-color: #f0f0f0;
   margin-block: 1rem;
 }
+
+.error-text {
+  color: #f33800;
+  font-size: 0.7rem;
+}
+
+input,
+textarea {
+  border: 1px solid rgb(148, 148, 148);
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid #ffa237;
+}

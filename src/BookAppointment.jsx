@@ -4,10 +4,9 @@ import { EmptyState } from "./svg/EmptyState";
 import { uid } from "react-uid";
 import { getDaysInMonth } from "./utils/getDaysInMonth";
 import { format } from "date-fns";
-import ReactModal from "react-modal";
 import styles from "./sass/BookAppointment.module.scss";
 import "./sass/BookAppointment.scss";
-import { SuccessAlert } from "./SuccessAlert";
+import { SuccessAlert } from "./components/SuccessAlert";
 import { dateFormat } from "./utils/dateFormat";
 
 const months = [
@@ -72,6 +71,7 @@ const SlotBookAppointment = (props) => {
     try {
       const resp = await fetchData("getOrgDoctorFees");
       setFees(
+        // eslint-disable-next-line eqeqeq
         resp?.data.find((doc) => doc.mainprovider_id == doctorDetails?.id)
       );
     } catch (error) {}
