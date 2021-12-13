@@ -41,9 +41,6 @@ const RelatedBlogs = ({ blog_id }) => {
             <img src={blog?.image} alt={blog?.blog_title} />
             <div>
               <h5>{blog?.blog_title}</h5>
-              {blog?.postdate && (
-                <span>{format(dateStringToDate(blog?.postdate), "PPP")}</span>
-              )}
             </div>
           </div>
         ))}

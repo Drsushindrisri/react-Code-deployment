@@ -83,11 +83,11 @@ export const DoctorsList = (props) => {
     props.history.push({
       pathname: "/available-slots",
       state: {
-        name: doctor.docName,
-        image: doctor.docProfileImg,
-        speciality: doctor.speciality_name,
-        id: doctor.docId,
-        docWlocId: doctor.docWorkLId,
+        name: doctor?.docName,
+        image: doctor?.docProfileImg,
+        speciality: doctor?.speciality_name,
+        id: doctor?.docId,
+        docWlocId: doctor?.docWorkLId,
         type,
       },
     });
@@ -133,12 +133,14 @@ export const DoctorsList = (props) => {
                 alt={item.docName}
               />
               <div>
-                <p className={styles.doctorsList__doctorName}>{item.docName}</p>
-                <p className={styles.doctorsList__qualification}>
-                  {item.docEduQualification.slice(0, 15)}
-                  {item.docEduQualification.length > 15 && "..."}
+                <p className={styles.doctorsList__doctorName}>
+                  {item?.docName}
                 </p>
-                <p>{item.docWorkLocHosName}</p>
+                <p className={styles.doctorsList__qualification}>
+                  {item?.docEduQualification.slice(0, 15)}
+                  {item?.docEduQualification.length > 15 && "..."}
+                </p>
+                <p>{item?.docWorkLocHosName}</p>
               </div>
             </div>
             <div

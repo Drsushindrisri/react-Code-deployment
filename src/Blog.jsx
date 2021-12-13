@@ -31,7 +31,7 @@ const BlogsByCategory = ({ blogs, setSelectedCategory }) => (
         {blog?.postdate && (
           <span>{format(dateStringToDate(blog?.postdate), "PPP")}</span>
         )}
-        <p>{blog?.description && blog.description.slice(0, 100)}...</p>
+        <p>{blog?.description && blog?.description.slice(0, 100)}...</p>
         <Link to={`${blog?.blogId}`} onClick={() => setSelectedCategory("")}>
           Read more <ArrowRight />{" "}
         </Link>
@@ -86,14 +86,14 @@ const Blog = (props) => {
         { User_ID: 235 },
         "Fitapp"
       );
-      setBlogs(data?.data);
+      setBlogs(data?.data || []);
     } catch (error) {}
   };
 
   const getVisualStories = async () => {
     try {
       const data = await fetchData("getVisualStories");
-      setVisualStoriesList(data?.data.map((item) => item?.image || ""));
+      setVisualStoriesList((data?.data || []).map((item) => item?.image || ""));
     } catch (error) {}
   };
 
@@ -124,7 +124,7 @@ const Blog = (props) => {
       <div className="ruler-horizontal" />
       <BlogsCategories
         selectedCategory={selectedCategory}
-        onChange={(newCat) => setSelectedCategory(newCat)}
+        onChange={setSelectedCategory}
       />
       {selectedCategory ? (
         <BlogsByCategory
@@ -133,10 +133,7 @@ const Blog = (props) => {
         />
       ) : (
         <>
-          <img
-            src="https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
-            alt=""
-          />
+          {blog?.image && <img src={blog?.image} alt={blog?.blog_title} />}
           <div className={styles.blog__content}>
             <h3>{blog?.blog_title}</h3>
             {blog?.time && (

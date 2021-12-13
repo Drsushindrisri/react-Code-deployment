@@ -40,7 +40,7 @@ const Blogs = ({ history }) => {
   const getVisualStories = async () => {
     try {
       const data = await fetchData("getVisualStories");
-      setVisualStoriesList(data?.data.map((item) => item?.image || ""));
+      setVisualStoriesList((data?.data || []).map((item) => item?.image || ""));
     } catch (error) {}
   };
 
@@ -52,7 +52,7 @@ const Blogs = ({ history }) => {
         { User_ID: 235 },
         "Fitapp"
       );
-      setBlogsList(data?.data);
+      setBlogsList(data?.data || []);
     } catch (error) {}
   };
 
@@ -78,7 +78,7 @@ const Blogs = ({ history }) => {
   };
 
   const filteredList = blogsList.filter(
-    (obj) => obj.category_id === selectedCategory
+    (obj) => obj?.category_id === selectedCategory
   );
 
   return (
@@ -87,39 +87,39 @@ const Blogs = ({ history }) => {
       <div className="ruler-horizontal" />
       <BlogsCategories
         selectedCategory={selectedCategory}
-        onChange={(newCat) => setSelectedCategory(newCat)}
+        onChange={setSelectedCategory}
       />
       <h5>Blogs</h5>
       <Carousel {...obj}>
-        {(selectedCategory ? filteredList : blogsList).map(
-          ({ blogId, blog_title, image, userLiked }, ind) => (
-            <div key={uid(ind)} className={styles.blogs__blogItem}>
-              <img
-                src={image}
-                alt={blog_title}
-                onClick={() =>
-                  history.push({
-                    pathname: `/blog/${blogId}`,
-                    state: { blogId },
-                  })
-                }
-              />
-              <div className={styles.blogs__blogItemFooter}>
-                <span className={styles.blogs__blogTitle}>{blog_title}</span>
-                <span
-                  className={`${styles.blogs__likeButton} ${
-                    userLiked && styles.blogs__likeButtonFilled
-                  }`}
-                  onClick={() => {
-                    likeBlog(blogId);
-                  }}
-                >
-                  {userLiked ? <IoIosHeart /> : <IoIosHeartEmpty />}
-                </span>
-              </div>
+        {(selectedCategory ? filteredList : blogsList).map((blog, ind) => (
+          <div key={uid(ind)} className={styles.blogs__blogItem}>
+            <img
+              src={blog?.image}
+              alt={blog?.blog_title}
+              onClick={() =>
+                history.push({
+                  pathname: `/blog/${blog?.blogId}`,
+                  state: { blogId: blog?.blogId },
+                })
+              }
+            />
+            <div className={styles.blogs__blogItemFooter}>
+              <span className={styles.blogs__blogTitle}>
+                {blog?.blog_title}
+              </span>
+              <span
+                className={`${styles.blogs__likeButton} ${
+                  blog?.userLiked && styles.blogs__likeButtonFilled
+                }`}
+                onClick={() => {
+                  likeBlog(blog?.blogId);
+                }}
+              >
+                {blog?.userLiked ? <IoIosHeart /> : <IoIosHeartEmpty />}
+              </span>
             </div>
-          )
-        )}
+          </div>
+        ))}
       </Carousel>
     </div>
   );

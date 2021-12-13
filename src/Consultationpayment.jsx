@@ -79,7 +79,7 @@ const PaymentConsultation = (props) => {
         patientId: 927,
         providerId: 23,
         mainDoctorId: props?.location?.state?.docId,
-        amount: 1,
+        amount: fees?.fee,
         organizationId: 23,
       },
       "Billing"
@@ -102,7 +102,7 @@ const PaymentConsultation = (props) => {
 
     const options = {
       key: "rzp_live_uBMmGDcdbiVtL9", // Enter the Key ID generated from the Dashboard
-      amount: "500",
+      amount: fees?.fee,
       currency: "INR",
       name: "S10 safecare",
       description: "Test Transaction",

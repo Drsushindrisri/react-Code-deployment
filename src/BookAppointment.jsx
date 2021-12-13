@@ -70,10 +70,11 @@ const SlotBookAppointment = (props) => {
   async function getDocFees() {
     try {
       const resp = await fetchData("getOrgDoctorFees");
-      setFees(
+      const data = (resp?.data || {}).find(
         // eslint-disable-next-line eqeqeq
-        resp?.data.find((doc) => doc.mainprovider_id == doctorDetails?.id)
+        (doc) => doc.mainprovider_id == doctorDetails?.id
       );
+      setFees(data === -1 ? {} : data);
     } catch (error) {}
   }
 
@@ -133,13 +134,13 @@ const SlotBookAppointment = (props) => {
             src="https://images.pexels.com/photos/48604/pexels-photo-48604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             alt="doctor"
           />
-          <h3>{doctorDetails.name}</h3>
-          <p>{doctorDetails.speciality}</p>
+          <h3>{doctorDetails?.name}</h3>
+          <p>{doctorDetails?.speciality}</p>
           <div className={styles.bookAppointment__doctorInfos}>
             {infos.map((item, ind) => (
               <div key={uid(ind)}>
-                <span>{item.int}</span>
-                <span>{item.desc}</span>
+                <span>{item?.int}</span>
+                <span>{item?.desc}</span>
               </div>
             ))}
           </div>
