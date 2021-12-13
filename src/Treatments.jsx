@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./sass/Treatments.module.scss";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
+import { Blob1, Blob2, Blob3 } from "./svg/Blobs";
 
 const Treatments = (props) => {
   const [data, setData] = useState([]);
@@ -20,7 +21,11 @@ const Treatments = (props) => {
   return (
     <div className={`page-safeareas ${styles.treatments__main}`}>
       <h3 className="page-header">Choose Doctor by speciality</h3>
-
+      <div className={styles.treatments__blobs}>
+        <Blob1 />
+        <Blob2 />
+        <Blob3 />
+      </div>
       <div className={styles.treatments__list}>
         {data.map((item, ind) => (
           <div
