@@ -21,11 +21,7 @@ const Treatments = (props) => {
   return (
     <div className={`page-safeareas ${styles.treatments__main}`}>
       <h3 className="page-header">Choose Doctor by speciality</h3>
-      <div className={styles.treatments__blobs}>
-        <Blob1 />
-        <Blob2 />
-        <Blob3 />
-      </div>
+
       <div className={styles.treatments__list}>
         {data.map((item, ind) => (
           <div
