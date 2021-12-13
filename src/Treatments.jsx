@@ -21,7 +21,6 @@ const Treatments = (props) => {
   return (
     <div className={`page-safeareas ${styles.treatments__main}`}>
       <h3 className="page-header">Choose Doctor by speciality</h3>
-
       <div className={styles.treatments__list}>
         {data.map((item, ind) => (
           <div

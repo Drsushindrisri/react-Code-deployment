@@ -143,15 +143,6 @@ const Blog = (props) => {
             )}
 
             <div className={styles.blog__shareContainer}>
-              <FacebookShareButton url={window.location.href}>
-                <FBIcon />
-              </FacebookShareButton>
-              <WhatsappShareButton url={window.location.href}>
-                <WAIcon />
-              </WhatsappShareButton>
-              <TwitterShareButton url={window.location.href}>
-                <TWIcon />
-              </TwitterShareButton>
               <EmailShareButton url={window.location.href}>
                 <MailIcon />
               </EmailShareButton>

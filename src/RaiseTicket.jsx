@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./sass/RaiseTicket.module.scss";
 
 function RaiseTicket() {
+  const formRef = useRef({});
+
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -21,6 +23,7 @@ function RaiseTicket() {
         [e.target.name]: "",
       }));
     }
+    console.log({ formRef });
   };
 
   return (
@@ -29,7 +32,7 @@ function RaiseTicket() {
         <img src="/contact.png" alt="support" />
       </div>
       <h3 className="page-header">Open a new ticket</h3>
-      <form>
+      <form ref={formRef}>
         <div className={styles.raiseTicket__inputContainer}>
           <label>Name</label>
           <input name="name" placeholder="Your name" onBlur={handleError} />

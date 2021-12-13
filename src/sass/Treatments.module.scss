@@ -1,12 +1,9 @@
-.treatments__blobs {
-  z-index: 0;
-}
-
 .treatments__list {
   z-index: 1;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-gap: 1rem;
+  background-repeat: no-repeat;
 
   > div {
     padding: 0.5rem;
