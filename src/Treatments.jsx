@@ -38,6 +38,15 @@ const Treatments = (props) => {
           </div>
         ))}
       </div>
+      <span className={styles.treatments__blob1}>
+        <Blob1 />
+      </span>
+      <span className={styles.treatments__blob2}>
+        <Blob2 />
+      </span>
+      <span className={styles.treatments__blob3}>
+        <Blob3 />
+      </span>
       <br />
     </div>
   );
