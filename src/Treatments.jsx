@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./sass/Treatments.module.scss";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
-import { Blob1, Blob2, Blob3 } from "./svg/Blobs";
+import { Abstract1, Abstract2, HeartPulse } from "./svg/Blobs";
 
 const Treatments = (props) => {
   const [data, setData] = useState([]);
@@ -38,14 +38,15 @@ const Treatments = (props) => {
           </div>
         ))}
       </div>
-      <span className={styles.treatments__blob1}>
-        <Blob1 />
+
+      <span className={styles.treatments__abstract1}>
+        <Abstract1 />
       </span>
-      <span className={styles.treatments__blob2}>
-        <Blob2 />
+      <span className={styles.treatments__abstract2}>
+        <Abstract1 />
       </span>
-      <span className={styles.treatments__blob3}>
-        <Blob3 />
+      <span className={styles.treatments__abstract3}>
+        <Abstract2 />
       </span>
       <br />
     </div>

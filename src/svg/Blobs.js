@@ -267,3 +267,105 @@ export const Doctor = () => (
     />
   </svg>
 );
+
+export const Abstract1 = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 836.27 674.20539"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <circle cx="123" cy="428" r="123" fill="#f2f2f2" />
+    <circle cx="143" cy="410" r="123" fill="#d8e2dc" />
+    <rect x="58" y="72" width="108" height="108" fill="#f2f2f2" />
+    <rect x="73" y="56" width="108" height="108" fill="#d8e2dc" />
+    <rect
+      x="171.85751"
+      y="664.67556"
+      width="158.41249"
+      height="1.8747"
+      fill="#3f3d56"
+    />
+    <path
+      d="M415.865,254.8973h-142v-142h142Zm-140-2h138v-138h-138Z"
+      transform="translate(-181.865 -112.8973)"
+      fill="#3f3d56"
+    />
+    <rect x="301" y="275" width="28" height="28" fill="#f2f2f2" />
+    <rect x="307" y="268" width="28" height="28" fill="#d8e2dc" />
+    <path
+      d="M543.865,398.8973h-46v-46h46Zm-44-2h42v-42h-42Z"
+      transform="translate(-181.865 -112.8973)"
+      fill="#3f3d56"
+    />
+    <path
+      d="M432.865,779.8973c-84.36426,0-153-68.63574-153-153s68.63574-153,153-153,153,68.63575,153,153S517.22926,779.8973,432.865,779.8973Zm0-304c-83.26172,0-151,67.73828-151,151s67.73828,151,151,151,151-67.73828,151-151S516.12672,475.8973,432.865,475.8973Z"
+      transform="translate(-181.865 -112.8973)"
+      fill="#3f3d56"
+    />
+  </svg>
+);
+
+export const Abstract2 = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 930.724 613.071"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g
+      id="Group_19"
+      data-name="Group 19"
+      transform="translate(-125.881 -143.464)"
+    >
+      <ellipse
+        id="Ellipse_44"
+        data-name="Ellipse 44"
+        cx="108.283"
+        cy="108.283"
+        rx="108.283"
+        ry="108.283"
+        transform="translate(192.114 538.103)"
+        fill="#e6e6e6"
+      />
+      <ellipse
+        id="Ellipse_45"
+        data-name="Ellipse 45"
+        cx="108.283"
+        cy="108.283"
+        rx="108.283"
+        ry="108.283"
+        transform="translate(383.434 151.324)"
+        fill="#d8e2dc"
+      />
+      <path
+        id="Path_280-395"
+        data-name="Path 280"
+        d="M682.043,800.953,295.265,414.175H682.641v1.691H299.349l383.89,383.89Z"
+        transform="translate(-120.843 -46.11)"
+        fill="#3f3d56"
+      />
+      <rect
+        id="Rectangle_20"
+        data-name="Rectangle 20"
+        width="436.515"
+        height="1.692"
+        transform="translate(125.881 754.844)"
+        fill="#3f3d56"
+      />
+    </g>
+  </svg>
+);
+
+export const HeartPulse = () => (
+  <svg
+    data-name="Layer 1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 1105.04 782.74"
+  >
+    <path
+      d="M753.1,110.05h-.75c-29.84,0-56.23,15.79-71.41,39.09-15.18-23.3-41.57-39.09-71.41-39.09h-.75A85,85,0,0,0,524.59,195c0,27.81,12.18,67.27,35.93,99.74,45.25,61.87,120.42,116,120.42,116s75.17-54.12,120.41-116c23.76-32.47,35.93-71.93,35.93-99.74A85,85,0,0,0,753.1,110.05ZM742.37,299.5a16.85,16.85,0,0,1-15.67-10.82H708.86a5.64,5.64,0,0,1-5.31-3.84l-5.48-16.51-17.34,60.59a5.61,5.61,0,0,1-5.38,4.05H675a5.54,5.54,0,0,1-5.2-4.64L651.93,220.85l-13.06,63.6a5.57,5.57,0,0,1-5.41,4.23H608.33a5.59,5.59,0,1,1,0-11.17h20.73L647.56,192a5.61,5.61,0,0,1,11,.46l18.25,109.64,15.54-54.21a5.5,5.5,0,0,1,5.23-4h.11a5.58,5.58,0,0,1,5.3,3.84l9.91,29.81h13.58a16.76,16.76,0,1,1,15.92,22Z"
+      transform="translate(-47.24 -58.63)"
+      fill="#d8e2dc"
+    />
+  </svg>
+);

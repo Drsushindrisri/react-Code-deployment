@@ -1,31 +1,33 @@
 import React, { useEffect } from "react";
 import ReactModal from "react-modal";
+import { Spinner } from "./Spinner";
 
-export const SuccessAlert = ({ modalOpen, toggleModal }) => {
+export const SuccessAlert = ({
+  modalOpen,
+  toggleModal,
+  text,
+  svg,
+  loading,
+}) => {
   useEffect(() => {
-    if (modalOpen) {
+    if (modalOpen && !loading) {
       setTimeout(() => {
         toggleModal();
       }, 3000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalOpen]);
+  }, [modalOpen, loading]);
 
   return (
     <ReactModal isOpen={modalOpen}>
-      <p className="modal-title">Successfully Booked</p>
-      <SuccessSvg />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <p className="modal-title">{text}</p>
+          {svg}
+        </>
+      )}
     </ReactModal>
   );
 };
-
-const SuccessSvg = () => (
-  <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-    <path
-      class="checkmark__check"
-      fill="none"
-      d="M14.1 27.2l7.1 7.2 16.7-16.8"
-    />
-  </svg>
-);

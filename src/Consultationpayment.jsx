@@ -5,6 +5,7 @@ import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
 import { dateFormat } from "./utils/dateFormat";
 import { SuccessAlert } from "./components/SuccessAlert";
+import { SuccessSvg } from "./BookAppointment";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -198,7 +199,12 @@ const PaymentConsultation = (props) => {
 
   return (
     <>
-      <SuccessAlert modalOpen={modalOpen} toggleModal={toggleModal} />
+      <SuccessAlert
+        modalOpen={modalOpen}
+        toggleModal={toggleModal}
+        text="Successfully Booked"
+        svg={SuccessSvg()}
+      />
       <div className={`page-safeareas ${styles.consultationPayment__main}`}>
         <label htmlFor="reasonInput">
           Reason for your consultation

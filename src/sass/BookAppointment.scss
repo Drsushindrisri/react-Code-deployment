@@ -1,12 +1,12 @@
 .ReactModal__Content {
   height: min-content;
+  min-height: 6.25rem;
   margin: auto 0;
 
   .modal-title {
     font-size: 1rem;
     font-weight: 600;
     text-align: center;
-    margin: 0;
   }
 }
 
