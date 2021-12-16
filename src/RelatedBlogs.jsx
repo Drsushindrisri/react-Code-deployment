@@ -1,10 +1,8 @@
-import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
 import styles from "./sass/RelatedBlogs.module.scss";
-import { dateStringToDate } from "./utils/dateStringToDate";
 
 const RelatedBlogs = ({ blog_id }) => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
