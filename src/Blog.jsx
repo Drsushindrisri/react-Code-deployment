@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { dateStringToDate } from "./utils/dateStringToDate";
 import RelatedBlogs from "./RelatedBlogs";
 import { getScrollPos } from "./utils/getScrollPos";
+import { removeHTMLTags } from "./utils/removeHTMLTags";
 
 const BlogsByCategory = ({ blogs }) => (
   <div className={styles.blog__blogsByCategory__main}>
@@ -147,7 +148,7 @@ const Blog = (props) => {
                 <ShareIcon />
               </button>
             </div>
-            <p>{blog?.description}</p>
+            <p>{removeHTMLTags(blog?.description)}</p>
           </div>
           <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
             <ArrowUp />
