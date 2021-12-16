@@ -13,6 +13,7 @@ const Header = () => {
     pathname.includes("blog") ||
     pathname === "/blogs" ||
     pathname === "/join-fb" ||
+    pathname === "/" ||
     pathname === "/raise-ticket";
 
   const redirectToHome =

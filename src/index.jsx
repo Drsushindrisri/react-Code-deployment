@@ -9,6 +9,7 @@ import {
   SpecialitiesHandleContext,
   SpecialitiesValueContext,
 } from "./contexts/SpecalitiesList";
+import { fetchData } from "./Api/Apis";
 
 require("dotenv").config();
 
@@ -17,8 +18,28 @@ function RootApp() {
 
   const searchParams = new URLSearchParams(window.location.search);
 
+  const user_id = searchParams.get("User_ID");
+
+  const getPatientInfo = async () => {
+    try {
+      const patientInfo = await fetchData(
+        "getPatientInfo",
+        "reqBody",
+        {
+          patientId: user_id,
+          organizationId: 23,
+        },
+        "Billing"
+      );
+      sessionStorage.setItem("userEmail", patientInfo?.data?.[0]?.email);
+      sessionStorage.setItem("userNumber", patientInfo?.data?.[0]?.mobile);
+      sessionStorage.setItem("userName", patientInfo?.data?.[0]?.patient_name);
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    sessionStorage.setItem("userId", searchParams.get("User_ID"));
+    getPatientInfo();
+    sessionStorage.setItem("userId", user_id);
     sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
     sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
 

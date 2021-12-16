@@ -33,7 +33,7 @@ const BlogsByCategory = ({ blogs, setSelectedCategory }) => (
         )}
         <p>{blog?.description && blog?.description.slice(0, 100)}...</p>
         <Link to={`${blog?.blogId}`} onClick={() => setSelectedCategory("")}>
-          Read more <ArrowRight />{" "}
+          Read more&nbsp; <ArrowRight />
         </Link>
       </div>
     ))}

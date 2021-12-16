@@ -86,14 +86,24 @@ function RaiseTicket() {
         <form ref={formRef} onSubmit={handleError}>
           <div className={styles.raiseTicket__inputContainer}>
             <label>Name</label>
-            <input name="name" placeholder="Your name" />
+            <input
+              name="name"
+              placeholder="Your name"
+              value={sessionStorage.getItem("userName")}
+              disabled
+            />
             {errors.name && (
               <span className={styles.raiseTicket__error}>{errors.name}</span>
             )}
           </div>
           <div className={styles.raiseTicket__inputContainer}>
             <label>Email Address</label>
-            <input name="email" placeholder="Your email" />
+            <input
+              name="email"
+              placeholder="Your email"
+              value={sessionStorage.getItem("userEmail")}
+              disabled
+            />
             {errors.email && (
               <span className={styles.raiseTicket__error}>{errors.email}</span>
             )}
@@ -105,6 +115,8 @@ function RaiseTicket() {
               placeholder="Your 10-digit number"
               type="number"
               maxLength="10"
+              value={sessionStorage.getItem("userNumber")}
+              disabled
             />
             {errors.number && (
               <span className={styles.raiseTicket__error}>{errors.number}</span>
