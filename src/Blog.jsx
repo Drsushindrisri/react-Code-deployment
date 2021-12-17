@@ -148,7 +148,7 @@ const Blog = (props) => {
                 <ShareIcon />
               </button>
             </div>
-            <p>{removeHTMLTags(blog?.description)}</p>
+            <p>{removeHTMLTags(blog?.description || "")}</p>
           </div>
           <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
             <ArrowUp />

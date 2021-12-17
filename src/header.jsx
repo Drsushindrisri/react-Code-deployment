@@ -13,7 +13,6 @@ const Header = () => {
     pathname.includes("blog") ||
     pathname === "/blogs" ||
     pathname === "/join-fb" ||
-    pathname === "/" ||
     pathname === "/raise-ticket";
 
   const redirectToHome =
@@ -33,12 +32,10 @@ const Header = () => {
           {condition && (
             <span
               onClick={() => {
-                if (redirectToHome) {
-                  window.location.href =
-                    "uniwebview://pageredirect?pageclose=close";
-                } else {
-                  goBack();
-                }
+                redirectToHome
+                  ? (window.location.href =
+                      "uniwebview://pageredirect?pageclose=close")
+                  : goBack();
               }}
               className={styles.header__arrow}
             >
