@@ -15,9 +15,9 @@
     z-index: 0;
 
     > svg {
-      stroke: #ff8a00;
+      stroke: #0077ff;
       fill: #fff;
-      filter: drop-shadow(3px 3px 2px rgba(211, 211, 211, 0.7));
+      filter: drop-shadow(3px 3px 2px #85baf6);
     }
   }
 
@@ -33,7 +33,7 @@
     }
 
     > svg {
-      fill: #ff8a00;
+      fill: #fff;
       font-size: 1.5rem;
     }
   }
