@@ -1,5 +1,5 @@
 import { fetchData } from "./Api/Apis";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyState } from "./svg/EmptyState";
 import { uid } from "react-uid";
 import { getDaysInMonth } from "./utils/getDaysInMonth";
@@ -22,6 +22,13 @@ const months = [
   { label: "October", value: 10 },
   { label: "November", value: 11 },
   { label: "December", value: 12 },
+];
+
+const currentMonth = new Date().getMonth();
+
+const twelveMonths = [
+  ...months.slice(currentMonth, months.length),
+  ...(currentMonth > 6 ? months.filter((_, ind) => ind + 1 < 6) : []),
 ];
 
 const infos = [
@@ -52,9 +59,13 @@ const SlotBookAppointment = (props) => {
   const [fees, setFees] = useState({});
 
   useEffect(() => {
-    getSlotBookAppointment();
     getPatientInfo();
     getDocFees();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    getSlotBookAppointment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDay]);
 
@@ -65,6 +76,9 @@ const SlotBookAppointment = (props) => {
     id: +props?.location?.state?.id,
     docWlocId: +props?.location?.state?.docWlocId,
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useMemo(() => doctorDetails, [props?.location?.state]);
 
   async function getSlotBookAppointment() {
     try {
@@ -132,6 +146,9 @@ const SlotBookAppointment = (props) => {
     } catch (error) {}
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useCallback(createAppointment, [selectedDay, selectedTime]);
+
   const isConsult = props?.location?.state?.type === "consult";
 
   const toggleModal = () => setModalOpen((p) => !p);
@@ -171,11 +188,9 @@ const SlotBookAppointment = (props) => {
                 )
               }
             >
-              {months
-                .slice(new Date().getMonth(), months.length)
-                .map((month, i) => (
-                  <option key={uid(i)}>{month.label}</option>
-                ))}
+              {twelveMonths.map((month, i) => (
+                <option key={uid(i)}>{month.label}</option>
+              ))}
             </select>
           </div>
           <div className={styles.bookAppointment__days}>

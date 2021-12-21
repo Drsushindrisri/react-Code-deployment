@@ -13,6 +13,13 @@ import RelatedBlogs from "./RelatedBlogs";
 import { getScrollPos } from "./utils/getScrollPos";
 import { removeHTMLTags } from "./utils/removeHTMLTags";
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
 const BlogsByCategory = ({ blogs }) => (
   <div className={styles.blog__blogsByCategory__main}>
     {blogs.map((blog, ind) => (
@@ -61,13 +68,6 @@ const Blog = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blogPath.pathname]);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const getBlog = async (blogId) => {
     try {

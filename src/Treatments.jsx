@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./sass/Treatments.module.scss";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
-import { Abstract1, Abstract2, HeartPulse } from "./svg/Blobs";
+import { Abstract1, Abstract2 } from "./svg/Blobs";
 
 const Treatments = (props) => {
   const [data, setData] = useState([]);
@@ -28,12 +28,6 @@ const Treatments = (props) => {
             key={uid(ind)}
             onClick={() => props.history.push("/doctors-list")}
           >
-            <img
-              src={item?.image}
-              alt=""
-              className={styles.Treatement_Images}
-            />
-
             <span>{item?.speciality_name}</span>
           </div>
         ))}
