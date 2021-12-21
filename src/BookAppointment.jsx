@@ -1,6 +1,7 @@
 import { fetchData } from "./Api/Apis";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyState } from "./svg/EmptyState";
+import { DatePickerSvg } from "./svg/DatePicker";
 import { uid } from "react-uid";
 import { getDaysInMonth } from "./utils/getDaysInMonth";
 import { format } from "date-fns";
@@ -228,8 +229,8 @@ const SlotBookAppointment = (props) => {
               ))
             ) : (
               <div className={styles.bookAppointment__emptyState}>
-                <EmptyState />
-                No slots found
+                {selectedDay ? <EmptyState /> : <DatePickerSvg />}
+                {selectedDay ? "No slots found" : "Choose a Date"}
               </div>
             )}
             {bookAppointment.length > 0 && (
