@@ -1,0 +1,108 @@
+.signUp__main {
+  background-color: #ece6e6;
+  height: 100vh;
+  margin-top: -3.5rem;
+
+  > div {
+    height: calc(100% - 9rem);
+    display: flex;
+    align-items: center;
+
+    > div {
+      width: 100%;
+
+      > h1 {
+        font-size: 1.5rem;
+      }
+
+      > p,
+      > h1 {
+        text-align: center;
+        margin: 0;
+        margin-bottom: 1rem;
+      }
+
+      > p {
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+
+  > img {
+    height: 6rem;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.signUp__singaLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  > img {
+    width: 5rem;
+    height: 4rem;
+  }
+}
+
+.signUp__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signUp__form4RadioGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  > div {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+
+    > input {
+      visibility: hidden;
+    }
+  }
+
+  .signUp__radioSelected {
+    background-color: #85baf6;
+    color: #fff;
+  }
+}
+
+.errorSpan {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.signUp__resendOtp,
+.signUp__haveAcc {
+  text-align: center;
+
+  > button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    font-weight: 600;
+    color: #ff8a00;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}

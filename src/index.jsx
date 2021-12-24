@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Header from "./header";
 import "./index.css";
 import { Routes } from "./routes";
@@ -10,6 +10,8 @@ import {
   SpecialitiesValueContext,
 } from "./contexts/SpecalitiesList";
 import { fetchData } from "./Api/Apis";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 require("dotenv").config();
 
@@ -48,6 +50,7 @@ function RootApp() {
 
   return (
     <div className="root-container">
+      <ToastContainer />
       <BrowserRouter>
         <Header />
         <Switch>

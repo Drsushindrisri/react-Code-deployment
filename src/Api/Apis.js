@@ -12,7 +12,10 @@ export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
   try {
     const res = await axios({
       method: "post",
-      url: process.env.REACT_APP_URL_PROD,
+      url:
+        process.env.NODE_ENV === "production"
+          ? process.env.REACT_APP_URL_PROD
+          : process.env.REACT_APP_URL_DEV,
       params: {
         actionVal,
         moduleVal: moduleVal || "Support",
@@ -28,6 +31,6 @@ export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
 
     return res?.data;
   } catch (error) {
-    throw new Error(`${error}`);
+    console.log({ error });
   }
 };

@@ -12,6 +12,7 @@ html {
 *::before,
 *::after {
   box-sizing: inherit;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -30,6 +31,10 @@ body {
   padding: 0rem 2rem;
 }
 
+.page-padding-top {
+  padding-top: 4rem;
+}
+
 .page-header {
   font-size: 1.1rem;
 }
@@ -43,6 +48,7 @@ body {
 .error-text {
   color: #f33800;
   font-size: 0.7rem;
+  white-space: pre;
 }
 
 input,
@@ -61,4 +67,17 @@ textarea::placeholder {
 input:focus,
 textarea:focus {
   outline: 1px solid #ffa237;
+}
+
+.signUp__form5__datePicker {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.signUp__form5__datePicker > input {
+  width: 80%;
+}
+
+.Toastify__toast-container {
+  border-radius: 10px !important;
 }

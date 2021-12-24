@@ -5,11 +5,15 @@ import PaymentConsultation from "./ConsultationPayment";
 import DoctorsList from "./DoctorsList";
 import Facebook from "./facebook";
 import RaiseTicket from "./RaiseTicket";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import Treatments from "./Treatments";
 import VisualStories from "./VisualStories";
 
 export const Routes = [
-  { route: "/", component: Treatments },
+  { route: "/signUp", component: SignUp },
+  { route: "/signIn", component: SignIn },
+  { route: "/treatments", component: Treatments },
   { route: "/doctors-list", component: DoctorsList },
   { route: "/available-slots", component: SlotBookAppointment },
   { route: "/checkout", component: PaymentConsultation },

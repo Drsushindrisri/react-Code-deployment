@@ -1,0 +1,44 @@
+.signIn__main {
+  background-color: #fff;
+
+  > h1 {
+    font-size: 1.5rem;
+    text-align: center;
+
+    :first-child {
+      color: #ff8a00;
+      font-size: 2rem;
+    }
+
+    > span {
+      display: block;
+    }
+  }
+
+  > form {
+    > .signIn__emailInput {
+      margin-bottom: 1rem;
+      > div {
+        border: 1px solid #ebebeb;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+.signIn__newUser {
+  text-align: right;
+  width: 100%;
+
+  > a {
+    text-decoration: none;
+    color: #ff8a00;
+    font-weight: 600;
+  }
+}
+
+.signIn__buttonContainer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}

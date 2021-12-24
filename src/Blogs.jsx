@@ -49,7 +49,7 @@ const Blogs = ({ history }) => {
       const data = await fetchData(
         "getOrganizationBlogs",
         "formData",
-        { User_ID: 235 },
+        { User_ID: sessionStorage.getItem("userId") },
         "Fitapp"
       );
       setBlogsList(data?.data || []);
@@ -61,7 +61,7 @@ const Blogs = ({ history }) => {
       await fetchData(
         "saveOrganizationBlogsLikes",
         "formData",
-        { blog_id, User_ID: 235 },
+        { blog_id, User_ID: sessionStorage.getItem("userId") },
         "Fitapp"
       );
       getBlogs();
