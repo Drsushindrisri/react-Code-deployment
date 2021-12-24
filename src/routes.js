@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import Blog from "./Blog";
 import Blogs from "./Blogs";
 import SlotBookAppointment from "./BookAppointment";
@@ -22,4 +23,5 @@ export const Routes = [
   { route: "/stories", component: VisualStories },
   { route: "/blog/:id", component: Blog },
   { route: "/raise-ticket", component: RaiseTicket },
+  { route: "/", component: () => <Redirect to="/treatments" /> },
 ];

@@ -52,7 +52,6 @@ function RootApp() {
     <div className="root-container">
       <ToastContainer />
       <BrowserRouter>
-        <Redirect exact from="/" to="/treatments" />
         <Header />
         <Switch>
           <SpecialitiesValueContext.Provider value={specialities}>
