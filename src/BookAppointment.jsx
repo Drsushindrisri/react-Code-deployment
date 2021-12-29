@@ -95,7 +95,9 @@ const SlotBookAppointment = (props) => {
 
   async function getDocFees() {
     try {
-      const resp = await fetchData("getOrgDoctorFees");
+      const resp = await fetchData("getOrgDoctorFees", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
       const data = (resp?.data || {}).find(
         // eslint-disable-next-line eqeqeq
         (doc) => doc.mainprovider_id == doctorDetails?.id
@@ -106,43 +108,33 @@ const SlotBookAppointment = (props) => {
 
   const getPatientInfo = async () => {
     try {
-      const res = await fetchData(
-        "getPatientInfo",
-        "reqBody",
-        {
-          patientId: 927,
-          organizationId: 23,
-        },
-        "Billing"
-      );
+      const res = await fetchData("getPatientInfo", "reqBody", {
+        patientId: 927,
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
 
       setPatientInfo(res?.data?.[0]);
     } catch (error) {}
   };
   const createAppointment = async () => {
     try {
-      await fetchData(
-        "createAppointment",
-        "reqBody",
-        {
-          LocationId: patientInfo.practicelocat_id,
-          PatientId: "927",
-          ProviderId: fees?.provider_id,
-          MainProviderId: fees?.mainprovider_id,
-          appDate: dateFormat(selectedDay),
-          appReasonId: "17",
-          duration: 30,
-          sTime: selectedTime.slice(0, 5),
-          eTime: "",
-          organizationId: 23,
-          USER_ID: 927,
-          MainLocationId: doctorDetails?.docWlocId,
-          PatientMainId: patientInfo.patient_mainid,
-          PatientCode: patientInfo.pid,
-          appStatusId: 1,
-        },
-        "Appointment"
-      );
+      await fetchData("createAppointment", "reqBody", {
+        LocationId: patientInfo.practicelocat_id,
+        PatientId: "927",
+        ProviderId: fees?.provider_id,
+        MainProviderId: fees?.mainprovider_id,
+        appDate: dateFormat(selectedDay),
+        appReasonId: "17",
+        duration: 30,
+        sTime: selectedTime.slice(0, 5),
+        eTime: "",
+        OrganizationID: 23,
+        USER_ID: 927,
+        MainLocationId: doctorDetails?.docWlocId,
+        PatientMainId: patientInfo.patient_mainid,
+        PatientCode: patientInfo.pid,
+        appStatusId: 1,
+      });
       toggleModal();
     } catch (error) {}
   };

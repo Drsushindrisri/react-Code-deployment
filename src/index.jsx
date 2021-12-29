@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./header";
 import "./index.css";
 import { Routes } from "./routes";
@@ -24,15 +24,10 @@ function RootApp() {
 
   const getPatientInfo = async () => {
     try {
-      const patientInfo = await fetchData(
-        "getPatientInfo",
-        "reqBody",
-        {
-          patientId: user_id,
-          organizationId: 23,
-        },
-        "Billing"
-      );
+      const patientInfo = await fetchData("getPatientInfo", "reqBody", {
+        patientId: user_id,
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
       sessionStorage.setItem("userEmail", patientInfo?.data?.[0]?.email);
       sessionStorage.setItem("userNumber", patientInfo?.data?.[0]?.mobile);
       sessionStorage.setItem("userName", patientInfo?.data?.[0]?.patient_name);

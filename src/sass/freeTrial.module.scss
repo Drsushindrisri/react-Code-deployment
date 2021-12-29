@@ -1,0 +1,64 @@
+.freeTrial__main {
+  background: linear-gradient(
+    180deg,
+    hsla(181, 51%, 76%, 1) 50%,
+    hsla(200, 77%, 74%, 1) 100%
+  );
+  min-height: 100vh;
+  margin-top: -3.5rem;
+
+  p {
+    text-align: center;
+    margin: 0;
+  }
+
+  padding-bottom: 1rem;
+}
+
+.freeTrial__icon {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+
+  > svg {
+    font-size: 3rem;
+    fill: #ff8a00;
+  }
+}
+
+.freeTrial__customText {
+  color: #6ec3be;
+  font-weight: bold;
+}
+
+.freeTrial__desc {
+  color: #fff;
+}
+
+.freeTrial__verticalDivider {
+  height: 6.25rem;
+  width: 3px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.freeTrial__submit {
+  background-color: #8eae5b;
+  border: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  color: #fff;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease-in-out;
+
+  &:active {
+    transform: scale(0.9);
+    background-color: #7b984b;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+}

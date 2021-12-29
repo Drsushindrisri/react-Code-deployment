@@ -15,14 +15,11 @@ export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
       url:
         process.env.NODE_ENV === "production"
           ? process.env.REACT_APP_URL_PROD
-          : process.env.REACT_APP_URL_DEV,
+          : process.env.REACT_APP_URL_PROD,
       params: {
         actionVal,
         moduleVal: moduleVal || "Support",
         ...(payloadType === "query" && { ...body }),
-      },
-      headers: {
-        Authorization: process.env.REACT_APP_BEARER_TOKEN,
       },
       ...((payloadType === "formData" || payloadType === "reqBody") && {
         data: payloadType === "formData" ? payload : { ...body },
@@ -31,6 +28,6 @@ export const fetchData = async (actionVal, payloadType, body, moduleVal) => {
 
     return res?.data;
   } catch (error) {
-    console.log({ error });
+    throw new Error(error);
   }
 };

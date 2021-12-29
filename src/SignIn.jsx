@@ -11,7 +11,7 @@ import { CustomButton } from "./components/CustomButton";
 import { Link } from "react-router-dom";
 import { fetchData } from "./Api/Apis";
 
-const SignIn = () => {
+const SignIn = ({ history }) => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -71,51 +71,57 @@ const SignIn = () => {
 
   return (
     <div className={`page-safeareas ${styles.signIn__main}`}>
-      <p className={styles.signIn__newUser}>
-        <Link to="/signUp">New User?</Link>
-      </p>
-      <h1>
-        <span>Hello!</span>
-        <span>Sign in to your account</span>
-      </h1>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <IconInput
-          icon={<BsPersonFill />}
-          placeholder="Your email / mobile number"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          error={error?.email}
-          className={styles.signIn__emailInput}
-        />
-
-        {secondInp && (
+      <div>
+        <p
+          className={styles.signIn__newUser}
+          onClick={() => history.push("/signUp")}
+        >
+          New User?
+        </p>
+        <h1>
+          <span>Hello!</span>
+          <span>Sign in to your account</span>
+        </h1>
+        <form onSubmit={(e) => e.preventDefault()}>
           <IconInput
-            icon={
-              secondInp == 1 ? (
-                showPassword ? (
-                  <BsFillEyeSlashFill />
-                ) : (
-                  <BsFillEyeFill />
-                )
-              ) : undefined
-            }
-            iconClick={() => setShowPassword((p) => !p)}
-            placeholder={
-              secondInp == 1 ? "Enter your password" : "Enter the OTP"
-            }
-            value={password}
-            onChange={({ target: { value } }) => setPassword(value)}
-            error={error?.pwd}
+            icon={<BsPersonFill />}
+            placeholder="Your email / mobile number"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            error={error?.email}
             className={styles.signIn__emailInput}
-            type={
-              secondInp == 1 ? (showPassword ? "text" : "password") : "text"
-            }
           />
-        )}
-        <div className={styles.signIn__buttonContainer}>
-          <CustomButton text="Submit" onClick={validate} />
-        </div>
-      </form>
+
+          {secondInp && (
+            <IconInput
+              icon={
+                secondInp == 1 ? (
+                  showPassword ? (
+                    <BsFillEyeSlashFill />
+                  ) : (
+                    <BsFillEyeFill />
+                  )
+                ) : undefined
+              }
+              iconClick={() => setShowPassword((p) => !p)}
+              placeholder={
+                secondInp == 1 ? "Enter your password" : "Enter the OTP"
+              }
+              value={password}
+              onChange={({ target: { value } }) => setPassword(value)}
+              error={error?.pwd}
+              className={styles.signIn__emailInput}
+              type={
+                secondInp == 1 ? (showPassword ? "text" : "password") : "text"
+              }
+            />
+          )}
+          <div className={styles.signIn__buttonContainer}>
+            <CustomButton text="Submit" onClick={validate} />
+          </div>
+        </form>
+      </div>
+      <img src="/footer.png" alt="footer-blob" />
     </div>
   );
 };

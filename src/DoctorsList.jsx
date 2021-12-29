@@ -35,7 +35,9 @@ export const DoctorsList = (props) => {
 
   async function getDoctorsList() {
     try {
-      const resp = await fetchData("getDoctorsList");
+      const resp = await fetchData("getDoctorsList", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
       setDoctors({ real: resp?.data || [], modify: resp?.data || [] });
     } catch (error) {}
   }

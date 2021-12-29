@@ -5,6 +5,7 @@ import SlotBookAppointment from "./BookAppointment";
 import PaymentConsultation from "./ConsultationPayment";
 import DoctorsList from "./DoctorsList";
 import Facebook from "./facebook";
+import FreeTrial from "./freeTrial";
 import RaiseTicket from "./RaiseTicket";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -15,6 +16,7 @@ export const Routes = [
   { route: "/signUp", component: SignUp },
   { route: "/signIn", component: SignIn },
   { route: "/treatments", component: Treatments },
+  { route: "/freeTrial", component: FreeTrial },
   { route: "/doctors-list", component: DoctorsList },
   { route: "/available-slots", component: SlotBookAppointment },
   { route: "/checkout", component: PaymentConsultation },

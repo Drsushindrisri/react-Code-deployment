@@ -13,8 +13,10 @@ const Treatments = (props) => {
 
   async function getData() {
     try {
-      const resp = await fetchData("getPrimarySpecialtyList");
-      setData(resp?.data);
+      const resp = await fetchData("getPrimarySpecialtyList", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
+      if (resp?.data) setData(resp?.data);
     } catch (error) {}
   }
 

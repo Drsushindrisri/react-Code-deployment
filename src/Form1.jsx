@@ -9,7 +9,7 @@ import IconInput from "./components/IconInput";
 import styles from "./sass/SignUp.module.scss";
 
 const pwdRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/;
 
 export const emailRegex =
   // eslint-disable-next-line no-useless-escape

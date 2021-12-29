@@ -1,40 +1,48 @@
 .signIn__main {
   background-color: #fff;
+  height: calc(100vh - 12rem);
+  display: flex;
+  align-items: center;
 
-  > h1 {
-    font-size: 1.5rem;
-    text-align: center;
+  > div {
+    width: 100%;
+    > h1 {
+      font-size: 1.5rem;
+      text-align: center;
 
-    :first-child {
-      color: #ff8a00;
-      font-size: 2rem;
-    }
+      :first-child {
+        color: #ff8a00;
+        font-size: 2rem;
+      }
 
-    > span {
-      display: block;
-    }
-  }
-
-  > form {
-    > .signIn__emailInput {
-      margin-bottom: 1rem;
-      > div {
-        border: 1px solid #ebebeb;
-        border-radius: 5px;
+      > span {
+        display: block;
       }
     }
+
+    > form {
+      > .signIn__emailInput {
+        margin-bottom: 1rem;
+        > div {
+          border: 1px solid #ebebeb;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  > img {
+    height: 6rem;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 
 .signIn__newUser {
   text-align: right;
-  width: 100%;
-
-  > a {
-    text-decoration: none;
-    color: #ff8a00;
-    font-weight: 600;
-  }
+  color: #ff8a00;
+  font-weight: 600;
 }
 
 .signIn__buttonContainer {

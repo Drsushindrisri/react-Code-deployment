@@ -13,7 +13,9 @@ const BlogsCategories = ({ onChange, selectedCategory }) => {
 
   const getBlogCategories = async () => {
     try {
-      const data = await fetchData("getCategoryList");
+      const data = await fetchData("getCategoryList", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
       setCategoriesList(data?.data || []);
     } catch (error) {}
   };

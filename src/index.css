@@ -49,6 +49,7 @@ body {
   color: #f33800;
   font-size: 0.7rem;
   white-space: pre;
+  display: block;
 }
 
 input,
@@ -80,4 +81,9 @@ textarea:focus {
 
 .Toastify__toast-container {
   border-radius: 10px !important;
+}
+
+.center-children-h {
+  display: flex;
+  justify-content: center;
 }

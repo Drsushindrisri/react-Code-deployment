@@ -38,7 +38,11 @@ const RelatedBlogs = ({ blog_id }) => {
           >
             <img src={blog?.image} alt={blog?.blog_title} />
             <div>
-              <h5>{blog?.blog_title}</h5>
+              <h5>
+                {(blog?.blog_title && blog?.blog_title.length) < 42
+                  ? blog?.blog_title
+                  : `${blog?.blog_title.slice(0, 43)}...`}
+              </h5>
             </div>
           </div>
         ))}

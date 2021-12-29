@@ -39,7 +39,9 @@ const Blogs = ({ history }) => {
 
   const getVisualStories = async () => {
     try {
-      const data = await fetchData("getVisualStories");
+      const data = await fetchData("getVisualStories", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
       setVisualStoriesList((data?.data || []).map((item) => item?.image || ""));
     } catch (error) {}
   };

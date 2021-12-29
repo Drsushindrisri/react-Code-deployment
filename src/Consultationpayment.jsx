@@ -73,33 +73,23 @@ const PaymentConsultation = (props) => {
       return;
     }
 
-    const result = await fetchData(
-      "razorPayCreateOrder",
-      "reqBody",
-      {
-        patientId: 927,
-        providerId: 23,
-        mainDoctorId: props?.location?.state?.docId,
-        amount: fees?.fee,
-        organizationId: 23,
-      },
-      "Billing"
-    );
+    const result = await fetchData("razorPayCreateOrder", "reqBody", {
+      patientId: 927,
+      providerId: 23,
+      mainDoctorId: props?.location?.state?.docId,
+      amount: fees?.fee,
+      OrganizationID: sessionStorage.getItem("orgId"),
+    });
 
     if (!result) {
       alert("Server error. Are you online?");
       return;
     }
 
-    const patientInfo = await fetchData(
-      "getPatientInfo",
-      "reqBody",
-      {
-        patientId: 927,
-        organizationId: 23,
-      },
-      "Billing"
-    );
+    const patientInfo = await fetchData("getPatientInfo", "reqBody", {
+      patientId: 927,
+      OrganizationID: sessionStorage.getItem("orgId"),
+    });
 
     const options = {
       key: "rzp_live_uBMmGDcdbiVtL9", // Enter the Key ID generated from the Dashboard
@@ -110,45 +100,35 @@ const PaymentConsultation = (props) => {
       image: "{ logo }",
       order_id: result?.data?.razorpay_order_id || "",
       handler: async (response) => {
-        const appDetails = await fetchData(
-          "createAppointment",
-          "reqBody",
-          {
-            LocationId: patientInfo?.data?.[0].practicelocat_id,
-            PatientId: "927",
-            ProviderId: fees?.provider_id,
-            MainProviderId: fees?.mainprovider_id,
-            appDate: dateFormat(props?.location?.state?.date),
-            appReasonId: "17",
-            duration: 30,
-            sTime: props?.location?.state?.time.slice(0, 5),
-            eTime: "",
-            organizationId: 23,
-            USER_ID: 927,
-            MainLocationId: props?.location?.state?.docWlocId,
-            PatientMainId: patientInfo?.data?.[0].patient_mainid,
-            PatientCode: patientInfo?.data?.[0].pid,
-            appStatusId: 1,
-          },
-          "Appointment"
-        );
+        const appDetails = await fetchData("createAppointment", "reqBody", {
+          LocationId: patientInfo?.data?.[0].practicelocat_id,
+          PatientId: "927",
+          ProviderId: fees?.provider_id,
+          MainProviderId: fees?.mainprovider_id,
+          appDate: dateFormat(props?.location?.state?.date),
+          appReasonId: "17",
+          duration: 30,
+          sTime: props?.location?.state?.time.slice(0, 5),
+          eTime: "",
+          organizationId: 23,
+          USER_ID: 927,
+          MainLocationId: props?.location?.state?.docWlocId,
+          PatientMainId: patientInfo?.data?.[0].patient_mainid,
+          PatientCode: patientInfo?.data?.[0].pid,
+          appStatusId: 1,
+        });
 
-        await fetchData(
-          "razorPayPaymentCallback",
-          "reqBody",
-          {
-            patientId: 927,
-            USER_ID: 927,
-            providerId: fees?.provider_id,
-            mainDoctorId: fees?.mainprovider_id,
-            rawResponse: response,
-            organizationId: 23,
-            docWlocId: props?.location?.state?.docWlocId,
-            appointmentId: appDetails?.data,
-            locOrderId: result?.data?.loc_order_id,
-          },
-          "Billing"
-        );
+        await fetchData("razorPayPaymentCallback", "reqBody", {
+          patientId: 927,
+          USER_ID: 927,
+          providerId: fees?.provider_id,
+          mainDoctorId: fees?.mainprovider_id,
+          rawResponse: response,
+          OrganizationID: sessionStorage.getItem("orgId"),
+          docWlocId: props?.location?.state?.docWlocId,
+          appointmentId: appDetails?.data,
+          locOrderId: result?.data?.loc_order_id,
+        });
 
         setModalOpen(true);
       },
