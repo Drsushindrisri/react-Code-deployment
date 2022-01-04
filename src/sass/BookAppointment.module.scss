@@ -38,6 +38,15 @@
 
 .bookAppointment__doctorInfos {
   display: flex;
+  align-items: center;
+  background-color: #fcfcfc;
+  border-radius: 15px;
+  padding: 0.5rem;
+
+  > svg {
+    font-size: 1.5rem;
+  }
+
   > * {
     margin-right: 1rem;
   }

@@ -1,17 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./sass/DoctorsList.module.scss";
 import { RiSearchLine } from "react-icons/ri";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
-import { SpecialitiesValueContext } from "./contexts/SpecalitiesList";
 import { getRandomFour } from "./utils/getRandom";
 
 export const DoctorsList = (props) => {
   const [doctors, setDoctors] = useState({ real: [], modify: [] });
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-
-  const specialitiesList = useContext(SpecialitiesValueContext);
+  const [specialitiesList, setSpecialitiesList] = useState([]);
 
   useEffect(() => {
     getDoctorsList();
@@ -26,6 +24,20 @@ export const DoctorsList = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilter]);
+
+  async function getSpecialitiesList(docList) {
+    try {
+      const resp = await fetchData("getSpecialities", null, null, "Fitapp");
+      setSpecialitiesList([
+        { speciality_id: "all", speciality_name: "All" },
+        ...resp.filter((item) =>
+          docList
+            .map((i) => i?.docWorkLPSpecialityId)
+            .includes(item?.speciality_id)
+        ),
+      ]);
+    } catch (error) {}
+  }
 
   async function getDoctorsList() {
     try {
@@ -42,6 +54,7 @@ export const DoctorsList = (props) => {
         real: parsedData,
         modify: parsedData,
       });
+      getSpecialitiesList(parsedData);
     } catch (error) {}
   }
 
@@ -86,7 +99,8 @@ export const DoctorsList = (props) => {
         image: doctor?.docProfileImg,
         speciality: doctor?.speciality_name,
         id: doctor?.docId,
-        docWlocId: doctor?.docWorkLId,
+        docWlocId: doctor?.hosWorkLId,
+        fakeOrgId: doctor?.docWorkLSNHosId,
         happyPatients: getRandomFour(),
         profilePic: doctor?.profilePic,
         type,

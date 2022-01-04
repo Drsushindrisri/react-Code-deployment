@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { EmptyState } from "./svg/EmptyState";
 import { DatePickerSvg } from "./svg/DatePicker";
 import { uid } from "react-uid";
+import { BsEmojiSmile } from "react-icons/bs";
 import { getDaysInMonth } from "./utils/getDaysInMonth";
 import { format } from "date-fns";
 import styles from "./sass/BookAppointment.module.scss";
@@ -30,12 +31,6 @@ const currentMonth = new Date().getMonth();
 const twelveMonths = [
   ...months.slice(currentMonth, months.length),
   ...(currentMonth > 6 ? months.filter((_, ind) => ind + 1 < 6) : []),
-];
-
-const infos = [
-  { int: 9, desc: "years of experience" },
-  { int: 1347, desc: "happy patients" },
-  { int: 5, desc: "mins from you" },
 ];
 
 export const SuccessSvg = () => (
@@ -77,6 +72,7 @@ const SlotBookAppointment = (props) => {
     happyPatients: props?.location?.state?.happyPatients,
     id: +props?.location?.state?.id,
     docWlocId: +props?.location?.state?.docWlocId,
+    fakeOrgId: +props?.location?.state?.fakeOrgId,
     profilePic: props?.location?.state?.profilePic,
   };
 
@@ -86,8 +82,8 @@ const SlotBookAppointment = (props) => {
   async function getSlotBookAppointment() {
     try {
       const resp = await fetchData("getDoctorsAppointmentSlots", "formData", {
-        OrganizationID: sessionStorage.getItem("orgId"),
-        OrgMainLocationID: sessionStorage.getItem("branchId"),
+        OrganizationID: doctorDetails?.fakeOrgId,
+        OrgMainLocationID: doctorDetails?.docWlocId,
         appDate: selectedDay,
         DoctorID: doctorDetails.id,
       });
@@ -162,16 +158,11 @@ const SlotBookAppointment = (props) => {
           <h3>{doctorDetails?.name}</h3>
           <p>{doctorDetails?.speciality}</p>
           <div className={styles.bookAppointment__doctorInfos}>
-            {infos.map((item, ind) => (
-              <div key={uid(ind)}>
-                <span>
-                  {item?.desc === "happy patients"
-                    ? doctorDetails.happyPatients
-                    : item?.int}
-                </span>
-                <span>{item?.desc}</span>
-              </div>
-            ))}
+            <BsEmojiSmile />
+            <div>
+              <span>{doctorDetails.happyPatients}</span>
+              <span>happy patients</span>
+            </div>
           </div>
         </div>
         <div className={styles.bookAppointment__availableSlots}>
