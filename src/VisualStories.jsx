@@ -17,8 +17,16 @@ const VisualStories = ({
         <VscChromeClose onClick={goBack} />
       </header>
       <Stories
-        stories={visualStoriesList}
-        defaultInterval={1500}
+        stories={visualStoriesList.map((story, index) => ({
+          ...story,
+          content: (props) => (
+            <div className={styles.visualStories__story}>
+              <img src={story.url} alt={story.title} />
+              <h1>{story.title}</h1>
+            </div>
+          ),
+        }))}
+        defaultInterval={3000}
         width="100vw"
         height="100vh"
         currentIndex={currentIndex}

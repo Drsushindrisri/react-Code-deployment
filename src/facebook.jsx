@@ -3,7 +3,7 @@ import { FacebookProvider, Group } from "react-facebook";
 
 const Facebook = () => {
   return (
-    <div style={{ display: "grid", placeItems: "center" }}>
+    <div style={{ display: "grid", placeItems: "center", marginTop: "1rem" }}>
       <FacebookProvider appId="1507588212895406">
         <Group
           href="https://www.facebook.com/groups/252993012983691"

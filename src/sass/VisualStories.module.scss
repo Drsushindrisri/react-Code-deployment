@@ -23,3 +23,21 @@
     z-index: 1;
   }
 }
+
+.visualStories__story {
+  > img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  > h1 {
+    position: absolute;
+    top: 15%;
+    padding: 0 1rem;
+    color: #fff;
+    z-index: 1;
+  }
+}

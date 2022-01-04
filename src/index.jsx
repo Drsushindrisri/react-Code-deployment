@@ -5,10 +5,7 @@ import Header from "./header";
 import "./index.css";
 import { Routes } from "./routes";
 import { uid } from "react-uid";
-import {
-  SpecialitiesHandleContext,
-  SpecialitiesValueContext,
-} from "./contexts/SpecalitiesList";
+import { SpecialitiesValueContext } from "./contexts/SpecalitiesList";
 import { fetchData } from "./Api/Apis";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +19,16 @@ function RootApp() {
 
   const user_id = searchParams.get("User_ID");
 
+  useEffect(() => {
+    getPatientInfo();
+    getSpecialities();
+    sessionStorage.setItem("userId", user_id);
+    sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
+    sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const getPatientInfo = async () => {
     try {
       const patientInfo = await fetchData("getPatientInfo", "reqBody", {
@@ -34,14 +41,18 @@ function RootApp() {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    getPatientInfo();
-    sessionStorage.setItem("userId", user_id);
-    sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
-    sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  async function getSpecialities() {
+    try {
+      const resp = await fetchData("getPrimarySpecialtyList", "reqBody", {
+        OrganizationID: sessionStorage.getItem("orgId"),
+      });
+      if (resp?.data)
+        setSpecialities([
+          { speciality_id: "all", speciality_name: "All" },
+          ...resp?.data,
+        ]);
+    } catch (error) {}
+  }
 
   return (
     <div className="root-container">
@@ -50,18 +61,14 @@ function RootApp() {
         <Header />
         <Switch>
           <SpecialitiesValueContext.Provider value={specialities}>
-            <SpecialitiesHandleContext.Provider
-              value={(newList) => setSpecialities(newList)}
-            >
-              {Routes.map((routeItem, index) => (
-                <Route
-                  exact
-                  path={routeItem.route}
-                  component={routeItem.component}
-                  key={uid(index)}
-                />
-              ))}
-            </SpecialitiesHandleContext.Provider>
+            {Routes.map((routeItem, index) => (
+              <Route
+                exact
+                path={routeItem.route}
+                component={routeItem.component}
+                key={uid(index)}
+              />
+            ))}
           </SpecialitiesValueContext.Provider>
         </Switch>
       </BrowserRouter>

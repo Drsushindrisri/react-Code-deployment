@@ -9,7 +9,6 @@ const Header = () => {
 
   const condition =
     pathname === "/available-slots" ||
-    pathname === "/doctors-list" ||
     pathname.includes("blog") ||
     pathname === "/blogs" ||
     pathname === "/join-fb" ||

@@ -74,8 +74,10 @@ const SlotBookAppointment = (props) => {
     name: props?.location?.state?.name,
     image: props?.location?.state?.image,
     speciality: props?.location?.state?.speciality,
+    happyPatients: props?.location?.state?.happyPatients,
     id: +props?.location?.state?.id,
     docWlocId: +props?.location?.state?.docWlocId,
+    profilePic: props?.location?.state?.profilePic,
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,8 +86,8 @@ const SlotBookAppointment = (props) => {
   async function getSlotBookAppointment() {
     try {
       const resp = await fetchData("getDoctorsAppointmentSlots", "formData", {
-        OrganizationID: 23,
-        OrgMainLocationID: 6327,
+        OrganizationID: sessionStorage.getItem("orgId"),
+        OrgMainLocationID: sessionStorage.getItem("branchId"),
         appDate: selectedDay,
         DoctorID: doctorDetails.id,
       });
@@ -109,7 +111,7 @@ const SlotBookAppointment = (props) => {
   const getPatientInfo = async () => {
     try {
       const res = await fetchData("getPatientInfo", "reqBody", {
-        patientId: 927,
+        patientId: sessionStorage.getItem("userId"),
         OrganizationID: sessionStorage.getItem("orgId"),
       });
 
@@ -120,7 +122,7 @@ const SlotBookAppointment = (props) => {
     try {
       await fetchData("createAppointment", "reqBody", {
         LocationId: patientInfo.practicelocat_id,
-        PatientId: "927",
+        PatientId: sessionStorage.getItem("userId"),
         ProviderId: fees?.provider_id,
         MainProviderId: fees?.mainprovider_id,
         appDate: dateFormat(selectedDay),
@@ -156,16 +158,17 @@ const SlotBookAppointment = (props) => {
       />
       <div className={styles.bookAppointment__main}>
         <div className={styles.bookAppointment__doctorDetails}>
-          <img
-            src="https://images.pexels.com/photos/48604/pexels-photo-48604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="doctor"
-          />
+          <img src={doctorDetails.profilePic} alt="doctor" />
           <h3>{doctorDetails?.name}</h3>
           <p>{doctorDetails?.speciality}</p>
           <div className={styles.bookAppointment__doctorInfos}>
             {infos.map((item, ind) => (
               <div key={uid(ind)}>
-                <span>{item?.int}</span>
+                <span>
+                  {item?.desc === "happy patients"
+                    ? doctorDetails.happyPatients
+                    : item?.int}
+                </span>
                 <span>{item?.desc}</span>
               </div>
             ))}

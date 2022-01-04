@@ -35,6 +35,10 @@
   position: relative;
   overflow: hidden;
 
+  h3 {
+    z-index: 999;
+  }
+
   > span {
     z-index: 0;
     position: absolute;

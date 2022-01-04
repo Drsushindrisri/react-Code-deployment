@@ -74,8 +74,8 @@ const PaymentConsultation = (props) => {
     }
 
     const result = await fetchData("razorPayCreateOrder", "reqBody", {
-      patientId: 927,
-      providerId: 23,
+      patientId: sessionStorage.getItem("userId"),
+      providerId: fees?.provider_id,
       mainDoctorId: props?.location?.state?.docId,
       amount: fees?.fee,
       OrganizationID: sessionStorage.getItem("orgId"),
@@ -87,7 +87,7 @@ const PaymentConsultation = (props) => {
     }
 
     const patientInfo = await fetchData("getPatientInfo", "reqBody", {
-      patientId: 927,
+      patientId: sessionStorage.getItem("userId"),
       OrganizationID: sessionStorage.getItem("orgId"),
     });
 
@@ -102,7 +102,7 @@ const PaymentConsultation = (props) => {
       handler: async (response) => {
         const appDetails = await fetchData("createAppointment", "reqBody", {
           LocationId: patientInfo?.data?.[0].practicelocat_id,
-          PatientId: "927",
+          PatientId: sessionStorage.getItem("userId"),
           ProviderId: fees?.provider_id,
           MainProviderId: fees?.mainprovider_id,
           appDate: dateFormat(props?.location?.state?.date),
@@ -110,8 +110,8 @@ const PaymentConsultation = (props) => {
           duration: 30,
           sTime: props?.location?.state?.time.slice(0, 5),
           eTime: "",
-          organizationId: 23,
-          USER_ID: 927,
+          organizationId: sessionStorage.getItem("orgId"),
+          USER_ID: sessionStorage.getItem("userId"),
           MainLocationId: props?.location?.state?.docWlocId,
           PatientMainId: patientInfo?.data?.[0].patient_mainid,
           PatientCode: patientInfo?.data?.[0].pid,
@@ -119,8 +119,8 @@ const PaymentConsultation = (props) => {
         });
 
         await fetchData("razorPayPaymentCallback", "reqBody", {
-          patientId: 927,
-          USER_ID: 927,
+          patientId: sessionStorage.getItem("userId"),
+          USER_ID: sessionStorage.getItem("userId"),
           providerId: fees?.provider_id,
           mainDoctorId: fees?.mainprovider_id,
           rawResponse: response,

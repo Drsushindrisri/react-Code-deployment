@@ -1,38 +1,29 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import styles from "./sass/Treatments.module.scss";
 import { uid } from "react-uid";
-import { fetchData } from "./Api/Apis";
 import { Abstract1, Abstract2 } from "./svg/Blobs";
+import { SpecialitiesValueContext } from "./contexts/SpecalitiesList";
 
 const Treatments = (props) => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  async function getData() {
-    try {
-      const resp = await fetchData("getPrimarySpecialtyList", "reqBody", {
-        OrganizationID: sessionStorage.getItem("orgId"),
-      });
-      if (resp?.data) setData(resp?.data);
-    } catch (error) {}
-  }
+  const data = useContext(SpecialitiesValueContext);
 
   return (
     <div className={`page-safeareas ${styles.treatments__main}`}>
       <h3 className="page-header">Choose Doctor by speciality</h3>
       <div className={styles.treatments__list}>
-        {data.map((item, ind) => (
-          <div
-            className={styles.treatmentItem}
-            key={uid(ind)}
-            onClick={() => props.history.push("/doctors-list")}
-          >
-            <span>{item?.speciality_name}</span>
-          </div>
-        ))}
+        {data.map((item, ind) =>
+          item?.speciality_id !== "all" ? (
+            <div
+              className={styles.treatmentItem}
+              key={uid(ind)}
+              onClick={() => props.history.push("/doctors-list")}
+            >
+              <span>{item?.speciality_name}</span>
+            </div>
+          ) : (
+            ""
+          )
+        )}
       </div>
 
       <span className={styles.treatments__abstract1}>

@@ -12,7 +12,7 @@
     background-color: #fff;
     border-radius: 7px;
     padding: 0.3rem 0.5rem;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 
     > * {
       margin-right: 1rem;
@@ -21,7 +21,7 @@
     input {
       border: 0;
       outline: none;
-      height: 1.2rem;
+      height: 1.5rem;
       width: 100%;
       border-radius: 7px;
 
@@ -33,7 +33,7 @@
 }
 
 .doctorsList__specalities {
-  margin: 2rem 0 2rem 0;
+  margin: 1.5rem 0 1.2rem 0;
   display: flex;
   align-items: center;
   min-height: min-content;
@@ -64,7 +64,7 @@
   .doctorsList__accordionItem {
     transition: background-color 0.2s ease-in-out;
     border-radius: 10px;
-    padding: 0.3rem 1rem;
+    padding: 0.5rem;
     cursor: pointer;
 
     &:hover {
@@ -80,7 +80,7 @@
     > img {
       width: 3.125rem;
       height: 3.125rem;
-      border-radius: 10px;
+      border-radius: 50%;
       margin-right: 1rem;
     }
 
@@ -91,7 +91,7 @@
       }
 
       > .doctorsList__doctorName {
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: 700;
       }
 
@@ -124,13 +124,13 @@
     border: 1px solid #ffcc92;
     color: #fff;
     padding: 0.2rem 1rem;
-    font-size: 0.7rem;
+    font-size: minmax(0.4rem, 0.7rem);
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     white-space: nowrap;
     font-size: 0.8rem;
 
-    &:hover {
+    &:active {
       transform: scale(0.9);
     }
   }

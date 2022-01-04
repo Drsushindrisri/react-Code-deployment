@@ -10,10 +10,11 @@ import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 export const VisualStoriesList = ({ list, history }) => (
   <>
     <h5>Visual Stories</h5>
+    {console.log({ list })}
     <div className={styles.visualStoriesContainer}>
       {list.map((it, ind) => (
         <img
-          src={it}
+          src={it?.url}
           alt={`story-${ind + 1}`}
           onClick={() =>
             history.push({
@@ -42,7 +43,12 @@ const Blogs = ({ history }) => {
       const data = await fetchData("getVisualStories", "reqBody", {
         OrganizationID: sessionStorage.getItem("orgId"),
       });
-      setVisualStoriesList((data?.data || []).map((item) => item?.image || ""));
+      setVisualStoriesList(
+        (data?.data || []).map((item) => ({
+          url: item?.image || "",
+          title: item?.storyTitle,
+        }))
+      );
     } catch (error) {}
   };
 

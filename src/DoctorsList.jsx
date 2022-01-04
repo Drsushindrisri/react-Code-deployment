@@ -3,24 +3,18 @@ import styles from "./sass/DoctorsList.module.scss";
 import { RiSearchLine } from "react-icons/ri";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
-import {
-  SpecialitiesHandleContext,
-  SpecialitiesValueContext,
-} from "./contexts/SpecalitiesList";
+import { SpecialitiesValueContext } from "./contexts/SpecalitiesList";
+import { getRandomFour } from "./utils/getRandom";
 
 export const DoctorsList = (props) => {
   const [doctors, setDoctors] = useState({ real: [], modify: [] });
   const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
-  const handleSpecialities = useContext(SpecialitiesHandleContext);
   const specialitiesList = useContext(SpecialitiesValueContext);
 
   useEffect(() => {
     getDoctorsList();
-    if (!specialitiesList.length) {
-      getSpecialitiesList();
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,17 +32,16 @@ export const DoctorsList = (props) => {
       const resp = await fetchData("getDoctorsList", "reqBody", {
         OrganizationID: sessionStorage.getItem("orgId"),
       });
-      setDoctors({ real: resp?.data || [], modify: resp?.data || [] });
-    } catch (error) {}
-  }
-
-  async function getSpecialitiesList() {
-    try {
-      const resp = await fetchData("getSpecialities", null, null, "Fitapp");
-      handleSpecialities([
-        { speciality_id: "all", speciality_name: "All" },
-        ...resp,
-      ]);
+      const parsedData = (resp?.data || []).map((datum) => ({
+        ...datum,
+        profilePic: (datum?.docProfileImgUrl || "").includes("amazon")
+          ? datum.docProfileImgUrl
+          : "/default-avatar.svg",
+      }));
+      setDoctors({
+        real: parsedData,
+        modify: parsedData,
+      });
     } catch (error) {}
   }
 
@@ -66,7 +59,11 @@ export const DoctorsList = (props) => {
     if (searchText) {
       const temp = doctors.real.reduce((acc, item) => {
         for (const key in item) {
-          if (item[key].toLowerCase().includes(searchText.toLowerCase())) {
+          if (
+            (item[key] || "")
+              .toLowerCase()
+              .includes((searchText || "").toLowerCase())
+          ) {
             acc.push(item);
           }
         }
@@ -90,6 +87,8 @@ export const DoctorsList = (props) => {
         speciality: doctor?.speciality_name,
         id: doctor?.docId,
         docWlocId: doctor?.docWorkLId,
+        happyPatients: getRandomFour(),
+        profilePic: doctor?.profilePic,
         type,
       },
     });
@@ -130,10 +129,7 @@ export const DoctorsList = (props) => {
             onClick={handleSelectedDoctor.bind(this, ind)}
           >
             <div className={styles.doctorsList__item} key={uid(ind)}>
-              <img
-                src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                alt={item.docName}
-              />
+              <img src={item?.profilePic} alt={item.docName} />
               <div>
                 <p className={styles.doctorsList__doctorName}>
                   {item?.docName}

@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import { dateStringToDate } from "./utils/dateStringToDate";
 import RelatedBlogs from "./RelatedBlogs";
 import { getScrollPos } from "./utils/getScrollPos";
-import { removeHTMLTags } from "./utils/removeHTMLTags";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -75,7 +74,12 @@ const Blog = (props) => {
         blogId,
         OrganizationID: sessionStorage.getItem("orgId"),
       });
-      setBlog(data?.data);
+      setBlog({
+        ...data?.data,
+        description: (data?.data?.description || "")
+          .toString()
+          .replace(/(<a[^>]+?>|<a>|<\/a>)/gim, ""),
+      });
       if (getScrollPos() !== 0) {
         scrollToTop();
       }
@@ -87,7 +91,7 @@ const Blog = (props) => {
       const data = await fetchData(
         "getOrganizationBlogs",
         "formData",
-        { User_ID: 235 },
+        { User_ID: sessionStorage.getItem("userId") },
         "Fitapp"
       );
       setBlogs(data?.data || []);
@@ -99,7 +103,12 @@ const Blog = (props) => {
       const data = await fetchData("getVisualStories", "reqBody", {
         OrganizationID: sessionStorage.getItem("orgId"),
       });
-      setVisualStoriesList((data?.data || []).map((item) => item?.image || ""));
+      setVisualStoriesList(
+        (data?.data || []).map((item) => ({
+          url: item?.image || "",
+          title: item?.storyTitle,
+        }))
+      );
     } catch (error) {}
   };
 
@@ -153,7 +162,8 @@ const Blog = (props) => {
                 <ShareIcon />
               </button>
             </div>
-            <p>{removeHTMLTags(blog?.description || "")}</p>
+
+            <p dangerouslySetInnerHTML={{ __html: blog?.description }} />
           </div>
           <div className={styles.blog__scrollToTop} onClick={scrollToTop}>
             <ArrowUp />
