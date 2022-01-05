@@ -10,7 +10,6 @@ import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 export const VisualStoriesList = ({ list, history }) => (
   <>
     <h5>Visual Stories</h5>
-    {console.log({ list })}
     <div className={styles.visualStoriesContainer}>
       {list.map((it, ind) => (
         <img

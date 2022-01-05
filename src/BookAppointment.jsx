@@ -97,7 +97,7 @@ const SlotBookAppointment = (props) => {
   async function getDocFees() {
     try {
       const resp = await fetchData("getOrgDoctorFees", "reqBody", {
-        OrganizationID: sessionStorage.getItem("orgId"),
+        OrganizationID: doctorDetails?.fakeOrgId,
       });
       const data = (resp?.data || {}).find(
         // eslint-disable-next-line eqeqeq

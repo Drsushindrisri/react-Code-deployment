@@ -18,13 +18,18 @@ function RootApp() {
   const searchParams = new URLSearchParams(window.location.search);
 
   const user_id = searchParams.get("User_ID");
+  const org_id = searchParams.get("Organization_ID");
+  const branch_id = searchParams.get("Branch_ID");
 
   useEffect(() => {
     getPatientInfo();
     getSpecialities();
+    if (!user_id) {
+      window.location.reload();
+    }
     sessionStorage.setItem("userId", user_id);
-    sessionStorage.setItem("orgId", searchParams.get("Organization_ID"));
-    sessionStorage.setItem("branchId", searchParams.get("Branch_ID"));
+    sessionStorage.setItem("orgId", org_id);
+    sessionStorage.setItem("branchId", branch_id);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -33,7 +38,7 @@ function RootApp() {
     try {
       const patientInfo = await fetchData("getPatientInfo", "reqBody", {
         patientId: user_id,
-        OrganizationID: sessionStorage.getItem("orgId"),
+        OrganizationID: org_id,
       });
       sessionStorage.setItem("userEmail", patientInfo?.data?.[0]?.email);
       sessionStorage.setItem("userNumber", patientInfo?.data?.[0]?.mobile);
@@ -44,7 +49,7 @@ function RootApp() {
   async function getSpecialities() {
     try {
       const resp = await fetchData("getPrimarySpecialtyList", "reqBody", {
-        OrganizationID: sessionStorage.getItem("orgId"),
+        OrganizationID: org_id,
       });
       if (resp?.data)
         setSpecialities([

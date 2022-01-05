@@ -1,48 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./sass/DoctorsList.module.scss";
 import { RiSearchLine } from "react-icons/ri";
 import { uid } from "react-uid";
 import { fetchData } from "./Api/Apis";
 import { getRandomFour } from "./utils/getRandom";
+import { SpecialitiesValueContext } from "./contexts/SpecalitiesList";
 
 export const DoctorsList = (props) => {
   const [doctors, setDoctors] = useState({ real: [], modify: [] });
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState(
+    props?.location?.state?.treatmentId
+  );
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [specialitiesList, setSpecialitiesList] = useState([]);
+
+  const specialitiesList = useContext(SpecialitiesValueContext);
 
   useEffect(() => {
     getDoctorsList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (selectedFilter === "all") {
-      setDoctors({ ...doctors, modify: doctors.real });
-    } else {
-      handleFilter();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilter]);
-
-  async function getSpecialitiesList(docList) {
-    try {
-      const resp = await fetchData("getSpecialities", null, null, "Fitapp");
-      setSpecialitiesList([
-        { speciality_id: "all", speciality_name: "All" },
-        ...resp.filter((item) =>
-          docList
-            .map((i) => i?.docWorkLPSpecialityId)
-            .includes(item?.speciality_id)
-        ),
-      ]);
-    } catch (error) {}
-  }
 
   async function getDoctorsList() {
     try {
-      const resp = await fetchData("getDoctorsList", "reqBody", {
+      const resp = await fetchData("getDoctorsList", "formData", {
         OrganizationID: sessionStorage.getItem("orgId"),
+        ...(selectedFilter && selectedFilter !== "all"
+          ? { SpecialtyID: selectedFilter }
+          : ""),
       });
       const parsedData = (resp?.data || []).map((datum) => ({
         ...datum,
@@ -54,19 +38,8 @@ export const DoctorsList = (props) => {
         real: parsedData,
         modify: parsedData,
       });
-      getSpecialitiesList(parsedData);
     } catch (error) {}
   }
-
-  const handleFilter = () => {
-    const temp = doctors.real.reduce((acc, item) => {
-      if (item?.docWorkLPSpecialityId === selectedFilter) {
-        acc.push(item);
-      }
-      return acc;
-    }, []);
-    setDoctors({ ...doctors, modify: temp });
-  };
 
   const handleSearch = (searchText) => {
     if (searchText) {

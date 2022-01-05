@@ -16,7 +16,12 @@ const Treatments = (props) => {
             <div
               className={styles.treatmentItem}
               key={uid(ind)}
-              onClick={() => props.history.push("/doctors-list")}
+              onClick={() =>
+                props.history.push({
+                  pathname: "/doctors-list",
+                  state: { treatmentId: item?.speciality_id },
+                })
+              }
             >
               <span>{item?.speciality_name}</span>
             </div>

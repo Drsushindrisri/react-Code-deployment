@@ -56,6 +56,7 @@ const Blog = (props) => {
 
   const params = useParams();
   const blogPath = useLocation();
+  const searchParams = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     if (params?.id) {
@@ -72,7 +73,7 @@ const Blog = (props) => {
     try {
       const data = await fetchData("viewBlogs", "reqBody", {
         blogId,
-        OrganizationID: sessionStorage.getItem("orgId"),
+        OrganizationID: searchParams.get("Organization_ID"),
       });
       setBlog({
         ...data?.data,
