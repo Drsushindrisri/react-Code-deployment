@@ -19,7 +19,10 @@ export const VisualStoriesList = ({ list, history }) => (
           onClick={() =>
             history.push({
               pathname: "/stories",
-              state: { visualStoriesList: list, currentIndex: ind },
+              state: {
+                visualStoriesList: it?.stories || [],
+                currentIndex: ind,
+              },
             })
           }
         />
@@ -47,6 +50,8 @@ const Blogs = ({ history }) => {
         (data?.data || []).map((item) => ({
           url: item?.image || "",
           title: item?.storyTitle,
+          desc: item?.short_description,
+          stories: item?.stories,
         }))
       );
     } catch (error) {}

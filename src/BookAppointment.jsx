@@ -79,6 +79,8 @@ const SlotBookAppointment = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => doctorDetails, [props?.location?.state]);
 
+  const isConsult = props?.location?.state?.type === "consult";
+
   async function getSlotBookAppointment() {
     try {
       const resp = await fetchData("getDoctorsAppointmentSlots", "formData", {
@@ -86,6 +88,7 @@ const SlotBookAppointment = (props) => {
         OrgMainLocationID: doctorDetails?.docWlocId,
         appDate: selectedDay,
         DoctorID: doctorDetails.id,
+        ...(isConsult && { AppointmentType: "OnlineConsulting" }),
       });
       setBookAppointment(resp?.data);
     } catch (error) {}
@@ -139,8 +142,6 @@ const SlotBookAppointment = (props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useCallback(createAppointment, [selectedDay, selectedTime]);
-
-  const isConsult = props?.location?.state?.type === "consult";
 
   const toggleModal = () => setModalOpen((p) => !p);
 

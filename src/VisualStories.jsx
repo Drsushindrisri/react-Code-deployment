@@ -17,12 +17,13 @@ const VisualStories = ({
         <VscChromeClose onClick={goBack} />
       </header>
       <Stories
-        stories={visualStoriesList.map((story, index) => ({
+        stories={visualStoriesList.map((story) => ({
           ...story,
-          content: (props) => (
+          content: (content) => (
             <div className={styles.visualStories__story}>
-              <img src={story.url} alt={story.title} />
-              <h1>{story.title}</h1>
+              <img src={content?.story?.url} alt={content?.story?.title} />
+              <h1>{content?.story?.title}</h1>
+              <p dangerouslySetInnerHTML={{ __html: content?.story?.desc }} />
             </div>
           ),
         }))}

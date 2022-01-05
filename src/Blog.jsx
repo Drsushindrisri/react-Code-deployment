@@ -103,10 +103,19 @@ const Blog = (props) => {
       const data = await fetchData("getVisualStories", "reqBody", {
         OrganizationID: sessionStorage.getItem("orgId"),
       });
+
       setVisualStoriesList(
         (data?.data || []).map((item) => ({
           url: item?.image || "",
           title: item?.storyTitle,
+          desc: item?.short_description,
+          stories: (Array.isArray(item?.stories) ? item?.stories : []).map(
+            (story) => ({
+              url: story?.image,
+              title: story?.storyTitle,
+              desc: story?.short_description,
+            })
+          ),
         }))
       );
     } catch (error) {}
