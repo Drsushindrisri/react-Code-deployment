@@ -98,6 +98,7 @@ const SlotBookAppointment = (props) => {
     try {
       const resp = await fetchData("getOrgDoctorFees", "reqBody", {
         OrganizationID: doctorDetails?.fakeOrgId,
+        MainProviderID: doctorDetails?.id,
       });
       const data = (resp?.data || {}).find(
         // eslint-disable-next-line eqeqeq

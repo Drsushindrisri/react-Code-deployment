@@ -24,9 +24,7 @@ function RootApp() {
   useEffect(() => {
     getPatientInfo();
     getSpecialities();
-    if (!user_id) {
-      window.location.reload();
-    }
+
     sessionStorage.setItem("userId", user_id);
     sessionStorage.setItem("orgId", org_id);
     sessionStorage.setItem("branchId", branch_id);

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { dateStringToDate } from "./utils/dateStringToDate";
 import RelatedBlogs from "./RelatedBlogs";
 import { getScrollPos } from "./utils/getScrollPos";
+import { removeHTMLTags } from "./utils/removeHTMLTags";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -33,7 +34,13 @@ const BlogsByCategory = ({ blogs }) => (
         {blog?.postdate && (
           <span>{format(dateStringToDate(blog?.postdate), "PPP")}</span>
         )}
-        <p>{blog?.description && blog?.description.slice(0, 100)}...</p>
+        <p>
+          {blog?.description &&
+            removeHTMLTags(blog?.description)
+              .replace("&nbsp;", "")
+              .slice(0, 100)}
+          ...
+        </p>
         <Link to={`${blog?.blogId}`}>
           Read more&nbsp; <ArrowRight />
         </Link>
@@ -46,10 +53,9 @@ const Blog = (props) => {
   const [blog, setBlog] = useState({});
   const [visualStoriesList, setVisualStoriesList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [blogs, setBlogs] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
   useEffect(() => {
-    getBlogs();
     getVisualStories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -57,6 +63,13 @@ const Blog = (props) => {
   const params = useParams();
   const blogPath = useLocation();
   const searchParams = new URLSearchParams(window.location.search);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      getBlogs();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
 
   useEffect(() => {
     if (params?.id) {
@@ -73,7 +86,9 @@ const Blog = (props) => {
     try {
       const data = await fetchData("viewBlogs", "reqBody", {
         blogId,
-        OrganizationID: searchParams.get("Organization_ID"),
+        OrganizationID:
+          searchParams.get("Organization_ID") ||
+          sessionStorage.getItem("orgId"),
       });
       setBlog({
         ...data?.data,
@@ -92,10 +107,16 @@ const Blog = (props) => {
       const data = await fetchData(
         "getOrganizationBlogs",
         "formData",
-        { User_ID: sessionStorage.getItem("userId") },
+        {
+          User_ID: sessionStorage.getItem("userId"),
+          Organization_ID:
+            searchParams.get("Organization_ID") ||
+            sessionStorage.getItem("orgId"),
+          categoryId: selectedCategory,
+        },
         "Fitapp"
       );
-      setBlogs(data?.data || []);
+      setFilteredList(data?.data || []);
     } catch (error) {}
   };
 
@@ -138,10 +159,6 @@ const Blog = (props) => {
         });
     }
   };
-
-  const filteredList = blogs.filter(
-    (obj) => obj.category_id === selectedCategory
-  );
 
   return (
     <div className={`page-safeareas ${styles.blog__main}`}>

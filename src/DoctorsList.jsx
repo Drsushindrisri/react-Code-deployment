@@ -23,7 +23,7 @@ export const DoctorsList = (props) => {
   async function getDoctorsList() {
     try {
       const resp = await fetchData("getDoctorsList", "formData", {
-        OrganizationID: sessionStorage.getItem("orgId"),
+        // OrganizationID: sessionStorage.getItem("orgId"),
         ...(selectedFilter && selectedFilter !== "all"
           ? { SpecialtyID: selectedFilter }
           : ""),
