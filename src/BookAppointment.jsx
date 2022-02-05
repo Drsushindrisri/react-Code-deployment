@@ -44,15 +44,62 @@ export const SuccessSvg = () => (
   </svg>
 );
 
+export const FailureSvg = () => (
+  <svg
+    viewBox="0 0 87 87"
+    class="cross-mark"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="Group-2" transform="translate(2.000000, 2.000000)">
+        <circle
+          id="Oval-2"
+          stroke="rgba(252, 191, 191, .5)"
+          stroke-width="4"
+          cx="41.5"
+          cy="41.5"
+          r="41.5"
+        ></circle>
+        <circle
+          class="ui-error-circle"
+          stroke="#F74444"
+          stroke-width="4"
+          cx="41.5"
+          cy="41.5"
+          r="41.5"
+        ></circle>
+        <path
+          class="ui-error-line1"
+          d="M22.244224,22 L60.4279902,60.1837662"
+          id="Line"
+          stroke="#F74444"
+          stroke-width="3"
+          stroke-linecap="square"
+        ></path>
+        <path
+          class="ui-error-line2"
+          d="M60.755776,21 L23.244224,59.8443492"
+          id="Line"
+          stroke="#F74444"
+          stroke-width="3"
+          stroke-linecap="square"
+        ></path>
+      </g>
+    </g>
+  </svg>
+);
+
 const SlotBookAppointment = (props) => {
   const [bookAppointment, setBookAppointment] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedLimit, setSelectedLimit] = useState(10);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState({ state: false, type: "" });
   const [patientInfo, setPatientInfo] = useState({});
   const [fees, setFees] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getPatientInfo();
@@ -82,6 +129,7 @@ const SlotBookAppointment = (props) => {
   const isConsult = props?.location?.state?.type === "consult";
 
   async function getSlotBookAppointment() {
+    setLoading(true);
     try {
       const resp = await fetchData("getDoctorsAppointmentSlots", "formData", {
         OrganizationID: doctorDetails?.fakeOrgId,
@@ -91,7 +139,10 @@ const SlotBookAppointment = (props) => {
         ...(isConsult && { AppointmentType: "OnlineConsulting" }),
       });
       setBookAppointment(resp?.data);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function getDocFees() {
@@ -112,7 +163,7 @@ const SlotBookAppointment = (props) => {
     try {
       const res = await fetchData("getPatientInfo", "reqBody", {
         patientId: sessionStorage.getItem("userId"),
-        OrganizationID: sessionStorage.getItem("orgId"),
+        organizationId: sessionStorage.getItem("orgId"),
       });
 
       setPatientInfo(res?.data?.[0]);
@@ -130,29 +181,35 @@ const SlotBookAppointment = (props) => {
         duration: 30,
         sTime: selectedTime.slice(0, 5),
         eTime: "",
-        OrganizationID: 23,
-        USER_ID: 927,
+        organizationId: doctorDetails?.fakeOrgId,
+        USER_ID: sessionStorage.getItem("userId"),
         MainLocationId: doctorDetails?.docWlocId,
         PatientMainId: patientInfo.patient_mainid,
         PatientCode: patientInfo.pid,
         appStatusId: 1,
       });
-      toggleModal();
-    } catch (error) {}
+      toggleModal("success");
+    } catch (error) {
+      console.log({ error, patientInfo });
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useCallback(createAppointment, [selectedDay, selectedTime]);
 
-  const toggleModal = () => setModalOpen((p) => !p);
+  const toggleModal = (type) => setModalOpen({ state: !modalOpen.state, type });
 
   return (
     <>
       <SuccessAlert
-        modalOpen={modalOpen}
+        modalOpen={modalOpen.state}
         toggleModal={toggleModal}
-        text="Successfully Booked"
-        svg={SuccessSvg()}
+        text={
+          modalOpen.type === "success"
+            ? "Successfully Booked"
+            : "Transaction Failed"
+        }
+        svg={modalOpen.type === "success" ? SuccessSvg() : FailureSvg()}
       />
       <div className={styles.bookAppointment__main}>
         <div className={styles.bookAppointment__doctorDetails}>
@@ -217,8 +274,22 @@ const SlotBookAppointment = (props) => {
               ))
             ) : (
               <div className={styles.bookAppointment__emptyState}>
-                {selectedDay ? <EmptyState /> : <DatePickerSvg />}
-                {selectedDay ? "No slots found" : "Choose a Date"}
+                {selectedDay ? (
+                  loading ? (
+                    <span className={styles.bookAppointment__loadingWrapper}>
+                      <Loader />
+                    </span>
+                  ) : (
+                    <EmptyState />
+                  )
+                ) : (
+                  <DatePickerSvg />
+                )}
+                {selectedDay
+                  ? !loading
+                    ? "No slots found"
+                    : ""
+                  : "Choose a Date"}
               </div>
             )}
             {bookAppointment.length > 0 && (
@@ -245,6 +316,7 @@ const SlotBookAppointment = (props) => {
                       docFees: fees,
                       date: selectedDay,
                       time: selectedTime,
+                      fakeOrgId: doctorDetails?.fakeOrgId,
                     },
                   });
                 } else {
@@ -262,3 +334,67 @@ const SlotBookAppointment = (props) => {
 };
 
 export default SlotBookAppointment;
+
+export const Loader = () => (
+  <svg
+    version="1.1"
+    id="L2"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 100 100"
+    enableBackground="new 0 0 100 100"
+    xmlSpace="preserve"
+  >
+    <circle
+      fill="none"
+      stroke="#ffa800"
+      strokeWidth="4"
+      strokeMiterlimit="10"
+      cx="50"
+      cy="50"
+      r="48"
+    />
+    <line
+      fill="none"
+      strokeLinecap="round"
+      stroke="#ffa800"
+      strokeWidth="4"
+      strokeMiterlimit="10"
+      x1="50"
+      y1="50"
+      x2="85"
+      y2="50.5"
+    >
+      <animateTransform
+        attributeName="transform"
+        dur="2s"
+        type="rotate"
+        from="0 50 50"
+        to="360 50 50"
+        repeatCount="indefinite"
+      />
+    </line>
+    <line
+      fill="none"
+      strokeLinecap="round"
+      stroke="#ffa800"
+      strokeWidth="4"
+      strokeMiterlimit="10"
+      x1="50"
+      y1="50"
+      x2="49.5"
+      y2="74"
+    >
+      <animateTransform
+        attributeName="transform"
+        dur="15s"
+        type="rotate"
+        from="0 50 50"
+        to="360 50 50"
+        repeatCount="indefinite"
+      />
+    </line>
+  </svg>
+);

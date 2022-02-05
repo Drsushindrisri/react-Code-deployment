@@ -7,6 +7,7 @@
 
 .bookAppointment__main {
   background-color: #fff;
+  height: 100%;
 
   > * {
     padding: 0.5rem 1rem;
@@ -127,6 +128,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 1rem 0 1rem 0;
+  height: 100%;
 
   > * {
     margin-right: 1rem;
@@ -195,4 +197,9 @@
 .bookAppointment__buttonDisabled {
   opacity: 0.6;
   cursor: none;
+}
+
+.bookAppointment__loadingWrapper {
+  width: 4rem;
+  height: 4rem;
 }

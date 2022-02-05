@@ -87,3 +87,7 @@ textarea:focus {
   display: flex;
   justify-content: center;
 }
+
+.ReactModal__Overlay {
+  z-index: 2;
+}

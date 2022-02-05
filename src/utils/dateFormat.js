@@ -4,5 +4,5 @@ export const dateFormat = (date) => {
     month = datePart[1],
     day = datePart[2];
 
-  return day + "/" + month + "/" + year;
+  return year + "-" + month + "-" + day;
 };

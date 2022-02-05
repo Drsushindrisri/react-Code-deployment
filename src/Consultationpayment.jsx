@@ -5,7 +5,7 @@ import { fetchData } from "./Api/Apis";
 import { toUSD } from "./utils/toUSD";
 import { dateFormat } from "./utils/dateFormat";
 import { SuccessAlert } from "./components/SuccessAlert";
-import { SuccessSvg } from "./BookAppointment";
+import { FailureSvg, SuccessSvg } from "./BookAppointment";
 
 const PaymentTable = ({ price }) => (
   <table>
@@ -19,7 +19,7 @@ const PaymentTable = ({ price }) => (
         <td>1.</td>
         <td>Consultation Fee</td>
         <td>
-          INR &#8377;{price} (USD ${toUSD(price)})
+          INR &#8377;{price} (USD ${toUSD(price)?.toFixed(2)})
         </td>
       </tr>
 
@@ -30,7 +30,7 @@ const PaymentTable = ({ price }) => (
         </td>
         <td>
           <strong>
-            INR &#8377;{price} (USD ${toUSD(price)})
+            INR &#8377;{price} (USD ${toUSD(price)?.toFixed(2)})
           </strong>
         </td>
       </tr>
@@ -40,7 +40,7 @@ const PaymentTable = ({ price }) => (
 
 const PaymentConsultation = (props) => {
   const [paymentType, setPaymentType] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState({ state: false, type: "" });
   const [reason, setReason] = useState("");
   const [errors, setErrors] = useState({
     reason: "",
@@ -78,7 +78,7 @@ const PaymentConsultation = (props) => {
       providerId: fees?.provider_id,
       mainDoctorId: props?.location?.state?.docId,
       amount: fees?.fee,
-      OrganizationID: sessionStorage.getItem("orgId"),
+      organizationId: sessionStorage.getItem("orgId"),
     });
 
     if (!result) {
@@ -88,15 +88,15 @@ const PaymentConsultation = (props) => {
 
     const patientInfo = await fetchData("getPatientInfo", "reqBody", {
       patientId: sessionStorage.getItem("userId"),
-      OrganizationID: sessionStorage.getItem("orgId"),
+      organizationId: sessionStorage.getItem("orgId"),
     });
 
     const options = {
       key: "rzp_live_uBMmGDcdbiVtL9", // Enter the Key ID generated from the Dashboard
-      amount: fees?.fee,
+      amount: result?.amount,
       currency: "INR",
       name: "S10 safecare",
-      description: "Test Transaction",
+      description: "Transaction",
       image: "{ logo }",
       order_id: result?.data?.razorpay_order_id || "",
       handler: async (response) => {
@@ -106,11 +106,11 @@ const PaymentConsultation = (props) => {
           ProviderId: fees?.provider_id,
           MainProviderId: fees?.mainprovider_id,
           appDate: dateFormat(props?.location?.state?.date),
-          appReasonId: "17",
+          appReasonId: "16",
           duration: 30,
           sTime: props?.location?.state?.time.slice(0, 5),
           eTime: "",
-          organizationId: sessionStorage.getItem("orgId"),
+          organizationId: props?.location?.state?.fakeOrgId,
           USER_ID: sessionStorage.getItem("userId"),
           MainLocationId: props?.location?.state?.docWlocId,
           PatientMainId: patientInfo?.data?.[0].patient_mainid,
@@ -118,28 +118,30 @@ const PaymentConsultation = (props) => {
           appStatusId: 1,
         });
 
-        await fetchData("razorPayPaymentCallback", "reqBody", {
-          patientId: sessionStorage.getItem("userId"),
-          USER_ID: sessionStorage.getItem("userId"),
-          providerId: fees?.provider_id,
-          mainDoctorId: fees?.mainprovider_id,
-          rawResponse: response,
-          OrganizationID: sessionStorage.getItem("orgId"),
-          docWlocId: props?.location?.state?.docWlocId,
-          appointmentId: appDetails?.data,
-          locOrderId: result?.data?.loc_order_id,
-        });
-
-        setModalOpen(true);
+        try {
+          await fetchData("razorPayPaymentCallback", "reqBody", {
+            patientId: sessionStorage.getItem("userId"),
+            USER_ID: sessionStorage.getItem("userId"),
+            providerId: fees?.provider_id,
+            mainDoctorId: fees?.mainprovider_id,
+            rawResponse: response,
+            organizationId: sessionStorage.getItem("orgId"),
+            docWlocId: props?.location?.state?.docWlocId,
+            appointmentId: appDetails?.data,
+            locOrderId: result?.data?.loc_order_id,
+            docPracticeId: props?.location?.state?.fakeOrgId,
+          });
+          setModalOpen({ state: true, type: "success" });
+        } catch (error) {
+          setModalOpen({ state: true, type: "error" });
+        }
       },
       prefill: {
-        name: "S10 safecare",
-        email: "info@s10health.com",
-        contact: "9884507007",
+        name: patientInfo?.data?.[0]?.patient_name,
+        email: patientInfo?.data?.[0]?.email,
+        contact: patientInfo?.data?.[0]?.mobile,
       },
-      notes: {
-        address: "S10 Corporate Office",
-      },
+
       theme: {
         color: "#ff8a00",
       },
@@ -149,7 +151,7 @@ const PaymentConsultation = (props) => {
     paymentObject.open();
   }
 
-  const toggleModal = () => setModalOpen((p) => !p);
+  const toggleModal = () => setModalOpen({ state: !modalOpen.state, type: "" });
 
   const handleSubmit = () => {
     let reasonErr = "";
@@ -180,10 +182,14 @@ const PaymentConsultation = (props) => {
   return (
     <>
       <SuccessAlert
-        modalOpen={modalOpen}
+        modalOpen={modalOpen.state}
         toggleModal={toggleModal}
-        text="Successfully Booked"
-        svg={SuccessSvg()}
+        text={
+          modalOpen.type === "success"
+            ? "Successfully Booked"
+            : "Transaction Failed"
+        }
+        svg={modalOpen.type === "success" ? SuccessSvg() : FailureSvg()}
       />
       <div className={`page-safeareas ${styles.consultationPayment__main}`}>
         <label htmlFor="reasonInput">

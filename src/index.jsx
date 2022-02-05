@@ -36,7 +36,7 @@ function RootApp() {
     try {
       const patientInfo = await fetchData("getPatientInfo", "reqBody", {
         patientId: user_id,
-        OrganizationID: org_id,
+        organizationId: org_id,
       });
       sessionStorage.setItem("userEmail", patientInfo?.data?.[0]?.email);
       sessionStorage.setItem("userNumber", patientInfo?.data?.[0]?.mobile);
@@ -47,7 +47,7 @@ function RootApp() {
   async function getSpecialities() {
     try {
       const resp = await fetchData("getPrimarySpecialtyList", "reqBody", {
-        OrganizationID: org_id,
+        OrganizationID: 220,
       });
       if (resp?.data)
         setSpecialities([

@@ -11,6 +11,7 @@
     align-items: center;
     background-color: #fff;
     border-radius: 7px;
+    border: 1px solid #ebebeb;
     padding: 0.3rem 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 
@@ -66,10 +67,10 @@
     border-radius: 10px;
     padding: 0.5rem;
     cursor: pointer;
+  }
 
-    &:hover {
-      background-color: #fff6ed;
-    }
+  .doctorsList__accordionItemActive {
+    background-color: #fff6ed;
   }
 
   .doctorsList__item {

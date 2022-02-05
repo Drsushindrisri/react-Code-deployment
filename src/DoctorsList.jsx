@@ -112,8 +112,11 @@ export const DoctorsList = (props) => {
       <div className={styles.doctorsList__container}>
         {doctors.modify.map((item, ind) => (
           <div
-            className={styles.doctorsList__accordionItem}
-            onClick={handleSelectedDoctor.bind(this, ind)}
+            className={`${styles.doctorsList__accordionItem} ${
+              selectedDoctor === item?.docId &&
+              styles.doctorsList__accordionItemActive
+            }`}
+            onClick={handleSelectedDoctor.bind(this, item?.docId)}
           >
             <div className={styles.doctorsList__item} key={uid(ind)}>
               <img src={item?.profilePic} alt={item.docName} />
@@ -130,7 +133,8 @@ export const DoctorsList = (props) => {
             </div>
             <div
               className={`${styles.doctorsList__actionButtons} ${
-                selectedDoctor === ind && styles.doctorsList__actionButtonsOpen
+                selectedDoctor === item?.docId &&
+                styles.doctorsList__actionButtonsOpen
               }`}
             >
               <button
